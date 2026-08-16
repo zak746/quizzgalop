@@ -22,6 +22,13 @@ function banniereLarge(n) {
 function banniereAccueil() {
   return fs.existsSync(path.join(ROOT, 'assets', 'banniere-accueil.webp')) ? '/assets/banniere-accueil.webp' : null;
 }
+function banniereQuiz() {
+  return fs.existsSync(path.join(ROOT, 'assets', 'banniere-tous-les-quiz.webp')) ? '/assets/banniere-tous-les-quiz.webp' : null;
+}
+function imageQuiz(n, quiz) {
+  const nom = `quiz-g${n.n}-${quiz.slug}.webp`;
+  return fs.existsSync(path.join(ROOT, 'assets', nom)) ? `/assets/${nom}` : `/assets/badge-galop-${n.n}.webp`;
+}
 
 /** Bloc flou + fondu partagé, en bas de toute bannière pleine largeur. */
 const HERO_TRANSITION = `<div class="hero-blur-bas"></div><div class="hero-fade-bas"></div>`;
@@ -32,11 +39,10 @@ function ecrire(relPath, html) {
   fs.writeFileSync(dest, html, 'utf8');
 }
 
-/* ---------- Carte quiz, réutilisée sur le hub, les pages niveau et « autres quiz » ----------
-   L'image est pour l'instant le badge du niveau (le temps que des visuels par quiz arrivent) : */
+/* ---------- Carte quiz, réutilisée sur le hub, les pages niveau et « autres quiz » ---------- */
 function quizCardHtml(n, cat, quiz) {
   return `<a class="quiz-card" href="/galop-${n.n}/${cat.slug}/${quiz.slug}/">
-  <img class="quiz-card-img" src="/assets/badge-galop-${n.n}.webp" alt="" width="640" height="800" loading="lazy">
+  <img class="quiz-card-img" src="${imageQuiz(n, quiz)}" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">${quiz.titre}</span>
     <span class="n-questions">${quiz.questions.length} questions · Galop ${n.n}</span>
@@ -125,9 +131,19 @@ function pageHubQuiz() {
 </div>`;
   }).join('\n');
 
-  const body = `<p class="eyebrow">TOUS LES QUIZ</p>
-<h1>Tous les quiz, par niveau</h1>
-<p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 4.</p>
+  const banniere = banniereQuiz();
+  const hero = banniere ? `<div class="hero-bleed hub-hero-large">
+  <nav class="crumb-survol" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span>›</span><span aria-current="page">Tous les quiz</span></nav>
+  <img src="${banniere}" alt="Tous les quiz équestres" width="1600" height="900" loading="eager">
+  ${HERO_TRANSITION}
+  <div class="hub-hero-large-texte">
+    <p class="eyebrow">TOUS LES QUIZ</p><h1>Tous les quiz, par niveau</h1>
+    <p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 4.</p>
+  </div>
+</div>` : `<p class="eyebrow">TOUS LES QUIZ</p><h1>Tous les quiz, par niveau</h1>
+<p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 4.</p>`;
+
+  const body = `${hero}
 ${sections}`;
 
   return layout({
@@ -135,7 +151,8 @@ ${sections}`;
     title: 'Tous les quiz Galop 1, 2, 3, 4 — Quizz Galop',
     description: 'La liste complète des quiz de révision pour les Galops 1 à 4 : anatomie, robes, allures, matériel, sécurité.',
     body,
-    crumbs: [{ nom: 'Accueil', href: '/' }, { nom: 'Tous les quiz', href: '/quiz/' }]
+    crumbs: [{ nom: 'Accueil', href: '/' }, { nom: 'Tous les quiz', href: '/quiz/' }],
+    masquerFilCrumb: Boolean(banniere)
   });
 }
 
@@ -199,9 +216,14 @@ function pageQuiz(n, cat, quiz) {
   const dataId = `quiz-data-${n.n}-${cat.slug}-${quiz.slug}`;
   const questionsJson = JSON.stringify(quiz.questions).replace(/</g, '\\u003c');
 
-  const body = `<p class="eyebrow">GALOP ${n.n} · ${cat.titre.toUpperCase()}</p>
-<h1>${quiz.titre}</h1>
-<p class="lede">${quiz.questions.length} questions sur ce thème. Choisis ta réponse : la correction s’affiche tout de suite.</p>
+  const body = `<div class="quiz-intro">
+  <img src="${imageQuiz(n, quiz)}" alt="Illustration : ${quiz.titre}" width="960" height="720" loading="eager">
+  <div>
+    <p class="eyebrow">GALOP ${n.n} · ${cat.titre.toUpperCase()}</p>
+    <h1>${quiz.titre}</h1>
+    <p class="lede">${quiz.questions.length} questions sur ce thème. Choisis ta réponse : la correction s’affiche tout de suite.</p>
+  </div>
+</div>
 
 <div class="quiz-app" id="quiz-app" data-quiz="${dataId}">
   <div class="quiz-barre"><div class="quiz-barre-remplie" id="quiz-progres" style="width:0%"></div></div>
@@ -430,7 +452,7 @@ for (const n of NIVEAUX) {
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), CSS, 'utf8');
 
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#3f7d54"/><text x="16" y="23" font-size="18" text-anchor="middle" fill="#fff" font-family="Georgia,serif">G</text></svg>`;
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#173f30"/><path d="M18 13c-5 6-8 14-8 23 0 13 10 22 22 22s22-9 22-22c0-9-3-17-8-23l-8 6c3 4 5 10 5 16 0 7-5 12-11 12s-11-5-11-12c0-6 2-12 5-16z" fill="none" stroke="#f2d28a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="17" r="2.4" fill="#fff7df"/><circle cx="46" cy="17" r="2.4" fill="#fff7df"/></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), favicon, 'utf8');
 
 const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f6f3ec"/><rect x="0" y="0" width="1200" height="630" fill="none" stroke="#3f7d54" stroke-width="16"/><text x="600" y="300" font-size="86" text-anchor="middle" fill="#241f18" font-family="Georgia,serif" font-weight="700">Quizz Galop</text><text x="600" y="380" font-size="34" text-anchor="middle" fill="#3f7d54" font-family="sans-serif">Révise tes Galops 1 à 4 en ligne, gratuit</text></svg>`;

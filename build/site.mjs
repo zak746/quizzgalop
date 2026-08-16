@@ -278,7 +278,7 @@ export function layout(o) {
 <meta name="theme-color" content="#f6f4ee">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap">
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 ${SCRIPT_THEME_INLINE}

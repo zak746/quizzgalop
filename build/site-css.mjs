@@ -13,7 +13,7 @@ export const CSS = `/* Quizz Galop — pages statiques */
   --accent-faible:#eaf3ec;--accent-bord:#cfe4d5;
   --bon:#2e8b4f;--bon-bg:#e7f6ec;--mauvais:#c0392b;--mauvais-bg:#fbe9e7;
   --r-lg:3rem;--r-md:2rem;--r-sm:1.25rem;
-  --serif:'Fraunces',Georgia,serif;
+  --serif:'Newsreader',Georgia,serif;--sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;
@@ -34,7 +34,7 @@ export const CSS = `/* Quizz Galop — pages statiques */
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;padding:16px;background:var(--bg);color:var(--ink);
-  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-family:var(--sans);
   line-height:1.65;font-size:17px;display:flex;flex-direction:column;gap:16px;min-height:100vh}
 img{max-width:100%;height:auto}
 a{color:var(--accent-ink);text-decoration:none}
@@ -131,6 +131,7 @@ li{margin:.35em 0}
 /* Le titre/texte est déjà incrusté dans le visuel : la légende HTML reste pour le SEO et les
    lecteurs d'écran, mais visuellement masquée pour ne pas dupliquer ce que montre l'image. */
 .niveau-hero-large-texte{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.hub-hero-large-texte{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 
 /* ---- Hero accueil : texte réel superposé sur la zone claire de la bannière ---- */
 .accueil-hero-texte{position:absolute;left:6%;top:50%;transform:translateY(-50%);width:38%;z-index:2}
@@ -157,6 +158,13 @@ li{margin:.35em 0}
 .quiz-card-corps{display:flex;flex-direction:column;gap:6px;padding:14px 16px 18px}
 .quiz-card .titre{font-weight:700;color:var(--ink);font-size:14.5px;line-height:1.3}
 .quiz-card .n-questions{font-size:11.5px;color:var(--soft);font-weight:600}
+
+/* ---- Introduction des pages quiz : couverture dédiée + hiérarchie éditoriale ---- */
+.quiz-intro{display:grid;grid-template-columns:minmax(230px,38%) 1fr;gap:clamp(24px,4vw,48px);align-items:center;margin-bottom:30px}
+.quiz-intro>img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);box-shadow:var(--shadow)}
+.quiz-intro h1{margin-top:.18em}
+.quiz-intro .lede{margin-bottom:0}
+@media (max-width:720px){.quiz-intro{grid-template-columns:1fr}.quiz-intro>img{max-height:320px}}
 
 /* ---- Moteur de quiz interactif (façon Duolingo : rond, coloré, animé) ---- */
 .quiz-app{margin:24px 0}
@@ -276,7 +284,7 @@ li{margin:.35em 0}
 footer.site{background:var(--voile);border:1px solid var(--carte-bord);border-radius:var(--r-md);
   box-shadow:var(--shadow);padding:32px 40px;margin-top:8px}
 footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px}
-footer h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--soft);margin:0 0 10px;font-weight:700}
+footer h2{font-family:var(--sans);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--soft);margin:0 0 10px;font-weight:700}
 footer ul{list-style:none;padding:0;margin:0}
 footer li{margin:6px 0}
 footer a{color:var(--muted);font-size:14px}
