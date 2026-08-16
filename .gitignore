@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+
+# Visuels sources bruts (2 Mo pièce) : seule la version .webp compressée,
+# déjà générée dans le même dossier, est publiée.
+assets/badge-galop-*.png
+assets/banniere-*.png
