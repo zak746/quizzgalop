@@ -25,12 +25,15 @@ export function slugify(s) {
 
 export { CSS } from './site-css.mjs';
 
-const NIVEAUX = [1, 2, 3, 4];
+const NIVEAUX = [1, 2, 3, 4, 5, 6, 7];
 
 const NAV = [
   ['/', 'Accueil'],
-  ['/quiz/', 'Tous les quiz'],
-  ...NIVEAUX.map((n) => [`/galop-${n}/`, `Galop ${n}`])
+  ['/quiz/', 'Quiz'],
+  ['/fiches/', 'Fiches'],
+  ['/conseils/', 'Conseils'],
+  ['/progression/', 'Progression'],
+  ['/premium/', 'Premium']
 ];
 
 function navHtml(pathCourant) {
@@ -216,6 +219,15 @@ document.addEventListener('click', function (e) {
 });
 </script>`;
 
+export const SCRIPT_PREMIUM = `<script>
+(function () {
+  try {
+    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
+    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
+  } catch (e) {}
+})();
+</script>`;
+
 function breadcrumbHtml(crumbs) {
   if (!crumbs?.length) return '';
   const items = crumbs
@@ -275,10 +287,10 @@ export function layout(o) {
 <meta name="twitter:title" content="${o.title}">
 <meta name="twitter:description" content="${o.description}">
 <meta name="twitter:image" content="${url('/assets/og-quizzgalop.svg')}">
-<meta name="theme-color" content="#f6f4ee">
+<meta name="theme-color" content="#f5f5f7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 ${SCRIPT_THEME_INLINE}
@@ -310,12 +322,19 @@ ${o.body}
           <li><a href="/galop-2/">Quiz Galop 2</a></li>
           <li><a href="/galop-3/">Quiz Galop 3</a></li>
           <li><a href="/galop-4/">Quiz Galop 4</a></li>
+          <li><a href="/galop-5/">Quiz Galop 5</a></li>
+          <li><a href="/galop-6/">Quiz Galop 6</a></li>
+          <li><a href="/galop-7/">Quiz Galop 7</a></li>
         </ul>
       </div>
       <div>
         <h2>Le site</h2>
         <ul>
           <li><a href="/quiz/">Tous les quiz</a></li>
+          <li><a href="/fiches/">Fiches de révision</a></li>
+          <li><a href="/conseils/">Conseils</a></li>
+          <li><a href="/progression/">Ma progression</a></li>
+          <li><a href="/premium/">Quizz Galop Premium</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -328,6 +347,7 @@ ${o.body}
 </footer>
 </div>
 ${SCRIPT_THEME}
+${SCRIPT_PREMIUM}
 ${SCRIPT_MENU}
 ${SCRIPT_CONSENTEMENT}
 ${SCRIPT_PUB}

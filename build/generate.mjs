@@ -1,5 +1,5 @@
 /**
- * Générateur statique — Quizz Galop (MVP Galop 1 à 4).
+ * Générateur statique — Quizz Galop, parcours complet Galops 1 à 7.
  *
  *   node build/generate.mjs
  *
@@ -11,12 +11,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, url, slugify, layout, CSS, BUILD_ID } from './site.mjs';
 import { NIVEAUX } from '../data/quizzes.mjs';
+import { PROGRAMMES, CONSEILS } from '../data/content.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = ROOT;
 
 /** Bannière large optionnelle par niveau — utilisée dès qu'elle existe dans assets/. */
 function banniereLarge(n) {
+  if (n === 4 && fs.existsSync(path.join(ROOT, 'assets', 'banniere-galop-4-v2.webp'))) return '/assets/banniere-galop-4-v2.webp';
   return fs.existsSync(path.join(ROOT, 'assets', `banniere-galop-${n}.webp`)) ? `/assets/banniere-galop-${n}.webp` : null;
 }
 function banniereAccueil() {
@@ -27,7 +29,8 @@ function banniereQuiz() {
 }
 function imageQuiz(n, quiz) {
   const nom = `quiz-g${n.n}-${quiz.slug}.webp`;
-  return fs.existsSync(path.join(ROOT, 'assets', nom)) ? `/assets/${nom}` : `/assets/badge-galop-${n.n}.webp`;
+  if (fs.existsSync(path.join(ROOT, 'assets', nom))) return `/assets/${nom}`;
+  return quiz.questions.find((q) => q.image)?.image || `/assets/badge-galop-${n.n}.webp`;
 }
 
 /** Bloc flou + fondu partagé, en bas de toute bannière pleine largeur. */
@@ -92,6 +95,12 @@ de Galop entre deux séances au club. Choisis ton niveau, réponds aux questions
 
   const body = `${hero}
 
+<div class="parcours-rapide" aria-label="Parcours de révision">
+  <a href="/fiches/"><b>1</b><span><strong>Comprendre</strong> avec les fiches</span></a>
+  <a href="/quiz/"><b>2</b><span><strong>Mémoriser</strong> avec les quiz</span></a>
+  <a href="/progression/"><b>3</b><span><strong>Progresser</strong> grâce au diagnostic</span></a>
+</div>
+
 <h2 id="niveaux">Choisis ton niveau</h2>
 <div class="niveaux-grid">
 ${cartes}
@@ -110,8 +119,8 @@ l’examen sans stress sur les questions de théorie.</p>`;
 
   return layout({
     path: '/',
-    title: 'Quizz Galop — révise ton Galop 1, 2, 3 et 4 en ligne, gratuit',
-    description: 'Quiz gratuits pour réviser la théorie des Galops 1 à 4 : anatomie du cheval, robes, allures, matériel. Réponses immédiates, conforme à l’esprit du programme FFE.',
+    title: 'Quizz Galop — révise les Galops 1 à 7 en ligne',
+    description: 'Quiz, fiches structurées et progression pour réviser la théorie des Galops 1 à 7 selon les grands axes du programme officiel FFE.',
     body,
     ogType: 'website'
   });
@@ -138,18 +147,18 @@ function pageHubQuiz() {
   ${HERO_TRANSITION}
   <div class="hub-hero-large-texte">
     <p class="eyebrow">TOUS LES QUIZ</p><h1>Tous les quiz, par niveau</h1>
-    <p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 4.</p>
+    <p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 7.</p>
   </div>
 </div>` : `<p class="eyebrow">TOUS LES QUIZ</p><h1>Tous les quiz, par niveau</h1>
-<p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 4.</p>`;
+<p class="lede">La liste complète des quiz disponibles pour les Galops 1 à 7.</p>`;
 
   const body = `${hero}
 ${sections}`;
 
   return layout({
     path: '/quiz/',
-    title: 'Tous les quiz Galop 1, 2, 3, 4 — Quizz Galop',
-    description: 'La liste complète des quiz de révision pour les Galops 1 à 4 : anatomie, robes, allures, matériel, sécurité.',
+    title: 'Tous les quiz Galops 1 à 7 — Quizz Galop',
+    description: 'Tous les quiz de révision des Galops 1 à 7 : anatomie, soins, matériel, alimentation, locomotion, sécurité et pratique équestre.',
     body,
     crumbs: [{ nom: 'Accueil', href: '/' }, { nom: 'Tous les quiz', href: '/quiz/' }],
     masquerFilCrumb: Boolean(banniere)
@@ -197,6 +206,10 @@ function pageNiveau(n) {
 </div>`;
 
   const body = `${hero}
+<div class="niveau-outils">
+  <a class="btn-primaire" href="/fiches/galop-${n.n}/">Lire la fiche Galop ${n.n}</a>
+  <a class="btn-secondaire" href="/progression/">Voir ma progression</a>
+</div>
 ${sections}
 <h2>Réviser un autre niveau</h2>
 <ul>${autres}</ul>`;
@@ -234,6 +247,7 @@ function pageQuiz(n, cat, quiz) {
 <h2>D’autres quiz sur ce thème</h2>
 <div class="quiz-grid">
 ${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat, q)).join('\n') || '<p>C’était le seul quiz de cette catégorie pour l’instant.</p>'}
+</div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -295,6 +309,7 @@ ${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat
       (serie > 1 ? '<span class="quiz-serie">🔥 ' + serie + '</span>' : '') +
       '</div>' +
       '<div class="enonce">' + q.q + '</div>' +
+      (q.image ? '<figure class="quiz-visuel"><img src="' + q.image + '" alt="' + (q.imageAlt || '') + '" width="960" height="720"></figure>' : '') +
       '<div class="quiz-options">' +
       q.options.map(function (opt, i) {
         return '<button type="button" class="quiz-option" data-i="' + i + '">' + opt + '</button>';
@@ -323,12 +338,14 @@ ${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-feedback quiz-feedback-bonne visible';
-          feedback.textContent = serie > 2 ? ('✅ Bien joué ! Série de ' + serie) : '✅ Bien joué !';
+          feedback.innerHTML = '<strong>' + (serie > 2 ? ('✅ Bien joué ! Série de ' + serie) : '✅ Bien joué !') + '</strong>' +
+            (q.explication ? '<span>' + q.explication + '</span>' : '');
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-feedback quiz-feedback-mauvaise visible';
-          feedback.textContent = '❌ La bonne réponse est surlignée en vert.';
+          feedback.innerHTML = '<strong>La bonne réponse : ' + q.options[bonne] + '.</strong>' +
+            (q.explication ? '<span>' + q.explication + '</span>' : '<span>Repère-la en vert puis relis la question avant de continuer.</span>');
         }
         document.getElementById('quiz-suivant').disabled = false;
       });
@@ -349,12 +366,26 @@ ${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat
       : pct >= 50 ? 'Pas mal, revois les questions ratées et retente.'
       : 'Encore un peu de révision et ce sera acquis.';
     if (pct >= 70) lancerConfettis();
+    var meilleur = score;
+    try {
+      var cle = 'quizzgalop-progression-v2';
+      var historique = JSON.parse(localStorage.getItem(cle) || '{}');
+      var id = 'g${n.n}-${quiz.slug}';
+      var ancien = historique[id] || {};
+      meilleur = Math.max(score, ancien.best || 0);
+      historique[id] = { id:id, niveau:${n.n}, titre:${JSON.stringify(quiz.titre)}, total:data.length,
+        last:score, best:meilleur, attempts:(ancien.attempts || 0) + 1, updated:Date.now() };
+      localStorage.setItem(cle, JSON.stringify(historique));
+    } catch (e) {}
     zone.innerHTML = '<div class="quiz-question quiz-resultat">' +
       '<div class="quiz-resultat-emoji">' + emoji + '</div>' +
       '<div class="score">' + score + ' / ' + data.length + '</div>' +
       '<p class="appreciation">' + appreciation + '</p>' +
+      '<p class="quiz-record">Meilleur score enregistré : <strong>' + meilleur + ' / ' + data.length + '</strong></p>' +
       (meilleureSerie > 2 ? '<p class="quiz-meilleure-serie">🔥 Meilleure série : ' + meilleureSerie + ' bonnes réponses d’affilée</p>' : '') +
-      '<button type="button" class="quiz-btn" id="quiz-recommencer">Recommencer ce quiz</button>' +
+      '<div class="quiz-resultat-actions"><button type="button" class="quiz-btn" id="quiz-recommencer">Recommencer</button>' +
+      '<a class="btn-secondaire" href="/fiches/galop-${n.n}/">Revoir la fiche</a>' +
+      '<a class="btn-secondaire" href="/progression/">Mon diagnostic</a></div>' +
       '</div>';
     document.getElementById('quiz-recommencer').addEventListener('click', function () {
       index = 0; score = 0; serie = 0; meilleureSerie = 0; rendreQuestion();
@@ -384,6 +415,97 @@ ${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat
       numberOfQuestions: quiz.questions.length
     }]
   });
+}
+
+/* ================= FICHES DE RÉVISION ================= */
+function ficheCard(p) {
+  const niveau = NIVEAUX.find((n) => n.n === p.n);
+  return `<a class="fiche-card" href="/fiches/galop-${p.n}/">
+    <span class="fiche-num">${p.n}</span><span><strong>Fiche Galop ${p.n}</strong>
+    <small>${p.objectif}</small><em>${totalQuizzes(niveau)} quiz associés →</em></span></a>`;
+}
+
+function pageFiches() {
+  const body = `<p class="eyebrow">PROGRAMME & MÉMORISATION</p><h1>Fiches de révision Galops 1 à 7</h1>
+  <p class="lede">Des synthèses originales, structurées selon les trois grands modules du programme fédéral : connaître le cheval, s’en occuper, pratiquer à pied et à cheval.</p>
+  <div class="source-officielle"><span>Source de cadrage</span><p>Contenus organisés à partir du <a href="https://www.ffe.com/system/files/cavalier/documents/pdf/PROGRAMME_OFFICIEL_GALOPS_CAVALIER_1a7_PAR_MODULE.pdf" target="_blank" rel="noopener">programme officiel FFE des Galops 1 à 7</a>. Ces fiches sont des reformulations pédagogiques indépendantes.</p></div>
+  <div class="fiches-grid">${PROGRAMMES.map(ficheCard).join('')}</div>`;
+  return layout({path:'/fiches/', title:'Fiches de révision Galops 1 à 7 — Quizz Galop', description:'Fiches structurées pour réviser les programmes des Galops 1 à 7 : connaissances, soins, pratique à pied et à cheval.', body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'}]});
+}
+
+function pageFiche(p) {
+  const niveau = NIVEAUX.find((n) => n.n === p.n);
+  const axes = p.axes.map((a, i) => `<section class="axe-card"><span class="axe-index">0${i + 1}</span><h2>${a.titre}</h2><ul>${a.items.map((x) => `<li>${x}</li>`).join('')}</ul></section>`).join('');
+  const quizzes = niveau.categories.flatMap((c) => c.quizzes.slice(0, 2).map((q) => quizCardHtml(niveau, c, q))).join('');
+  const suivant = p.n < 7 ? `<a class="btn-secondaire" href="/fiches/galop-${p.n + 1}/">Fiche Galop ${p.n + 1} →</a>` : '';
+  const body = `<div class="fiche-hero"><img src="/assets/badge-galop-${p.n}.webp" alt="Badge Galop ${p.n}" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION</p><h1>Programme du Galop ${p.n}</h1><p class="lede">${p.objectif}</p><a class="btn-primaire" href="#programme">Commencer la fiche</a></div></div>
+  <div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#essentiels">À retenir</a><a href="#pieges">Pièges</a><a href="#entrainement">Quiz</a></div>
+  <div id="programme" class="axes-grid">${axes}</div>
+  <section id="essentiels" class="memo-panel"><p class="eyebrow">LES 3 ESSENTIELS</p><h2>À savoir expliquer simplement</h2><ol>${p.essentiels.map((x) => `<li>${x}</li>`).join('')}</ol></section>
+  <section id="pieges"><p class="eyebrow">AUTO-CORRECTION</p><h2>Les erreurs fréquentes</h2><div class="pieges-grid">${p.erreurs.map((x) => `<div><span>À éviter</span><p>${x}</p></div>`).join('')}</div></section>
+  <section id="entrainement"><p class="eyebrow">PASSER À L’ACTION</p><h2>Vérifie tes acquis</h2><div class="quiz-grid">${quizzes}</div></section>
+  <div class="fiche-nav"><a class="btn-primaire" href="/galop-${p.n}/">Tous les quiz Galop ${p.n}</a>${suivant}</div>`;
+  return layout({path:`/fiches/galop-${p.n}/`, title:`Fiche de révision Galop ${p.n} — Programme et essentiels`, description:`Fiche Galop ${p.n} structurée d’après les grands axes du programme officiel : connaissances, soins, travail à pied et à cheval.`, body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'},{nom:`Galop ${p.n}`,href:`/fiches/galop-${p.n}/`}]});
+}
+
+/* ================= CONSEILS ================= */
+function pageConseils() {
+  const cards = CONSEILS.map((a) => `<a class="conseil-card" href="/conseils/${a.slug}/"><span>${a.niveaux}</span><h2>${a.titre}</h2><p>${a.intro}</p><em>Lire le conseil →</em></a>`).join('');
+  const body = `<p class="eyebrow">MÉTHODE & VIE AU CLUB</p><h1>Conseils pour progresser à cheval</h1><p class="lede">Des contenus pratiques et durables pour mieux réviser, observer son cheval et préparer ses séances.</p><div class="conseils-grid">${cards}</div>`;
+  return layout({path:'/conseils/',title:'Conseils équitation et préparation des Galops — Quizz Galop',description:'Conseils pratiques pour préparer son Galop, réviser efficacement, lire son cheval et organiser ses séances.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Conseils',href:'/conseils/'}]});
+}
+
+function pageConseil(a) {
+  const sections = a.sections.map(([titre, texte], i) => `<section class="article-section"><span>0${i + 1}</span><div><h2>${titre}</h2><p>${texte}</p></div></section>`).join('');
+  const body = `<article class="article"><p class="eyebrow">CONSEIL · ${a.niveaux.toUpperCase()}</p><h1>${a.titre}</h1><p class="lede">${a.intro}</p>${sections}<div class="callout"><strong>À retenir</strong><p>Une notion devient solide quand tu peux l’expliquer avec tes mots et la reconnaître dans une situation réelle au club.</p></div><a class="btn-primaire" href="/progression/">Construire mon diagnostic</a></article>`;
+  return layout({path:`/conseils/${a.slug}/`,title:`${a.titre} — Quizz Galop`,description:a.intro,body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Conseils',href:'/conseils/'},{nom:a.titre,href:`/conseils/${a.slug}/`}]});
+}
+
+/* ================= PROGRESSION LOCALE ================= */
+function pageProgression() {
+  const catalogue = NIVEAUX.flatMap((n) => n.categories.flatMap((c) => c.quizzes.map((q) => ({id:`g${n.n}-${q.slug}`,niveau:n.n,titre:q.titre,total:q.questions.length,url:`/galop-${n.n}/${c.slug}/${q.slug}/`}))));
+  const body = `<p class="eyebrow">TABLEAU DE BORD</p><h1>Ma progression</h1><p class="lede">Ton historique reste uniquement dans ce navigateur. Nous transformons tes résultats en prochaines actions concrètes.</p>
+  <div class="progression-resume" id="progression-resume"><div class="skeleton-line"></div></div>
+  <div id="progression-niveaux" class="progression-grid"></div>
+  <div class="diagnostic" id="diagnostic"></div>
+  <div class="progression-actions"><a class="btn-premium" href="/examen-blanc/">Lancer un examen blanc <span>Premium</span></a><button class="btn-texte" id="effacer-progression" type="button">Effacer mes résultats</button></div>
+  <script>(function(){
+    var catalogue=${JSON.stringify(catalogue).replace(/</g,'\\u003c')};
+    var key='quizzgalop-progression-v2', hist={}; try{hist=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+    var faits=Object.keys(hist).length, tentatives=Object.values(hist).reduce(function(s,x){return s+(x.attempts||0)},0);
+    var bests=Object.values(hist).filter(function(x){return x.total}).map(function(x){return 100*x.best/x.total});
+    var moyenne=bests.length?Math.round(bests.reduce(function(a,b){return a+b},0)/bests.length):0;
+    document.getElementById('progression-resume').innerHTML='<div><strong>'+faits+'</strong><span>quiz commencés</span></div><div><strong>'+tentatives+'</strong><span>tentatives</span></div><div><strong>'+moyenne+' %</strong><span>meilleure moyenne</span></div>';
+    document.getElementById('progression-niveaux').innerHTML=[1,2,3,4,5,6,7].map(function(n){var liste=catalogue.filter(function(q){return q.niveau===n}), termines=liste.filter(function(q){return hist[q.id]}), pct=Math.round(100*termines.length/liste.length);return '<a href="/galop-'+n+'/" class="progression-card"><span>Galop '+n+'</span><strong>'+termines.length+' / '+liste.length+' quiz</strong><div><i style="width:'+pct+'%"></i></div><small>'+pct+' % du parcours</small></a>'}).join('');
+    var cible=catalogue.filter(function(q){return !hist[q.id]}).sort(function(a,b){return a.niveau-b.niveau})[0];
+    var faible=catalogue.filter(function(q){return hist[q.id]}).sort(function(a,b){return (hist[a.id].best/a.total)-(hist[b.id].best/b.total)})[0];
+    var reco=faible&&hist[faible.id].best/faible.total<.75?faible:cible;
+    document.getElementById('diagnostic').innerHTML=reco?'<div><span>PROCHAINE ÉTAPE CONSEILLÉE</span><h2>'+reco.titre+'</h2><p>'+(hist[reco.id]?'Consolide ce thème : ton meilleur score est de '+hist[reco.id].best+' / '+reco.total+'.':'Découvre ce thème pour faire avancer ton parcours Galop '+reco.niveau+'.')+'</p></div><a class="btn-primaire" href="'+reco.url+'">Commencer →</a>':'<div><span>PARCOURS TERMINÉ</span><h2>Bravo, tous les quiz ont été essayés.</h2><p>Passe en mode examen pour mélanger les thèmes.</p></div>';
+    document.getElementById('effacer-progression').onclick=function(){if(confirm('Effacer tous les scores enregistrés sur cet appareil ?')){localStorage.removeItem(key);location.reload()}};
+  })();</script>`;
+  return layout({path:'/progression/',title:'Ma progression — Quizz Galop',description:'Tableau de bord local : scores, avancement par Galop et recommandation du prochain quiz.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Progression',href:'/progression/'}]});
+}
+
+/* ================= PREMIUM & EXAMEN BLANC ================= */
+function pagePremium() {
+  const body = `<div class="premium-hero"><div><p class="eyebrow">QUIZZ GALOP PREMIUM</p><h1>Révise avec un vrai plan, pas au hasard.</h1><p class="lede">Les quiz et les fiches restent accessibles. Premium ajoute les conditions d’examen, le diagnostic avancé et un parcours sans publicité.</p><div class="premium-cta"><button class="btn-premium" id="activer-essai" type="button">Essayer 7 jours sur cet appareil</button><small>Aucune carte demandée · démonstration locale</small></div></div><div class="premium-score"><span>PRÊT POUR LE GALOP 7</span><strong>84<sup>%</sup></strong><p>3 thèmes à consolider</p><i style="width:84%"></i></div></div>
+  <div class="features-grid"><div><b>01</b><h2>Examens blancs</h2><p>Questions mélangées, correction à la fin et analyse par thème.</p></div><div><b>02</b><h2>Plan personnalisé</h2><p>Une prochaine étape claire selon tes résultats enregistrés.</p></div><div><b>03</b><h2>Concentration</h2><p>Les emplacements publicitaires disparaissent pendant l’essai.</p></div></div>
+  <div class="pricing"><div><span>GRATUIT</span><h2>Découvrir</h2><strong>0 €</strong><ul><li>Quiz thématiques</li><li>Fiches Galops 1 à 7</li><li>Progression locale</li></ul><a class="btn-secondaire" href="/quiz/">Commencer</a></div><div class="pricing-star"><span>RECOMMANDÉ</span><h2>Premium annuel</h2><strong>39,90 € <small>/ an</small></strong><ul><li>Examens blancs illimités</li><li>Diagnostic et plan adaptatif</li><li>Expérience sans publicité</li><li>Nouveaux contenus inclus</li></ul><button class="btn-premium" data-activer type="button">Tester gratuitement</button><small>Tarification de pré-lancement, paiement à connecter.</small></div><div><span>FLEXIBLE</span><h2>Premium mensuel</h2><strong>4,90 € <small>/ mois</small></strong><ul><li>Tous les outils Premium</li><li>Sans engagement</li><li>Résiliation à tout moment</li></ul><button class="btn-secondaire" data-activer type="button">Tester 7 jours</button></div></div>
+  <div class="faq"><h2>Questions fréquentes</h2><details><summary>Les fiches et quiz gratuits vont-ils disparaître ?</summary><p>Non. Le cœur pédagogique reste accessible sans compte. Premium finance les outils avancés et l’absence de publicité.</p></details><details><summary>Mes résultats sont-ils envoyés à un serveur ?</summary><p>Dans cette version, non : progression et essai sont enregistrés uniquement dans ton navigateur.</p></details><details><summary>Est-ce un paiement réel ?</summary><p>Pas encore. Cette interface de pré-lancement doit être reliée à un prestataire de paiement avant commercialisation.</p></details></div>
+  <script>(function(){function activer(){localStorage.setItem('quizzgalop-premium-demo',JSON.stringify({expires:Date.now()+7*864e5}));location.href='/examen-blanc/'}document.querySelectorAll('#activer-essai,[data-activer]').forEach(function(b){b.onclick=activer})})();</script>`;
+  return layout({path:'/premium/',title:'Premium — Examens blancs et plan de révision',description:'Découvre Quizz Galop Premium : examens blancs, diagnostic adaptatif et expérience sans publicité.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Premium',href:'/premium/'}]});
+}
+
+function pageExamenBlanc() {
+  const banque = NIVEAUX.map((n) => ({n:n.n,questions:n.categories.flatMap((c) => c.quizzes.flatMap((q) => q.questions.map((x) => ({...x,theme:q.titre}))))}));
+  const body = `<p class="eyebrow">MODE PREMIUM</p><h1>Examen blanc</h1><p class="lede">20 questions mélangées, sans correction immédiate. Ton bilan final met en évidence les thèmes à revoir.</p><div id="exam-app" class="exam-app"><div class="exam-lock"><h2>Vérification de ton accès…</h2></div></div>
+  <script>(function(){var app=document.getElementById('exam-app'), banque=${JSON.stringify(banque).replace(/</g,'\\u003c')}, actif=false;try{var p=JSON.parse(localStorage.getItem('quizzgalop-premium-demo')||'null');actif=p&&p.expires>Date.now()}catch(e){}if(!actif){app.innerHTML='<div class="exam-lock"><span>FER À CHEVAL PREMIUM</span><h2>Active ton essai de 7 jours</h2><p>L’examen blanc fait partie du parcours Premium.</p><a class="btn-premium" href="/premium/">Découvrir Premium</a></div>';return}
+  app.innerHTML='<div class="exam-start"><h2>Quel niveau prépares-tu ?</h2><div class="exam-levels">'+banque.map(function(x){return '<button type="button" data-n="'+x.n+'">Galop '+x.n+'</button>'}).join('')+'</div><p>Le résultat ne s’affichera qu’après la dernière question.</p></div>';
+  app.addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(b)demarrer(+b.dataset.n)});
+  function melanger(a){return a.slice().sort(function(){return Math.random()-.5})}
+  function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now();function render(){var q=qs[i];app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre"><i style="width:'+(100*i/qs.length)+'%"></i></div><div class="quiz-question"><div class="enonce">'+q.q+'</div>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'"></figure>':'')+'<div class="quiz-options">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){var score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result"><span>EXAMEN TERMINÉ · '+Math.max(1,Math.round((Date.now()-debut)/60000))+' MIN</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-premium" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';document.getElementById('again').onclick=function(){demarrer(n)}}render()}
+  })();</script>`;
+  return layout({path:'/examen-blanc/',title:'Examen blanc Premium — Quizz Galop',description:'Simule un examen théorique Galop avec 20 questions mélangées et un bilan par thème.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Premium',href:'/premium/'},{nom:'Examen blanc',href:'/examen-blanc/'}]});
 }
 
 /* ================= Pages légales minimales ================= */
@@ -429,13 +551,32 @@ moment depuis le pied de page.</p>`;
 let pages = 0;
 ecrire('', pageAccueil()); pages++;
 ecrire('quiz', pageHubQuiz()); pages++;
+ecrire('fiches', pageFiches()); pages++;
+ecrire('conseils', pageConseils()); pages++;
+ecrire('progression', pageProgression()); pages++;
+ecrire('premium', pagePremium()); pages++;
+ecrire('examen-blanc', pageExamenBlanc()); pages++;
 ecrire('mentions-legales', pageMentionsLegales()); pages++;
 ecrire('confidentialite', pageConfidentialite()); pages++;
 
 const urls = [
   { loc: url('/'), priority: '1.0' },
-  { loc: url('/quiz/'), priority: '0.8' }
+  { loc: url('/quiz/'), priority: '0.9' },
+  { loc: url('/fiches/'), priority: '0.9' },
+  { loc: url('/conseils/'), priority: '0.7' },
+  { loc: url('/progression/'), priority: '0.6' },
+  { loc: url('/premium/'), priority: '0.6' }
 ];
+
+for (const p of PROGRAMMES) {
+  ecrire(`fiches/galop-${p.n}`, pageFiche(p)); pages++;
+  urls.push({loc:url(`/fiches/galop-${p.n}/`),priority:'0.8'});
+}
+
+for (const a of CONSEILS) {
+  ecrire(`conseils/${a.slug}`, pageConseil(a)); pages++;
+  urls.push({loc:url(`/conseils/${a.slug}/`),priority:'0.6'});
+}
 
 for (const n of NIVEAUX) {
   ecrire(`galop-${n.n}`, pageNiveau(n)); pages++;
@@ -452,10 +593,10 @@ for (const n of NIVEAUX) {
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), CSS, 'utf8');
 
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#173f30"/><path d="M18 13c-5 6-8 14-8 23 0 13 10 22 22 22s22-9 22-22c0-9-3-17-8-23l-8 6c3 4 5 10 5 16 0 7-5 12-11 12s-11-5-11-12c0-6 2-12 5-16z" fill="none" stroke="#f2d28a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="17" r="2.4" fill="#fff7df"/><circle cx="46" cy="17" r="2.4" fill="#fff7df"/></svg>`;
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#007aff"/><path d="M18 13c-5 6-8 14-8 23 0 13 10 22 22 22s22-9 22-22c0-9-3-17-8-23l-8 6c3 4 5 10 5 16 0 7-5 12-11 12s-11-5-11-12c0-6 2-12 5-16z" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="17" r="2.4" fill="#fff"/><circle cx="46" cy="17" r="2.4" fill="#fff"/></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), favicon, 'utf8');
 
-const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f6f3ec"/><rect x="0" y="0" width="1200" height="630" fill="none" stroke="#3f7d54" stroke-width="16"/><text x="600" y="300" font-size="86" text-anchor="middle" fill="#241f18" font-family="Georgia,serif" font-weight="700">Quizz Galop</text><text x="600" y="380" font-size="34" text-anchor="middle" fill="#3f7d54" font-family="sans-serif">Révise tes Galops 1 à 4 en ligne, gratuit</text></svg>`;
+const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f5f5f7"/><rect x="0" y="0" width="1200" height="630" fill="none" stroke="#007aff" stroke-width="16"/><text x="600" y="300" font-size="86" text-anchor="middle" fill="#1d1d1f" font-family="-apple-system,'Plus Jakarta Sans',sans-serif" font-weight="800">Quizz Galop</text><text x="600" y="380" font-size="34" text-anchor="middle" fill="#007aff" font-family="-apple-system,'Plus Jakarta Sans',sans-serif" font-weight="600">Fiches & quiz · Galops 1 à 7</text></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'og-quizzgalop.svg'), og, 'utf8');
 
 /* ---------- robots.txt + sitemap.xml ---------- */
@@ -468,4 +609,4 @@ ${urls.map((u) => `  <url><loc>${u.loc}</loc><priority>${u.priority}</priority><
 `;
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), sitemapXml, 'utf8');
 
-console.log(`${pages} pages générées (${NIVEAUX.length} niveaux, ${urls.length - 2} quiz/niveaux indexés).`);
+console.log(`${pages} pages générées (${NIVEAUX.length} niveaux, fiches, conseils et Premium).`);

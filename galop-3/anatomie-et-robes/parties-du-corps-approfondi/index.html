@@ -19,11 +19,11 @@
 <meta name="twitter:title" content="Les parties du corps (approfondi) — Quiz Galop 3 — Quizz Galop">
 <meta name="twitter:description" content="Les parties du corps (approfondi) : quiz de 6 questions pour réviser le Galop 3. Correction immédiate, gratuit.">
 <meta name="twitter:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
-<meta name="theme-color" content="#f6f4ee">
+<meta name="theme-color" content="#f5f5f7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msw6ltli">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -71,11 +71,11 @@
       <div class="site-nav-sep"></div>
       <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
         <a href="/">Accueil</a>
-        <a href="/quiz/">Tous les quiz</a>
-        <a href="/galop-1/">Galop 1</a>
-        <a href="/galop-2/">Galop 2</a>
-        <a href="/galop-3/" class="site-nav-current" aria-current="page">Galop 3</a>
-        <a href="/galop-4/">Galop 4</a>
+        <a href="/quiz/">Quiz</a>
+        <a href="/fiches/">Fiches</a>
+        <a href="/conseils/">Conseils</a>
+        <a href="/progression/">Progression</a>
+        <a href="/premium/">Premium</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -121,6 +121,7 @@
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
+</div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -182,6 +183,7 @@
       (serie > 1 ? '<span class="quiz-serie">🔥 ' + serie + '</span>' : '') +
       '</div>' +
       '<div class="enonce">' + q.q + '</div>' +
+      (q.image ? '<figure class="quiz-visuel"><img src="' + q.image + '" alt="' + (q.imageAlt || '') + '" width="960" height="720"></figure>' : '') +
       '<div class="quiz-options">' +
       q.options.map(function (opt, i) {
         return '<button type="button" class="quiz-option" data-i="' + i + '">' + opt + '</button>';
@@ -210,12 +212,14 @@
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-feedback quiz-feedback-bonne visible';
-          feedback.textContent = serie > 2 ? ('✅ Bien joué ! Série de ' + serie) : '✅ Bien joué !';
+          feedback.innerHTML = '<strong>' + (serie > 2 ? ('✅ Bien joué ! Série de ' + serie) : '✅ Bien joué !') + '</strong>' +
+            (q.explication ? '<span>' + q.explication + '</span>' : '');
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-feedback quiz-feedback-mauvaise visible';
-          feedback.textContent = '❌ La bonne réponse est surlignée en vert.';
+          feedback.innerHTML = '<strong>La bonne réponse : ' + q.options[bonne] + '.</strong>' +
+            (q.explication ? '<span>' + q.explication + '</span>' : '<span>Repère-la en vert puis relis la question avant de continuer.</span>');
         }
         document.getElementById('quiz-suivant').disabled = false;
       });
@@ -236,12 +240,26 @@
       : pct >= 50 ? 'Pas mal, revois les questions ratées et retente.'
       : 'Encore un peu de révision et ce sera acquis.';
     if (pct >= 70) lancerConfettis();
+    var meilleur = score;
+    try {
+      var cle = 'quizzgalop-progression-v2';
+      var historique = JSON.parse(localStorage.getItem(cle) || '{}');
+      var id = 'g3-parties-du-corps-approfondi';
+      var ancien = historique[id] || {};
+      meilleur = Math.max(score, ancien.best || 0);
+      historique[id] = { id:id, niveau:3, titre:"Les parties du corps (approfondi)", total:data.length,
+        last:score, best:meilleur, attempts:(ancien.attempts || 0) + 1, updated:Date.now() };
+      localStorage.setItem(cle, JSON.stringify(historique));
+    } catch (e) {}
     zone.innerHTML = '<div class="quiz-question quiz-resultat">' +
       '<div class="quiz-resultat-emoji">' + emoji + '</div>' +
       '<div class="score">' + score + ' / ' + data.length + '</div>' +
       '<p class="appreciation">' + appreciation + '</p>' +
+      '<p class="quiz-record">Meilleur score enregistré : <strong>' + meilleur + ' / ' + data.length + '</strong></p>' +
       (meilleureSerie > 2 ? '<p class="quiz-meilleure-serie">🔥 Meilleure série : ' + meilleureSerie + ' bonnes réponses d’affilée</p>' : '') +
-      '<button type="button" class="quiz-btn" id="quiz-recommencer">Recommencer ce quiz</button>' +
+      '<div class="quiz-resultat-actions"><button type="button" class="quiz-btn" id="quiz-recommencer">Recommencer</button>' +
+      '<a class="btn-secondaire" href="/fiches/galop-3/">Revoir la fiche</a>' +
+      '<a class="btn-secondaire" href="/progression/">Mon diagnostic</a></div>' +
       '</div>';
     document.getElementById('quiz-recommencer').addEventListener('click', function () {
       index = 0; score = 0; serie = 0; meilleureSerie = 0; rendreQuestion();
@@ -263,12 +281,19 @@
           <li><a href="/galop-2/">Quiz Galop 2</a></li>
           <li><a href="/galop-3/">Quiz Galop 3</a></li>
           <li><a href="/galop-4/">Quiz Galop 4</a></li>
+          <li><a href="/galop-5/">Quiz Galop 5</a></li>
+          <li><a href="/galop-6/">Quiz Galop 6</a></li>
+          <li><a href="/galop-7/">Quiz Galop 7</a></li>
         </ul>
       </div>
       <div>
         <h2>Le site</h2>
         <ul>
           <li><a href="/quiz/">Tous les quiz</a></li>
+          <li><a href="/fiches/">Fiches de révision</a></li>
+          <li><a href="/conseils/">Conseils</a></li>
+          <li><a href="/progression/">Ma progression</a></li>
+          <li><a href="/premium/">Quizz Galop Premium</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -291,6 +316,14 @@ document.addEventListener('click', function (e) {
   r.setAttribute('data-theme', suivant);
   try { localStorage.setItem('quizzgalop-theme', suivant); } catch (err) {}
 });
+</script>
+<script>
+(function () {
+  try {
+    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
+    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
+  } catch (e) {}
+})();
 </script>
 <script>
 document.addEventListener('click', function (e) {
