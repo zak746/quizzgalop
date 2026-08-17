@@ -45,11 +45,12 @@ function copier(rel = '') {
 }
 copier();
 
-/* Les URL propres ('/galop-3/') ne correspondaient pas au motif '/*.html' utilisé
-   auparavant : elles retombaient sur le cache par défaut de Cloudflare (s-maxage
-   d'une semaine), donc une page supprimée restait servie et une correction de
-   contenu n'apparaissait pas. La revalidation porte maintenant sur '/*' ;
-   '/assets/*' garde son immutable puisque ces fichiers sont versionnés.
+/* La revalidation porte sur '/*' plutôt que sur '/*.html' pour couvrir aussi les
+   URL sans fichier correspondant : sans règle, Cloudflare leur applique son cache
+   par défaut d'une semaine, ce qui figeait la réponse des anciennes pages
+   supprimées. Les pages existantes, elles, étaient déjà correctement servies par
+   '/*.html' — Pages résout '/galop-3/' vers son index.html avant d'appliquer les
+   règles. '/assets/*' garde son immutable, ces fichiers étant versionnés.
    Attention : dans un fichier _headers, un commentaire s'écrit avec '#' — une
    ligne commençant par '/' est lue comme un motif de chemin. */
 fs.writeFileSync(path.join(DIST, '_headers'), `/assets/*
