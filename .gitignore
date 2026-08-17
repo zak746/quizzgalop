@@ -6,3 +6,4 @@ dist/
 # déjà générée dans le même dossier, est publiée.
 assets/badge-galop-*.png
 assets/banniere-*.png
+output/

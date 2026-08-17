@@ -492,7 +492,10 @@ function pageQuiz(n, cat, quiz) {
 
   return layout({
     path: `/galop-${n.n}/${cat.slug}/${quiz.slug}/`,
-    title: `${quiz.titre} — Quiz Galop ${n.n} — Quizz Galop`,
+    /* Pas de suffixe de marque ici : « Sujet — Quiz Galop N — Quizz Galop »
+       dépassait 75 caractères, or Google tronque l'affichage vers 60. On garde
+       « Quiz Galop N » qui porte le mot-clé, on lâche le nom du site. */
+    title: `${quiz.titre} — Quiz Galop ${n.n}`,
     description: `${quiz.titre} : quiz de ${quiz.questions.length} questions pour réviser le Galop ${n.n}. Correction immédiate, gratuit.`,
     body,
     crumbs: [

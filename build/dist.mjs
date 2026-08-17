@@ -10,8 +10,11 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const DIST = path.join(ROOT, 'dist');
 
+/* 'output' est le dossier de travail du script Python qui fabrique les PDF ; les
+   fichiers finaux sont recopiés dans assets/pdf/. Sans cette exclusion, chaque
+   PDF est publié deux fois (12 Mo en double + duplicate content pour Google). */
 const EXCLUS = new Set([
-  'dist', 'build', 'data', 'node_modules', '.git', '.github', '.claude',
+  'dist', 'build', 'data', 'output', 'node_modules', '.git', '.github', '.claude',
   'package.json', 'package-lock.json', 'README.md', '.gitignore'
 ]);
 
