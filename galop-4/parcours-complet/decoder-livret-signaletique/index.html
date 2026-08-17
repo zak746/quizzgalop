@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msxiezel">
+<link rel="stylesheet" href="/assets/site.css?v=msxiorbk">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 4","item":"https://quizzgalop.fr/galop-4/"},{"@type":"ListItem","position":3,"name":"Décoder un livret signalétique","item":"https://quizzgalop.fr/galop-4/parcours-complet/decoder-livret-signaletique/"}]}</script>
@@ -204,7 +204,7 @@
     for(var i=choix.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=choix[i];choix[i]=choix[j];choix[j]=tmp;}
     return Object.assign({},question,{options:choix.map(function(x){return x.texte;}),bonne:choix.findIndex(function(x){return x.correct;})});
   });
-  var chevaux = ["/assets/pictogramme-cheval-pas.png","/assets/pictogramme-cheval-trot.png","/assets/pictogramme-cheval-galop.png","/assets/pictogramme-cheval-allonge.png"];
+  var chevaux = ["/assets/pictogramme-cheval-pas.webp","/assets/pictogramme-cheval-trot.webp","/assets/pictogramme-cheval-galop.webp","/assets/pictogramme-cheval-allonge.webp"];
   var index = 0, score = 0, serie = 0, meilleureSerie = 0, termine = false;
   var reponses = new Array(data.length);
   var debut = Date.now();
@@ -276,10 +276,10 @@
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="320" height="320" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="128" height="128" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
       '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
-      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.webp" alt="" width="128" height="128" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
@@ -301,12 +301,12 @@
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.webp" alt="" width="128" height="128" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt="" width="320" height="320" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.webp" alt="" width="128" height="128" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');

@@ -20,10 +20,10 @@ import { FICHES_DETAILLEES } from '../data/fiches-detaillees.mjs';
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = ROOT;
 const PICTOGRAMMES_CHEVAUX = [
-  '/assets/pictogramme-cheval-pas.png',
-  '/assets/pictogramme-cheval-trot.png',
-  '/assets/pictogramme-cheval-galop.png',
-  '/assets/pictogramme-cheval-allonge.png'
+  '/assets/pictogramme-cheval-pas.webp',
+  '/assets/pictogramme-cheval-trot.webp',
+  '/assets/pictogramme-cheval-galop.webp',
+  '/assets/pictogramme-cheval-allonge.webp'
 ];
 
 for (const niveau of NIVEAUX) {
@@ -41,6 +41,19 @@ for (const niveau of NIVEAUX) {
     intro:'Des situations précises pour relier connaissances, soins, travail à pied et pratique montée.',
     quizzes:approfondissement
   });
+}
+
+/* Google tronque l'affichage d'un titre vers 60 caractères. Au-delà, la fin est
+   remplacée par des points de suspension : les mots placés en queue ne sont lus
+   par personne. Plutôt que de raccourcir les intitulés eux-mêmes, on retire la
+   partie la moins utile — le rappel de marque ou de niveau — quand elle est ce
+   qui fait déborder. `court` est la version de repli du même suffixe. */
+const LIMITE_TITRE = 60;
+function titreCourt(complet, suffixeCourt) {
+  if (complet.length <= LIMITE_TITRE) return complet;
+  const base = complet.replace(/\s—\s[^—]+$/, '');
+  const replie = suffixeCourt ? `${base} — ${suffixeCourt}` : base;
+  return replie.length <= LIMITE_TITRE ? replie : base;
 }
 
 /** Bannière large optionnelle par niveau — utilisée dès qu'elle existe dans assets/. */
@@ -127,7 +140,7 @@ function pageAccueil() {
 </section>
 
 <section class="home-method">
-  <img class="decor-leaf decor-leaf-left" src="/assets/maquette-feuillage.png" alt="" width="760" height="776" loading="lazy" decoding="async"><img class="decor-leaf decor-leaf-right" src="/assets/maquette-feuillage.png" alt="" width="760" height="776" loading="lazy" decoding="async">
+  <img class="decor-leaf decor-leaf-left" src="/assets/maquette-feuillage.webp" alt="" width="520" height="531" loading="lazy" decoding="async"><img class="decor-leaf decor-leaf-right" src="/assets/maquette-feuillage.webp" alt="" width="520" height="531" loading="lazy" decoding="async">
   <div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">UNE MÉTHODE SIMPLE ET EFFICACE</p><h2>Progresse à ton rythme</h2><p>Un parcours structuré pour réviser, comprendre et réussir ton examen de Galop.</p></div>
   <div class="method-steps">
     <article><b>1</b><div class="method-icon green"><img src="/assets/icon-knight.svg" alt="" width="112" height="112"></div><div><h3>Choisis ton niveau</h3><div class="mini-ornement">— ✦ —</div><p>Du Galop 1 à 7, sélectionne ton niveau et découvre le programme de révision correspondant.</p></div></article>
@@ -474,10 +487,10 @@ function pageQuiz(n, cat, quiz) {
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="320" height="320" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="128" height="128" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
       '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
-      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.webp" alt="" width="128" height="128" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
@@ -499,12 +512,12 @@ function pageQuiz(n, cat, quiz) {
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.webp" alt="" width="128" height="128" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt="" width="320" height="320" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.webp" alt="" width="128" height="128" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
@@ -566,7 +579,7 @@ function pageQuiz(n, cat, quiz) {
     /* Pas de suffixe de marque ici : « Sujet — Quiz Galop N — Quizz Galop »
        dépassait 75 caractères, or Google tronque l'affichage vers 60. On garde
        « Quiz Galop N » qui porte le mot-clé, on lâche le nom du site. */
-    title: `${quiz.titre} — Quiz Galop ${n.n}`,
+    title: titreCourt(`${quiz.titre} — Quiz Galop ${n.n}`, `Galop ${n.n}`),
     description: `${quiz.titre} : quiz de ${quiz.questions.length} questions pour réviser le Galop ${n.n}. Correction immédiate.`,
     body,
     crumbs: [
@@ -650,7 +663,7 @@ function pageConseils() {
 function pageConseil(a) {
   const sections = a.sections.map(([titre, texte], i) => `<section class="article-section"><span>0${i + 1}</span><div><h2>${titre}</h2><p>${texte}</p></div></section>`).join('');
   const body = `<article class="article"><p class="eyebrow">CONSEIL · ${a.niveaux.toUpperCase()}</p><h1>${a.titre}</h1><p class="lede">${a.intro}</p>${sections}<div class="callout"><strong>À retenir</strong><p>Une notion devient solide quand tu peux l’expliquer avec tes mots et la reconnaître dans une situation réelle au club.</p></div><a class="btn-primaire" href="/progression/">Construire mon diagnostic</a></article>`;
-  return layout({path:`/conseils/${a.slug}/`,title:`${a.titre} — Quizz Galop`,description:a.intro,body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Conseils',href:'/conseils/'},{nom:a.titre,href:`/conseils/${a.slug}/`}],bodyClass:'page-article-reference'});
+  return layout({path:`/conseils/${a.slug}/`,title:titreCourt(`${a.titre} — Quizz Galop`),description:a.intro,body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Conseils',href:'/conseils/'},{nom:a.titre,href:`/conseils/${a.slug}/`}],bodyClass:'page-article-reference'});
 }
 
 /* ================= PROGRESSION LOCALE ================= */
@@ -719,7 +732,7 @@ publicitaires, aucun cookie n’est déposé et le site fonctionne à l’identi
   return layout({
     path: '/mentions-legales/',
     title: 'Mentions légales — Quizz Galop',
-    description: 'Informations légales du site Quizz Galop.',
+    description: 'Mentions légales de Quizz Galop : régime de publication, hébergeur, financement du site et indépendance vis-à-vis de la Fédération Française d’Équitation.',
     body,
     crumbs: [{ nom: 'Accueil', href: '/' }, { nom: 'Mentions légales', href: '/mentions-legales/' }],
     bodyClass: 'page-legal-reference'
@@ -744,7 +757,7 @@ moment depuis le pied de page.</p></article>`;
   return layout({
     path: '/confidentialite/',
     title: 'Confidentialité — Quizz Galop',
-    description: 'Politique de confidentialité du site Quizz Galop.',
+    description: 'Politique de confidentialité de Quizz Galop : ce qui est mesuré, ce qui reste sur votre appareil, et le rôle des cookies publicitaires.',
     body,
     crumbs: [{ nom: 'Accueil', href: '/' }, { nom: 'Confidentialité', href: '/confidentialite/' }],
     bodyClass: 'page-legal-reference'
