@@ -23,9 +23,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx6mq58">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
+<script>(function(){
+  var exige=null;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Tous les quiz","item":"https://quizzgalop.fr/quiz/"}]}</script>
 </head>
 <body class="page-hub-reference">
@@ -34,7 +45,7 @@
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -78,8 +89,9 @@
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
         <a href="/examen/">Examen</a>
+        <a href="/premium/">Premium</a>
       </nav>
-      <a class="nav-cta" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22">Faire un quiz</a>
+      <a class="nav-cta" href="/premium/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span data-premium-label>Passer Premium</span></a>
       <button class="nav-burger" id="nav-burger" type="button"
         aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
         <svg class="ouvrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -328,106 +340,121 @@
   <h2>Galop 3</h2>
   <section class="quiz-carousel-shell" aria-label="Quiz Galop 3">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-3/anatomie-et-robes/parties-du-corps-approfondi/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-3/anatomie-et-robes/parties-du-corps-approfondi/">
   <img class="quiz-card-img" src="/assets/quiz-g3-parties-du-corps-approfondi.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les parties du corps (approfondi)</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/anatomie-et-robes/robes-et-declinaisons/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/anatomie-et-robes/robes-et-declinaisons/">
   <img class="quiz-card-img" src="/assets/quiz-g3-robes-et-declinaisons.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les robes et leurs déclinaisons</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/theorie-equestre/mecanisme-des-allures/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/theorie-equestre/mecanisme-des-allures/">
   <img class="quiz-card-img" src="/assets/quiz-g3-mecanisme-des-allures.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le mécanisme des allures</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/theorie-equestre/figures-de-manege/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/theorie-equestre/figures-de-manege/">
   <img class="quiz-card-img" src="/assets/quiz-g3-figures-de-manege.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les figures de manège de base</span>
     <span class="n-questions">4 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/programme-officiel/vie-sociale-du-cheval/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/programme-officiel/vie-sociale-du-cheval/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Vie sociale et besoins du cheval</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/programme-officiel/pied-et-fer/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/programme-officiel/pied-et-fer/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le pied et le fer</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/programme-officiel/diagonal-pied-et-parcours/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/programme-officiel/diagonal-pied-et-parcours/">
   <img class="quiz-card-img" src="/assets/visuel-g3-serpentine.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Diagonal, bon pied et parcours</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/marques-membres-et-epis/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/marques-membres-et-epis/">
   <img class="quiz-card-img" src="/assets/diagramme-g3-balzanes.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Marques des membres et épis</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/anatomie-membres-reperes/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/anatomie-membres-reperes/">
   <img class="quiz-card-img" src="/assets/diagramme-g3-membres.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les repères des quatre membres</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/doucher-et-entretenir-pieds/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/doucher-et-entretenir-pieds/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Doucher les membres et entretenir les pieds</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/litiere-et-abreuvoir/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/litiere-et-abreuvoir/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Entretenir litière et abreuvoir</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/demonter-nettoyer-filet/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/demonter-nettoyer-filet/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Démonter et entretenir un filet</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/reculer-droit-et-mobiliser/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/reculer-droit-et-mobiliser/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Reculer droit, épaules et hanches</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/courbes-et-changements-main/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/courbes-et-changements-main/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Courbes et changements de main précis</span>
     <span class="n-questions">6 questions · Galop 3</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-3/parcours-complet/construire-abord-50-60/">
+<a class="quiz-card quiz-card-premium" href="/galop-3/parcours-complet/construire-abord-50-60/">
   <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Construire un abord à 50–60 cm</span>
     <span class="n-questions">6 questions · Galop 3</span>
@@ -439,113 +466,129 @@
   <h2>Galop 4</h2>
   <section class="quiz-carousel-shell" aria-label="Quiz Galop 4">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-4/le-materiel/les-mors/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-4/le-materiel/les-mors/">
   <img class="quiz-card-img" src="/assets/quiz-g4-les-mors.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les principaux types de mors</span>
     <span class="n-questions">4 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/le-materiel/parties-de-la-selle/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/le-materiel/parties-de-la-selle/">
   <img class="quiz-card-img" src="/assets/quiz-g4-parties-de-la-selle.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les parties détaillées de la selle</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/theorie-avancee/mecanisme-du-galop/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/theorie-avancee/mecanisme-du-galop/">
   <img class="quiz-card-img" src="/assets/visuel-g4-galop.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Équilibre et mécanisme du galop</span>
     <span class="n-questions">8 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/theorie-avancee/alimentation-du-cheval/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/theorie-avancee/alimentation-du-cheval/">
   <img class="quiz-card-img" src="/assets/quiz-g4-alimentation-du-cheval.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">L’alimentation du cheval</span>
     <span class="n-questions">4 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/theorie-avancee/robes-complexes/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/theorie-avancee/robes-complexes/">
   <img class="quiz-card-img" src="/assets/quiz-g4-robes-complexes.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les robes plus complexes</span>
     <span class="n-questions">4 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/programme-officiel/constantes-et-sante/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/programme-officiel/constantes-et-sante/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Constantes et signes de santé</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/programme-officiel/protections-et-transport/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/programme-officiel/protections-et-transport/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Protections de travail et transport</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/programme-officiel/incurvation-et-controle/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/programme-officiel/incurvation-et-controle/">
   <img class="quiz-card-img" src="/assets/visuel-g4-galop.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Incurvation, contact et contrôle</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/decoder-livret-signaletique/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/decoder-livret-signaletique/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Décoder un livret signalétique</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/observation-avant-apres-seance/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/observation-avant-apres-seance/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Observer avant et après la séance</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/fourrages-concentres-equilibre/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/fourrages-concentres-equilibre/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Fourrages, concentrés et équilibre</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/plantes-toxiques-prevention/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/plantes-toxiques-prevention/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Plantes toxiques : prévenir le risque</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/pied-du-galop-et-dissociation/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/pied-du-galop-et-dissociation/">
   <img class="quiz-card-img" src="/assets/diagramme-g4-galop-gauche.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Pied du galop et dissociation</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/choisir-ajuster-protections/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/choisir-ajuster-protections/">
   <img class="quiz-card-img" src="/assets/diagramme-g4-protections.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Choisir et ajuster les protections</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/ajustement-filet-action-main/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/ajustement-filet-action-main/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Ajustement du filet et action de main</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-4/parcours-complet/courbes-contact-equilibre/">
+<a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/courbes-contact-equilibre/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Courbes, contact et équilibre</span>
     <span class="n-questions">6 questions · Galop 4</span>
@@ -557,106 +600,121 @@
   <h2>Galop 5</h2>
   <section class="quiz-carousel-shell" aria-label="Quiz Galop 5">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-5/connaissance-du-cheval/principes-apprentissage/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-5/connaissance-du-cheval/principes-apprentissage/">
   <img class="quiz-card-img" src="/assets/quiz-g5-principes-apprentissage.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les principes d’apprentissage</span>
     <span class="n-questions">8 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/connaissance-du-cheval/squelette-et-muscles/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/connaissance-du-cheval/squelette-et-muscles/">
   <img class="quiz-card-img" src="/assets/quiz-g5-squelette-et-muscles.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le squelette et les grands groupes musculaires</span>
     <span class="n-questions">8 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/soins-et-pratique/digestion-et-identification/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/soins-et-pratique/digestion-et-identification/">
   <img class="quiz-card-img" src="/assets/quiz-g5-digestion-et-identification.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Digestion et identification</span>
     <span class="n-questions">8 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/soins-et-pratique/longe-et-embarquement/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/soins-et-pratique/longe-et-embarquement/">
   <img class="quiz-card-img" src="/assets/quiz-g5-longe-et-embarquement.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Longer et embarquer en sécurité</span>
     <span class="n-questions">8 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/programme-officiel/robes-et-signalement/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/programme-officiel/robes-et-signalement/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Robes, signalement et identification</span>
     <span class="n-questions">5 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/programme-officiel/bandes-et-embouchures/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/programme-officiel/bandes-et-embouchures/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Bandes et embouchures</span>
     <span class="n-questions">5 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/programme-officiel/cadence-cession-et-cross/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/programme-officiel/cadence-cession-et-cross/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Cadence, cession et terrain varié</span>
     <span class="n-questions">5 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/apprentissage-renforcement-timing/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/apprentissage-renforcement-timing/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Apprentissage, renforcement et timing</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/articulations-chaines-musculaires/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/articulations-chaines-musculaires/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Articulations et chaînes musculaires</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/trajet-digestif-du-cheval/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/trajet-digestif-du-cheval/">
   <img class="quiz-card-img" src="/assets/diagramme-g5-digestion.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le trajet digestif du cheval</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/identification-sire-puce/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/identification-sire-puce/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Identification : SIRE, puce et signalement</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/bandage-repos-raisonne/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/bandage-repos-raisonne/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le bandage de repos raisonné</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/presentation-cheval-en-main/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/presentation-cheval-en-main/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Présenter un cheval en main</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/embarquement-progressif-securise/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/embarquement-progressif-securise/">
   <img class="quiz-card-img" src="/assets/banniere-galop-5-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Embarquement progressif et sécurisé</span>
     <span class="n-questions">6 questions · Galop 5</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-5/parcours-complet/cadence-et-cession-precise/">
+<a class="quiz-card quiz-card-premium" href="/galop-5/parcours-complet/cadence-et-cession-precise/">
   <img class="quiz-card-img" src="/assets/diagramme-g5-cession.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Cadence et cession à la jambe</span>
     <span class="n-questions">6 questions · Galop 5</span>
@@ -668,106 +726,121 @@
   <h2>Galop 6</h2>
   <section class="quiz-carousel-shell" aria-label="Quiz Galop 6">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-6/sante-et-alimentation/pied-et-ferrure/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-6/sante-et-alimentation/pied-et-ferrure/">
   <img class="quiz-card-img" src="/assets/quiz-g6-pied-et-ferrure.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Le pied et la ferrure</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/sante-et-alimentation/besoins-alimentaires/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/sante-et-alimentation/besoins-alimentaires/">
   <img class="quiz-card-img" src="/assets/quiz-g6-besoins-alimentaires.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Évaluer les besoins alimentaires</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/biologie-et-locomotion/reproduction-et-identification/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/biologie-et-locomotion/reproduction-et-identification/">
   <img class="quiz-card-img" src="/assets/quiz-g6-reproduction-et-identification.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Reproduction et identification</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/biologie-et-locomotion/allures-et-reculer/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/biologie-et-locomotion/allures-et-reculer/">
   <img class="quiz-card-img" src="/assets/quiz-g6-allures-et-reculer.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Qualité des allures et mécanisme du reculer</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/programme-officiel/symptomes-et-boiteries/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/programme-officiel/symptomes-et-boiteries/">
   <img class="quiz-card-img" src="/assets/visuel-g6-pied.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Symptômes, maladies et boiteries</span>
     <span class="n-questions">5 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/programme-officiel/etat-corporel/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/programme-officiel/etat-corporel/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">État corporel et besoins variables</span>
     <span class="n-questions">5 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/programme-officiel/contre-galop-et-longe/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/programme-officiel/contre-galop-et-longe/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Contre-galop, cession et longe</span>
     <span class="n-questions">5 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/biomecanique-pied-en-charge/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/biomecanique-pied-en-charge/">
   <img class="quiz-card-img" src="/assets/diagramme-g6-pied.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Biomécanique du pied en charge</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/ferrure-surveillance-marechal/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/ferrure-surveillance-marechal/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Ferrure : surveillance et rôle du maréchal</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/symptomes-urgence-conduite/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/symptomes-urgence-conduite/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Symptômes d’urgence : la bonne conduite</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/evaluer-etat-corporel/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/evaluer-etat-corporel/">
   <img class="quiz-card-img" src="/assets/diagramme-g6-etat-corporel.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Évaluer l’état corporel</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/cycle-reproduction-poulinage/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/cycle-reproduction-poulinage/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Cycle de reproduction et poulinage</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/lire-irregularite-locomotion/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/lire-irregularite-locomotion/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Lire une irrégularité de locomotion</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/recuperation-toilettage-concours/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/recuperation-toilettage-concours/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Récupération et toilettage de concours</span>
     <span class="n-questions">6 questions · Galop 6</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-6/parcours-complet/detente-transitions-autonomes/">
+<a class="quiz-card quiz-card-premium" href="/galop-6/parcours-complet/detente-transitions-autonomes/">
   <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Détente et transitions autonomes</span>
     <span class="n-questions">6 questions · Galop 6</span>
@@ -779,106 +852,121 @@
   <h2>Galop 7</h2>
   <section class="quiz-carousel-shell" aria-label="Quiz Galop 7">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-7/expertise-du-cheval/aplombs/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-7/expertise-du-cheval/aplombs/">
   <img class="quiz-card-img" src="/assets/quiz-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les aplombs du cheval</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/expertise-du-cheval/rationnement/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/expertise-du-cheval/rationnement/">
   <img class="quiz-card-img" src="/assets/quiz-g7-rationnement.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les principes du rationnement</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/bride-et-enrenements/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/materiel-et-bien-etre/bride-et-enrenements/">
   <img class="quiz-card-img" src="/assets/quiz-g7-bride-et-enrenements.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">La bride et les enrênements</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/transport-et-bien-etre/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/materiel-et-bien-etre/transport-et-bien-etre/">
   <img class="quiz-card-img" src="/assets/quiz-g7-transport-et-bien-etre.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Transport et bien-être du cheval</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/programme-officiel/livret-et-transport/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/programme-officiel/livret-et-transport/">
   <img class="quiz-card-img" src="/assets/visuel-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Livret, signalement et transport</span>
     <span class="n-questions">5 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/programme-officiel/bandes-et-longues-renes/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/programme-officiel/bandes-et-longues-renes/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Bandes de polo et longues rênes</span>
     <span class="n-questions">5 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Rectitude et épaule en dedans</span>
     <span class="n-questions">5 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/aplombs-statiques-dynamiques/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/aplombs-statiques-dynamiques/">
   <img class="quiz-card-img" src="/assets/diagramme-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Aplombs statiques et dynamiques</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/verifier-identite-documents/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/verifier-identite-documents/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Vérifier identité et documents</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/transport-stress-thermoregulation/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/transport-stress-thermoregulation/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Transport, stress et thermorégulation</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/ration-matiere-seche-calculs/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/ration-matiere-seche-calculs/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Ration : matière sèche et calculs</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/complements-electrolytes-raisonnes/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/complements-electrolytes-raisonnes/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Compléments et électrolytes raisonnés</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/bride-deux-embouchures/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/bride-deux-embouchures/">
   <img class="quiz-card-img" src="/assets/diagramme-g7-bride.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">La bride à deux embouchures</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/enrenements-longe-ethique/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/enrenements-longe-ethique/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Enrênements à la longe : usage raisonné</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/rectitude-mouvements-lateraux/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/rectitude-mouvements-lateraux/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Rectitude et mouvements latéraux</span>
     <span class="n-questions">6 questions · Galop 7</span>
@@ -894,7 +982,7 @@
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul><li><a href="/galop-1/">Galop 1</a></li><li><a href="/galop-2/">Galop 2</a></li><li><a href="/galop-3/">Galop 3</a></li><li><a href="/galop-4/">Galop 4</a></li><li><a href="/galop-5/">Galop 5</a></li><li><a href="/galop-6/">Galop 6</a></li><li><a href="/galop-7/">Galop 7</a></li><li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
@@ -989,6 +1077,30 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

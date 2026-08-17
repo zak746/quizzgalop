@@ -12,14 +12,34 @@ export const FICHES_DETAILLEES = [
     intro: 'Le Galop 1 installe les bons réflexes : observer avant d’agir, rester prévisible pour le cheval et comprendre les gestes élémentaires à pied comme en selle. L’objectif n’est pas de tout savoir, mais de pouvoir expliquer pourquoi chaque geste protège le cavalier et le cheval.',
     illustrations: {
       principal: {
-        src: '/assets/diagramme-g1-principal.webp',
+        src: '/assets/diagramme-g1-principal-v2.webp',
         alt: 'Cheval vu de profil avec repères sur les principales parties extérieures',
-        legende: 'Les grands repères extérieurs à reconnaître : tête, encolure, garrot, dos, ventre, croupe et membres.'
+        legende: 'Les grands repères extérieurs à reconnaître : tête, encolure, garrot, dos, ventre, croupe et membres.',
+        reperes: [
+          { n: 1, label: 'Tête et chanfrein' },
+          { n: 2, label: 'Encolure' },
+          { n: 3, label: 'Garrot' },
+          { n: 4, label: 'Dos' },
+          { n: 5, label: 'Croupe' },
+          { n: 6, label: 'Épaule' },
+          { n: 7, label: 'Poitrail' },
+          { n: 8, label: 'Ventre' },
+          { n: 9, label: 'Membre antérieur' },
+          { n: 10, label: 'Crins de la queue' },
+          { n: 11, label: 'Crinière' },
+          { n: 12, label: 'Attache de la queue' }
+        ]
       },
       pratique: {
         src: '/assets/diagramme-g1-pratique.webp',
         alt: 'Quatre attitudes d’un même cheval : détendu, inquiet, défensif et curieux',
-        legende: 'Les oreilles, le regard, l’encolure et la posture se lisent ensemble pour comprendre l’attitude du cheval.'
+        legende: 'Les oreilles, le regard, l’encolure et la posture se lisent ensemble pour comprendre l’attitude du cheval.',
+        reperes: [
+          { n: 1, label: 'Détendu et attentif' },
+          { n: 2, label: 'Inquiet ou en alerte' },
+          { n: 3, label: 'Défensif' },
+          { n: 4, label: 'Curieux' }
+        ]
       }
     },
     sections: [
@@ -100,12 +120,29 @@ export const FICHES_DETAILLEES = [
       principal: {
         src: '/assets/diagramme-g2-principal.webp',
         alt: 'Membre antérieur et membre postérieur avec dix repères numérotés',
-        legende: 'Repères du Galop 2 : genou, jarret, canon, boulet, paturon, couronne et sabot.'
+        legende: 'Repères du Galop 2 : genou, jarret, canon, boulet, paturon, couronne et sabot.',
+        reperes: [
+          { n: 1, label: 'Avant-bras' },
+          { n: 2, label: 'Genou' },
+          { n: 3, label: 'Canon antérieur' },
+          { n: 4, label: 'Boulet antérieur' },
+          { n: 5, label: 'Paturon antérieur' },
+          { n: 6, label: 'Jambe' },
+          { n: 7, label: 'Jarret' },
+          { n: 8, label: 'Canon postérieur' },
+          { n: 9, label: 'Boulet postérieur' },
+          { n: 10, label: 'Paturon postérieur' }
+        ]
       },
       pratique: {
         src: '/assets/diagramme-g2-pratique.webp',
         alt: 'Poney et cavalière abordant un petit obstacle avec trajectoire et flèches de rythme',
-        legende: 'Un petit obstacle se prépare avec une trajectoire droite, une allure régulière et un équilibre stable.'
+        legende: 'Un petit obstacle se prépare avec une trajectoire droite, une allure régulière et un équilibre stable.',
+        reperes: [
+          { n: 1, label: 'Abord droit et régulier' },
+          { n: 2, label: 'Battue et franchissement' },
+          { n: 3, label: 'Réception et reprise de la trajectoire' }
+        ]
       }
     },
     sections: [
@@ -186,12 +223,29 @@ export const FICHES_DETAILLEES = [
       principal: {
         src: '/assets/diagramme-g3-principal.webp',
         alt: 'Cheval vu de profil avec huit repères numérotés sur les membres',
-        legende: 'Comparer les repères des antérieurs et des postérieurs : épaule, genou, hanche, grasset, jarret et boulet.'
+        legende: 'Comparer les repères des antérieurs et des postérieurs : épaule, genou, hanche, grasset, jarret et boulet.',
+        reperes: [
+          { n: 1, label: 'Épaule' },
+          { n: 2, label: 'Avant-bras' },
+          { n: 3, label: 'Genou' },
+          { n: 4, label: 'Paturon antérieur' },
+          { n: 5, label: 'Hanche' },
+          { n: 6, label: 'Grasset' },
+          { n: 7, label: 'Jarret' },
+          { n: 8, label: 'Paturon postérieur' }
+        ]
       },
       pratique: {
         src: '/assets/diagramme-g3-pratique.webp',
         alt: 'Cinq membres de chevaux présentant des marques blanches de hauteurs différentes',
-        legende: 'Les balzanes se décrivent par leur hauteur et leur contour, du principe de couronne à la balzane haut chaussée.'
+        legende: 'Les balzanes se décrivent par leur hauteur et leur contour, du principe de couronne à la balzane haut chaussée.',
+        reperes: [
+          { n: 1, label: 'Principe de balzane' },
+          { n: 2, label: 'Balzane à mi-paturon' },
+          { n: 3, label: 'Balzane au-dessus du boulet' },
+          { n: 4, label: 'Balzane à mi-canon' },
+          { n: 5, label: 'Balzane haut chaussée, en haut du canon' }
+        ]
       }
     },
     sections: [
@@ -279,14 +333,24 @@ export const FICHES_DETAILLEES = [
     intro: 'Le Galop 4 valide un premier niveau solide d’autonomie. Le cavalier apprend à repérer un cheval qui ne va pas bien, à raisonner alimentation et protections, à comprendre le galop sur chaque pied et à obtenir un cheval actif, incurvé et disponible sans confondre contact et traction.',
     illustrations: {
       principal: {
-        src: '/assets/diagramme-g4-principal.webp',
+        src: '/assets/diagramme-g4-principal-v2.webp',
         alt: 'Quatre phases successives d’un cheval au galop avec appuis colorés',
-        legende: 'Le galop se lit comme une succession d’appuis dissymétriques suivie d’un temps de suspension.'
+        legende: 'Le galop se lit comme une succession d’appuis dissymétriques suivie d’un temps de suspension.',
+        reperes: [
+          { n: 1, label: 'Premier temps : postérieur extérieur' },
+          { n: 2, label: 'Deuxième temps : bipède diagonal' },
+          { n: 3, label: 'Troisième temps : antérieur directeur' },
+          { n: 4, label: 'Temps de suspension' }
+        ]
       },
       pratique: {
         src: '/assets/diagramme-g4-pratique.webp',
         alt: 'Comparaison d’une guêtre correctement centrée et d’une guêtre tournée sur le tendon',
-        legende: 'Une protection propre, centrée et régulièrement serrée protège sans créer de point de pression.'
+        legende: 'Une protection propre, centrée et régulièrement serrée protège sans créer de point de pression.',
+        reperes: [
+          { n: 1, label: 'Guêtre correcte : centrée et régulièrement serrée' },
+          { n: 2, label: 'Guêtre tournée : point de pression et frottement possibles' }
+        ]
       }
     },
     sections: [
@@ -376,12 +440,24 @@ export const FICHES_DETAILLEES = [
       principal: {
         src: '/assets/diagramme-g5-principal.webp',
         alt: 'Cheval de profil avec représentation du système digestif et cinq repères numérotés',
-        legende: 'Le petit estomac précède l’intestin grêle ; les fibres sont surtout fermentées dans le cæcum et le gros côlon.'
+        legende: 'Le petit estomac précède l’intestin grêle ; les fibres sont surtout fermentées dans le cæcum et le gros côlon.',
+        reperes: [
+          { n: 1, label: 'Œsophage' },
+          { n: 2, label: 'Estomac' },
+          { n: 3, label: 'Intestin grêle' },
+          { n: 4, label: 'Cæcum' },
+          { n: 5, label: 'Gros côlon' }
+        ]
       },
       pratique: {
-        src: '/assets/diagramme-g5-pratique.webp',
+        src: '/assets/diagramme-g5-pratique-v2.webp',
         alt: 'Trois vues du dessus comparant des trajectoires de cession à la jambe',
-        legende: 'Une cession correcte associe mouvement en avant, déplacement latéral, faible flexion opposée et épaules contrôlées.'
+        legende: 'Une cession correcte associe mouvement en avant, déplacement latéral, faible flexion opposée et épaules contrôlées.',
+        reperes: [
+          { n: 1, label: 'Préparation : cheval droit et actif' },
+          { n: 2, label: 'Début : mouvement vers l’avant et de côté' },
+          { n: 3, label: 'Cession installée : faible flexion opposée et épaules contrôlées' }
+        ]
       }
     },
     sections: [
@@ -469,14 +545,28 @@ export const FICHES_DETAILLEES = [
     intro: 'Le Galop 6 consolide une autonomie responsable. Le cavalier approfondit le fonctionnement du pied, reconnaît des signaux qui imposent d’alerter, évalue l’état corporel et bâtit une détente cohérente. À pied comme en selle, la précision ne doit jamais se faire au détriment du bien-être.',
     illustrations: {
       principal: {
-        src: '/assets/diagramme-g6-principal.webp',
+        src: '/assets/diagramme-g6-principal-v2.webp',
         alt: 'Coupe pédagogique du pied du cheval montrant paroi, sole, fourchette, phalanges et structures internes',
-        legende: 'Le pied associe enveloppe cornée, structures sensibles, os et tissus amortisseurs.'
+        legende: 'Le pied associe enveloppe cornée, structures sensibles, os et tissus amortisseurs.',
+        reperes: [
+          { n: 1, label: 'Paroi' },
+          { n: 2, label: 'Lamelles ou feuillets' },
+          { n: 3, label: 'Sole' },
+          { n: 4, label: 'Fourchette' },
+          { n: 5, label: 'Os naviculaire' },
+          { n: 6, label: 'Coussinet digital' },
+          { n: 7, label: 'Tendon fléchisseur profond' }
+        ]
       },
       pratique: {
         src: '/assets/diagramme-g6-pratique.webp',
         alt: 'Trois chevaux comparant un état corporel maigre, intermédiaire et excessif',
-        legende: 'L’état corporel s’évalue par observation et palpation de plusieurs zones, jamais par le poids seul.'
+        legende: 'L’état corporel s’évalue par observation et palpation de plusieurs zones, jamais par le poids seul.',
+        reperes: [
+          { n: 1, label: 'État maigre : reliefs osseux très visibles' },
+          { n: 2, label: 'État intermédiaire adapté' },
+          { n: 3, label: 'État excessif : dépôts graisseux marqués' }
+        ]
       }
     },
     sections: [
@@ -566,12 +656,27 @@ export const FICHES_DETAILLEES = [
       principal: {
         src: '/assets/diagramme-g7-principal.webp',
         alt: 'Trois chevaux vus de face comparant des antérieurs droits, panards et cagneux',
-        legende: 'Les aplombs se décrivent par rapport à un axe : droits, pinces vers l’extérieur ou pinces vers l’intérieur.'
+        legende: 'Les aplombs se décrivent par rapport à un axe : droits, pinces vers l’extérieur ou pinces vers l’intérieur.',
+        reperes: [
+          { n: 1, label: 'Aplombs droits' },
+          { n: 2, label: 'Aplombs panards : pinces vers l’extérieur' },
+          { n: 3, label: 'Aplombs cagneux : pinces vers l’intérieur' }
+        ]
       },
       pratique: {
-        src: '/assets/diagramme-g7-pratique.webp',
+        src: '/assets/diagramme-g7-pratique-v2.webp',
         alt: 'Tête de cheval portant une bride complète avec huit repères numérotés',
-        legende: 'La bride associe deux mors, une gourmette et deux paires de rênes : son ajustement exige précision et mesure.'
+        legende: 'La bride associe deux mors, une gourmette et deux paires de rênes : son ajustement exige précision et mesure.',
+        reperes: [
+          { n: 1, label: 'Têtière' },
+          { n: 2, label: 'Frontal' },
+          { n: 3, label: 'Muserolle' },
+          { n: 4, label: 'Sous-gorge' },
+          { n: 5, label: 'Montants' },
+          { n: 6, label: 'Mors de filet' },
+          { n: 7, label: 'Mors de bride et gourmette' },
+          { n: 8, label: 'Deux paires de rênes' }
+        ]
       }
     },
     sections: [

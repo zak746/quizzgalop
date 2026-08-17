@@ -222,6 +222,25 @@ def build_styles(level_color):
             alignment=TA_CENTER,
             spaceBefore=2.5 * mm,
         ),
+        "repere": ParagraphStyle(
+            "Repere",
+            parent=sample["BodyText"],
+            fontName="Arial",
+            fontSize=7.15,
+            leading=9.4,
+            textColor=MUTED,
+        ),
+        "repere_note": ParagraphStyle(
+            "RepereNote",
+            parent=sample["BodyText"],
+            fontName="Arial",
+            fontSize=6.8,
+            leading=9.2,
+            textColor=RED,
+            leftIndent=2 * mm,
+            rightIndent=2 * mm,
+            spaceBefore=1.2 * mm,
+        ),
         "bullet": ParagraphStyle(
             "Bullet",
             parent=sample["BodyText"],
@@ -347,6 +366,48 @@ def program_cards(programme: dict, styles: dict, usable_width: float):
     return table
 
 
+def reperes_grid(illustration: dict, styles: dict, usable_width: float):
+    reperes = illustration.get("reperes", [])
+    if not reperes:
+        return []
+
+    column_count = 3 if len(reperes) >= 5 else min(2, len(reperes))
+    cells = [
+        Paragraph(
+            f"<font color='#B98746'><b>{html(repere['n'])}</b></font> &nbsp;{html(repere['label'])}",
+            styles["repere"],
+        )
+        for repere in reperes
+    ]
+    while len(cells) % column_count:
+        cells.append("")
+    rows = [cells[index:index + column_count] for index in range(0, len(cells), column_count)]
+    grid = Table(rows, colWidths=[usable_width / column_count] * column_count, hAlign="LEFT")
+    grid.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), HexColor("#FCF7EF")),
+                ("BOX", (0, 0), (-1, -1), 0.45, LINE),
+                ("INNERGRID", (0, 0), (-1, -1), 0.35, GOLD_LIGHT),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 2.3 * mm),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 2.3 * mm),
+                ("TOPPADDING", (0, 0), (-1, -1), 1.6 * mm),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 1.6 * mm),
+            ]
+        )
+    )
+    flowables = [Spacer(1, 2 * mm), grid]
+    if illustration.get("assetARecreer") and illustration.get("noteReperes"):
+        flowables.append(
+            Paragraph(
+                f"<b>Précaution de lecture :</b> {html(illustration['noteReperes'])}",
+                styles["repere_note"],
+            )
+        )
+    return flowables
+
+
 def chapter_block(section: dict, index: int, styles: dict, usable_width: float):
     number = Paragraph(f"<font color='#B98746'><b>{index:02d}</b></font>", styles["h3"])
     content = [
@@ -457,6 +518,7 @@ def build_pdf(programme: dict, fiche: dict, totals: dict) -> tuple[Path, int]:
     cover_image.hAlign = "CENTER"
     story.append(cover_image)
     story.append(Paragraph(html(principal["legende"]), styles["caption"]))
+    story.extend(reperes_grid(principal, styles, usable_width))
     story.append(Spacer(1, 4 * mm))
     story.append(
         Paragraph(
@@ -479,6 +541,7 @@ def build_pdf(programme: dict, fiche: dict, totals: dict) -> tuple[Path, int]:
     practice_image.hAlign = "CENTER"
     story.append(practice_image)
     story.append(Paragraph(html(pratique["legende"]), styles["caption"]))
+    story.extend(reperes_grid(pratique, styles, usable_width))
 
     story.append(PageBreak())
     section_heading(story, styles, "Comprendre", fiche["titre"])

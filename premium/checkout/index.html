@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paiement — Quizz Galop</title>
+<meta name="description" content="Finalisation de l’achat Quizz Galop.">
+<link rel="canonical" href="https://quizzgalop.fr/premium/checkout/">
+<meta name="robots" content="noindex,nofollow">
+<meta name="author" content="Quizz Galop">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Quizz Galop — révise tes Galops FFE">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Paiement — Quizz Galop">
+<meta property="og:description" content="Finalisation de l’achat Quizz Galop.">
+<meta property="og:url" content="https://quizzgalop.fr/premium/checkout/">
+<meta property="og:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Paiement — Quizz Galop">
+<meta name="twitter:description" content="Finalisation de l’achat Quizz Galop.">
+<meta name="twitter:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
+<meta name="theme-color" content="#f9f3e9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<script>(function(){
+  var exige=null;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
+
+</head>
+<body class="page-checkout-reference">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="consent" id="consent" role="dialog"
+  aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
+  <div class="consent-txt">
+    <p class="consent-titre">Cookies publicitaires</p>
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
+    cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
+    et le site fonctionne à l’identique.
+    <a href="/confidentialite/">En savoir plus</a></p>
+  </div>
+  <div class="consent-btns">
+    <button type="button" class="consent-refus" data-consent="refuse">Refuser</button>
+    <button type="button" class="consent-ok" data-consent="accepte">Accepter</button>
+  </div>
+</div>
+<aside class="pub pub-gauche" aria-hidden="true" data-nosnippet>
+  <span class="pub-etiquette">Publicité</span>
+  <div class="pub-creatif" data-pub="gauche">
+    <span class="pub-titre">Emplacement libre</span>
+    <span class="pub-sous">Espace réservé à une annonce</span>
+  </div>
+  <span class="pub-format">160 × 600</span>
+  <span class="pub-compteur" data-pub-compteur="gauche"></span>
+</aside>
+<aside class="pub pub-droite" aria-hidden="true" data-nosnippet>
+  <span class="pub-etiquette">Publicité</span>
+  <div class="pub-creatif" data-pub="droite">
+    <span class="pub-titre">Emplacement libre</span>
+    <span class="pub-sous">Espace réservé à une annonce</span>
+  </div>
+  <span class="pub-format">160 × 600</span>
+  <span class="pub-compteur" data-pub-compteur="droite"></span>
+</aside>
+
+<div class="shell shell-main">
+<main class="site" id="contenu">
+
+<section class="checkout-shell"><a class="checkout-brand" href="/premium/"><img src="/assets/logo-embleme.svg" alt="" width="96" height="96"><span>QUIZZ GALOP</span></a>
+    <div class="checkout-grid"><div><p class="eyebrow">FINALISER L’ACHAT</p><h1>Débloquer ton accès</h1><p class="lede">Tu vas être redirigé vers la page de paiement sécurisée Stripe. Le paiement est unique : aucun prélèvement ne sera reconduit.</p>
+      <label for="checkout-email">Adresse e-mail <span>(pour recevoir ta preuve d’achat)</span></label><input id="checkout-email" type="email" autocomplete="email" placeholder="cavalier@exemple.fr">
+      <button class="btn-primaire" id="checkout-submit" type="button">Payer</button><p class="checkout-feedback" id="checkout-feedback" role="status" aria-live="polite"></p><small>🔒 Les clés Stripe restent exclusivement côté serveur. Aucune donnée bancaire n’est saisie sur Quizz Galop.</small></div>
+      <aside><span id="checkout-plan-label">Un Galop</span><div><strong id="checkout-price">3,99 €</strong><small id="checkout-rhythm">paiement unique</small></div><ul id="checkout-details"><li>Accès à vie</li><li>Quiz, fiche PDF et examen</li></ul><a href="/premium/">Modifier mon choix</a></aside></div>
+  </section>
+  <script>(function(){
+    var params=new URLSearchParams(location.search);
+    var article=params.get('article')==='pack'?'pack':'niveau';
+    var niveauBrut=parseInt(params.get('niveau'),10);
+    var niveauxPayants=[3,4,5,6,7];
+    var niveau=niveauxPayants.indexOf(niveauBrut)!==-1?niveauBrut:null;
+    var retour=params.get('retour')||'/quiz/',caracteresChemin='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/_-';
+    if(retour.charAt(0)!=='/'||retour.charAt(1)==='/'||!retour.split('').every(function(c){return caracteresChemin.indexOf(c)!==-1;}))retour='/quiz/';
+    var offres={"niveau":{"id":"niveau","nom":"Un Galop","prix":3.99,"prixAffiche":"3,99 €","rythme":"paiement unique","engagement":"Accès à vie au Galop choisi"},"pack":{"id":"pack","nom":"Pack complet","prix":12.99,"prixAffiche":"12,99 €","rythme":"paiement unique","equivalent":"2,60 € par Galop","engagement":"Accès à vie aux Galops 3 à 7","recommande":true}};
+    /* Un achat de niveau sans niveau valide : on renvoie choisir plutôt que de
+       lancer un paiement sur un contenu indéterminé. */
+    if(article==='niveau'&&niveau===null){location.replace('/premium/#choisir-galop');return;}
+    var offre=offres[article];
+    document.getElementById('checkout-plan-label').textContent=article==='pack'?'Pack Galops 3 à 7':'Galop '+niveau;
+    document.getElementById('checkout-price').textContent=offre.prixAffiche;
+    document.getElementById('checkout-rhythm').textContent=offre.rythme;
+    document.getElementById('checkout-details').innerHTML=article==='pack'
+      ?'<li>Les 5 Galops payants</li><li>Les 7 fiches PDF</li><li>Accès à vie</li>'
+      :'<li>Tous les quiz du Galop '+niveau+'</li><li>Sa fiche PDF</li><li>Accès à vie</li>';
+    var bouton=document.getElementById('checkout-submit'),feedback=document.getElementById('checkout-feedback');
+    bouton.onclick=async function(){bouton.disabled=true;feedback.textContent='Préparation du paiement…';var email=document.getElementById('checkout-email').value.trim();
+      try{var response=await fetch("/api/create-checkout-session",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({article:article,niveau:niveau,email:email,returnPath:retour})});if(!response.ok)throw new Error('endpoint');var resultat=await response.json();if(!resultat.url)throw new Error('url');location.href=resultat.url;}
+      catch(e){bouton.disabled=false;feedback.textContent='Le paiement est momentanément indisponible. Réessaie dans un instant.';}
+    };
+  })();</script>
+</main>
+</div>
+
+<script>
+(function () {
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
+})();
+</script>
+<script>
+document.addEventListener('click', function (e) {
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav) return;
+  if (e.target.closest('#nav-burger')) {
+    var ouvert = nav.classList.toggle('ouvert');
+    b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+    b.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+    if (ouvert) setTimeout(function () { var premier = nav.querySelector('a'); if (premier) premier.focus(); }, 0);
+    return;
+  }
+  if (e.target.closest('#site-nav a')) {
+    nav.classList.remove('ouvert');
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-label', 'Ouvrir le menu');
+    return;
+  }
+  if (nav.classList.contains('ouvert') && !e.target.closest('#site-nav')) {
+    nav.classList.remove('ouvert');
+    b.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav || !nav.classList.contains('ouvert')) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
+  b.setAttribute('aria-label', 'Ouvrir le menu');
+  b.focus();
+});
+window.addEventListener('resize', function () {
+  if (window.innerWidth <= 860) return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
+});
+</script>
+<script>
+(function () {
+  var selecteur = '.editorial-hero,.categorie-heading,.quiz-card,.niveau-card,.fiche-card,.conseil-card,.progression-card,.article-section,.axe-card,.other-levels-wrap,.method-steps article,.method-proof>*';
+  var elements = Array.prototype.slice.call(document.querySelectorAll(selecteur));
+  if (!elements.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  elements.forEach(function (el, index) {
+    el.classList.add('ui-reveal');
+    el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+    el.classList.add('ui-visible');
+  });
+  var observateur = new IntersectionObserver(function (entrees) {
+    entrees.forEach(function (entree) {
+      if (!entree.isIntersecting) return;
+      entree.target.classList.add('ui-visible');
+      observateur.unobserve(entree.target);
+    });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
+  elements.forEach(function (el) {
+    if (!el.classList.contains('ui-visible')) observateur.observe(el);
+  });
+})();
+</script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
+<script>
+(function () {
+  var CLE = 'quizzgalop-consent';
+  var CLIENT = "";
+  var banniere = document.getElementById('consent');
+  function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  function chargerPub() {
+    if (!CLIENT || window.__pubChargee) return;
+    window.__pubChargee = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + CLIENT;
+    document.head.appendChild(s);
+    document.querySelectorAll('.adsbygoogle').forEach(function () {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    });
+  }
+  function afficher() { if (banniere) banniere.hidden = false; }
+  function masquer() { if (banniere) banniere.hidden = true; }
+  if (!CLIENT) { masquer(); return; }
+  var choix = lire();
+  if (choix === 'accepte') chargerPub();
+  else if (choix !== 'refuse') afficher();
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-consent]');
+    if (b) {
+      var v = b.dataset.consent;
+      try { localStorage.setItem(CLE, v); } catch (err) {}
+      masquer();
+      if (v === 'accepte') chargerPub();
+      return;
+    }
+    if (e.target.closest && e.target.closest('#rouvrir-consentement, [data-rouvrir-consent]')) {
+      e.preventDefault();
+      try { localStorage.removeItem(CLE); } catch (err) {}
+      afficher();
+    }
+  });
+})();
+</script>
+<script>
+(function () {
+  var CREATIFS = [
+    { t: 'Emplacement libre',       s: 'Espace réservé à une annonce' },
+    { t: 'Votre annonce ici',       s: 'Format skyscraper 160 × 600' },
+    { t: 'Espace disponible',       s: 'Contactez-nous pour cet emplacement' },
+    { t: 'Publicité',               s: 'Emplacement de démonstration' }
+  ];
+  var PERIODE = 30;
+  var rails = document.querySelectorAll('[data-pub]');
+  if (!rails.length) return;
+  var i = Math.floor(Math.random() * CREATIFS.length);
+  var reste = PERIODE;
+  function peindre() {
+    rails.forEach(function (el, n) {
+      var c = CREATIFS[(i + n) % CREATIFS.length];
+      el.classList.add('pub-transition');
+      setTimeout(function () {
+        el.querySelector('.pub-titre').textContent = c.t;
+        el.querySelector('.pub-sous').textContent = c.s;
+        el.classList.remove('pub-transition');
+      }, 350);
+    });
+  }
+  function tic() {
+    reste--;
+    if (reste <= 0) { i++; peindre(); reste = PERIODE; }
+    document.querySelectorAll('[data-pub-compteur]').forEach(function (el) {
+      el.textContent = 'actualisation dans ' + reste + ' s';
+    });
+  }
+  peindre();
+  tic();
+  setInterval(tic, 1000);
+})();
+</script>
+</body>
+</html>

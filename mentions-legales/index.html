@@ -23,9 +23,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx6mq58">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
+<script>(function(){
+  var exige=null;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Mentions légales","item":"https://quizzgalop.fr/mentions-legales/"}]}</script>
 </head>
 <body class="page-legal-reference">
@@ -34,7 +45,7 @@
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -78,8 +89,9 @@
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
         <a href="/examen/">Examen</a>
+        <a href="/premium/">Premium</a>
       </nav>
-      <a class="nav-cta" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22">Faire un quiz</a>
+      <a class="nav-cta" href="/premium/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span data-premium-label>Passer Premium</span></a>
       <button class="nav-burger" id="nav-burger" type="button"
         aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
         <svg class="ouvrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -95,14 +107,39 @@
 <nav class="crumb" aria-label="Fil d’Ariane"><ol><li><a href="/">Accueil</a></li><li aria-current="page">Mentions légales</li></ol></nav>
 <article class="legal-document"><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><p class="eyebrow">INFORMATIONS LÉGALES</p>
 <h1>Mentions légales</h1>
-<p class="lede">Site édité à titre non professionnel, conformément à l’article 6-III-2 de la loi n° 2004-575 du 21 juin
-2004 pour la confiance dans l’économie numérique (LCEN), qui permet à un éditeur non professionnel de
-conserver l’anonymat vis-à-vis du public tant que le site n’est pas monétisé.</p>
+<p class="lede">Ce site propose des contenus de révision payants. Les informations d’identification de
+l’éditeur ci-dessous doivent être complétées avant toute mise en vente effective.</p>
+
+<div class="callout"><p><b>À compléter obligatoirement avant d’encaisser :</b> dénomination ou nom de
+l’éditeur, statut (micro-entreprise, société…), numéro SIREN, adresse du siège, adresse e-mail de contact,
+et numéro de TVA intracommunautaire le cas échéant. La dispense d’identification prévue par l’article
+6-III-2 de la LCEN ne s’applique qu’aux éditeurs non professionnels : elle cesse dès qu’un site vend
+quelque chose.</p></div>
+
 <p>Hébergement : Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
+
 <h2>Contenu</h2>
 <p>Ce site propose des quiz de révision pour les examens de Galop. Il est indépendant et n’est affilié à
 aucune fédération équestre. Le contenu de révision est fourni à titre indicatif : vérifie-le toujours face
-au livret officiel de ton club avant un passage d’examen.</p></article>
+au livret officiel de ton club avant un passage d’examen.</p>
+
+<h2>Conditions de vente</h2>
+<p>Les Galops 1 et 2 sont accessibles gratuitement. Les Galops 3 à 7 sont vendus par
+<strong>paiement unique</strong> : 3,99 € pour un Galop, 12,99 €
+pour les cinq. Il ne s’agit pas d’un abonnement : aucun prélèvement n’est reconduit et il n’y a rien à
+résilier. L’accès acheté est enregistré dans le navigateur utilisé lors de l’achat.</p>
+<p>Le paiement est traité par <strong>Stripe Payments Europe</strong>. Aucune donnée bancaire ne transite
+par ce site ni n’y est conservée.</p>
+
+<h2>Droit de rétractation</h2>
+<p>Il s’agit d’un contenu numérique fourni immédiatement après le paiement. Conformément à l’article
+L221-28 13° du Code de la consommation, en validant l’achat l’acheteur demande expressément l’exécution
+immédiate de la prestation et <strong>renonce à son droit de rétractation de quatorze jours</strong>. En
+cas de problème technique empêchant l’accès au contenu acheté, un remboursement est effectué sur
+présentation de l’e-mail de confirmation Stripe.</p>
+
+<div class="callout"><p><b>Mineurs :</b> le public de ce site comprend des mineurs. L’achat doit être
+effectué par un titulaire de l’autorité parentale ou avec son accord.</p></div></article>
 </main>
 </div>
 <div class="shell">
@@ -111,7 +148,7 @@ au livret officiel de ton club avant un passage d’examen.</p></article>
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul><li><a href="/galop-1/">Galop 1</a></li><li><a href="/galop-2/">Galop 2</a></li><li><a href="/galop-3/">Galop 3</a></li><li><a href="/galop-4/">Galop 4</a></li><li><a href="/galop-5/">Galop 5</a></li><li><a href="/galop-6/">Galop 6</a></li><li><a href="/galop-7/">Galop 7</a></li><li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
@@ -206,6 +243,30 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

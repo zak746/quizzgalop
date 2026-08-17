@@ -23,9 +23,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx6mq58">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
+<script>(function(){
+  var exige=null;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Conseils","item":"https://quizzgalop.fr/conseils/"},{"@type":"ListItem","position":3,"name":"Transformer une erreur de quiz en acquis durable","item":"https://quizzgalop.fr/conseils/reviser-apres-erreur/"}]}</script>
 </head>
 <body class="page-article-reference">
@@ -34,7 +45,7 @@
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -78,8 +89,9 @@
         <a href="/conseils/" class="site-nav-current" aria-current="page">Conseils</a>
         <a href="/progression/">Progression</a>
         <a href="/examen/">Examen</a>
+        <a href="/premium/">Premium</a>
       </nav>
-      <a class="nav-cta" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22">Faire un quiz</a>
+      <a class="nav-cta" href="/premium/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span data-premium-label>Passer Premium</span></a>
       <button class="nav-burger" id="nav-burger" type="button"
         aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
         <svg class="ouvrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -102,7 +114,7 @@
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul><li><a href="/galop-1/">Galop 1</a></li><li><a href="/galop-2/">Galop 2</a></li><li><a href="/galop-3/">Galop 3</a></li><li><a href="/galop-4/">Galop 4</a></li><li><a href="/galop-5/">Galop 5</a></li><li><a href="/galop-6/">Galop 6</a></li><li><a href="/galop-7/">Galop 7</a></li><li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
@@ -197,6 +209,30 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

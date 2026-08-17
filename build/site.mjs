@@ -1,4 +1,5 @@
 /** Configuration commune + gabarit des pages statiques — Quizz Galop. */
+import { ACHAT } from '../data/subscription.mjs';
 
 export const SITE = {
   origin: 'https://quizzgalop.fr',
@@ -33,7 +34,8 @@ const NAV = [
   ['/fiches/', 'Fiches'],
   ['/conseils/', 'Conseils'],
   ['/progression/', 'Progression'],
-  ['/examen/', 'Examen']
+  ['/examen/', 'Examen'],
+  ['/premium/', 'Premium']
 ];
 
 function navHtml(pathCourant) {
@@ -51,7 +53,7 @@ function navHtml(pathCourant) {
       <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
         ${liens}
       </nav>
-      <a class="nav-cta" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22">Faire un quiz</a>
+      <a class="nav-cta" href="/premium/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span data-premium-label>Passer Premium</span></a>
       ${BOUTON_MENU}
     </div>`;
 }
@@ -142,7 +144,7 @@ export const CONSENTEMENT_HTML = `<div class="consent" id="consent" role="dialog
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -235,6 +237,52 @@ export const SCRIPT_PUB = pubActive() ? '' : `<script>
 export const SCRIPT_THEME_INLINE =
   `<script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');` +
   `if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>`;
+
+/**
+ * Accès local, évalué avant le rendu pour éviter tout flash du contenu
+ * verrouillé. En achat unique l'accès n'est plus global mais par niveau : le
+ * script reçoit le niveau exigé par la page courante et ne met
+ * data-premium="active" que si CE niveau a été acheté. L'attribut est conservé
+ * tel quel pour que la CSS existante continue de fonctionner sans changement.
+ */
+export function scriptAccesInline(niveauRequis = null) {
+  return `<script>(function(){
+  var exige=${niveauRequis === null ? 'null' : Number(niveauRequis)};
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem(${JSON.stringify(ACHAT.storageKey)})||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>`;
+}
+
+export const SCRIPT_PREMIUM_UI = `<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem(${JSON.stringify(ACHAT.storageKey)});}catch(err){}
+    location.reload();
+  });
+})();</script>`;
 
 export const SCRIPT_THEME = `<script>
 document.addEventListener('click', function (e) {
@@ -329,7 +377,27 @@ function breadcrumbJsonLd(crumbs) {
  */
 export function layout(o) {
   const canonical = url(o.path);
-  const jsonLd = [breadcrumbJsonLd(o.crumbs), ...(o.jsonLd || [])].filter(Boolean);
+
+  /* Contenu derrière paywall : Google impose de le déclarer. Le contenu payant
+     est bien présent dans le HTML (soft paywall) pour rester indexable, mais
+     sans ce balisage montrer à Googlebot ce que l'internaute ne voit pas est
+     traité comme du cloaking. Le sélecteur doit désigner le bloc masqué.
+     https://developers.google.com/search/docs/appearance/structured-data/paywalled-content */
+  const paywall = o.niveauRequis
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        url: canonical,
+        isAccessibleForFree: false,
+        hasPart: {
+          '@type': 'WebPageElement',
+          isAccessibleForFree: false,
+          cssSelector: '[data-premium-content]'
+        }
+      }
+    : null;
+
+  const jsonLd = [breadcrumbJsonLd(o.crumbs), paywall, ...(o.jsonLd || [])].filter(Boolean);
   const ld = jsonLd
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`)
     .join('\n');
@@ -342,7 +410,7 @@ export function layout(o) {
 <title>${o.title}</title>
 <meta name="description" content="${o.description}">
 <link rel="canonical" href="${canonical}">
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+<meta name="robots" content="${o.robots || 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1'}">
 <meta name="author" content="${SITE.auteur}">
 <meta property="og:type" content="${o.ogType || 'article'}">
 <meta property="og:site_name" content="${SITE.nomLong}">
@@ -362,6 +430,7 @@ export function layout(o) {
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 ${SCRIPT_ADSENSE}
+${scriptAccesInline(o.niveauRequis || null)}
 ${ld}
 </head>
 <body class="${o.bodyClass || ''}">
@@ -386,7 +455,7 @@ ${o.masquerFooter ? '' : `<div class="shell">
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul>${NIVEAUX.map((n) => `<li><a href="/galop-${n}/">Galop ${n}</a></li>`).join('')}<li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li>${pubActive() ? '<li><a href="#" data-rouvrir-consent>Cookies</a></li>' : ''}</ul></div>
   </div>
@@ -397,6 +466,7 @@ ${o.masquerFooter ? '' : `<div class="shell">
 ${SCRIPT_CAROUSEL}
 ${SCRIPT_MENU}
 ${SCRIPT_UI_POLISH}
+${SCRIPT_PREMIUM_UI}
 ${SCRIPT_CONSENTEMENT}
 ${SCRIPT_PUB}
 </body>

@@ -26,12 +26,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Observer avant d’approcher',
       questions: [
         Q(
-          'Sur l’illustration, quel signe invite surtout à rester à distance et à demander conseil ?',
-          ['Les oreilles plaquées et le corps tendu', 'Une encolure basse et souple', 'Un postérieur au repos', 'Un regard calme vers le cavalier'],
-          0,
-          'Des oreilles plaquées associées à une posture tendue peuvent annoncer de l’inconfort ou une menace. On garde une distance sûre et on sollicite un encadrant.',
+          'Sur la planche, quel cheval cumule des oreilles plaquées et une posture tendue ?',
+          ['Le cheval 1', 'Le cheval 2', 'Le cheval 3', 'Le cheval 4'],
+          2,
+          'Le cheval 3 présente plusieurs signaux concordants : oreilles plaquées, encolure contractée et posture défensive. On garde une distance sûre et on sollicite un encadrant.',
           '/assets/diagramme-g1-attitudes.webp',
-          'Illustration pédagogique de quatre attitudes de cheval, dont un cheval tendu aux oreilles plaquées'
+          'Planche pédagogique de quatre attitudes de cheval numérotées de 1 à 4'
         ),
         Q(
           'Un poney tourne la tête vers toi lorsque tu arrives. Quelle est la meilleure suite ?',
@@ -70,12 +70,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Reconnaître noir, alezan et bai',
       questions: [
         Q(
-          'Sur la planche illustrée, quel cheval présente un corps brun avec des crins et des extrémités noirs ?',
-          ['Le cheval noir', 'Le cheval alezan', 'Le cheval bai', 'Le cheval gris'],
+          'Sur la planche, quel numéro correspond au cheval bai ?',
+          ['Le cheval 1', 'Le cheval 2', 'Le cheval 3', 'Aucun des trois'],
           2,
-          'Le bai associe un corps brun ou fauve à des crins noirs et, en général, des extrémités de membres noires.',
+          'Le cheval 3 est bai : son corps est brun ou fauve, tandis que ses crins et les extrémités de ses membres sont noirs.',
           '/assets/diagramme-g1-robes.webp',
-          'Planche pédagogique montrant de profil un cheval noir, un alezan et un bai avec leurs différences de robe'
+          'Planche de trois chevaux numérotés, aux couleurs de corps, de crins et de membres contrastées'
         ),
         Q(
           'Quel détail distingue le plus sûrement un bai d’un alezan ?',
@@ -411,12 +411,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Tête et membres : se repérer',
       questions: [
         Q(
-          'Sur l’illustration, quelle partie est indiquée entre le boulet et la couronne du sabot ?',
-          ['Le canon', 'Le paturon', 'Le jarret', 'Le grasset'],
-          1,
-          'Le paturon se situe entre le boulet et la couronne. Son orientation participe au fonctionnement du bas du membre.',
+          'Sur l’illustration, quels repères désignent les paturons antérieur et postérieur ?',
+          ['Les repères 1 et 10', 'Les repères 3 et 10', 'Les repères 4 et 10', 'Les repères 5 et 10'],
+          3,
+          'Les repères 5 et 10 indiquent les paturons, situés entre la région du boulet et la couronne du sabot.',
           '/assets/diagramme-g2-membres.webp',
-          'Illustration pédagogique d’un antérieur de cheval avec une flèche entre le boulet et la couronne du sabot'
+          'Planche des membres antérieur et postérieur avec dix repères numérotés'
         ),
         Q(
           'Quelle partie de la tête se trouve entre le front et les naseaux ?',
@@ -665,12 +665,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Aborder un petit obstacle',
       questions: [
         Q(
-          'Sur le schéma, quelle trajectoire prépare l’abord le plus lisible ?',
-          ['La ligne droite centrée sur l’obstacle', 'La courbe qui arrive en biais au dernier moment', 'La ligne passant contre le chandelier', 'La trajectoire qui change deux fois devant la barre'],
-          0,
-          'Une trajectoire droite et centrée aide le cheval à comprendre l’exercice et le cavalier à conserver son équilibre.',
+          'Sur la séquence illustrée, quel numéro situe le franchissement de l’obstacle ?',
+          ['La phase 1', 'La phase 2', 'La phase 3', 'Aucune phase'],
+          1,
+          'La phase 2 correspond au franchissement. Les phases 1 et 3 représentent respectivement l’abord et la réception avec la poursuite de la trajectoire.',
           '/assets/diagramme-g2-abord.webp',
-          'Vue du dessus d’une carrière montrant quatre trajectoires vers une petite croix, dont une ligne droite centrée'
+          'Séquence latérale d’un petit obstacle organisée en trois phases numérotées de 1 à 3'
         ),
         Q(
           'Avant un petit obstacle, le regard du cavalier se porte :',
@@ -712,12 +712,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Marques des membres et épis',
       questions: [
         Q(
-          'Sur la planche, quelle balzane monte le plus haut sur le membre ?',
-          ['La trace blanche limitée à la couronne', 'La balzane jusqu’au paturon', 'La balzane jusqu’au canon', 'La marque blanche sur le sabot uniquement'],
-          2,
-          'Une balzane se décrit notamment par sa hauteur. Celle qui remonte sur le canon est plus étendue que celles limitées à la couronne ou au paturon.',
+          'Sur la planche, quel numéro repère la balzane qui monte le plus haut ?',
+          ['Le membre 2', 'Le membre 3', 'Le membre 4', 'Le membre 5'],
+          3,
+          'Le membre 5 porte la marque blanche la plus haute. Une balzane se décrit notamment par sa hauteur et par le membre concerné.',
           '/assets/diagramme-g3-balzanes.webp',
-          'Planche pédagogique de quatre membres de cheval présentant des marques blanches de hauteurs différentes'
+          'Planche de cinq membres numérotés présentant des marques blanches de hauteurs différentes'
         ),
         Q(
           'Qu’est-ce qu’un épi dans le signalement d’un cheval ?',
@@ -756,12 +756,12 @@ export const QUIZ_EXPANSION = {
       titre: 'Les repères des quatre membres',
       questions: [
         Q(
-          'Sur l’illustration, quelle articulation du postérieur est indiquée par la flèche ?',
-          ['Le genou', 'Le jarret', 'Le coude', 'Le boulet antérieur'],
-          1,
-          'Le jarret est l’articulation anguleuse du membre postérieur. Il se situe plus haut que le boulet.',
+          'Sur l’illustration, quel numéro repère le jarret du membre postérieur ?',
+          ['Le repère 5', 'Le repère 6', 'Le repère 7', 'Le repère 8'],
+          2,
+          'Le repère 7 indique le jarret, articulation anguleuse du membre postérieur située plus haut que le boulet.',
           '/assets/diagramme-g3-membres.webp',
-          'Illustration anatomique simplifiée d’un cheval de profil avec une flèche vers le jarret du membre postérieur'
+          'Cheval de profil avec huit repères anatomiques numérotés sur les membres'
         ),
         Q(
           'Quel segment relie le genou au boulet sur l’antérieur ?',

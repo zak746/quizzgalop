@@ -23,9 +23,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx6mq58">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
+<script>(function(){
+  var exige=null;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
 
 </head>
 <body class="home-reference">
@@ -34,7 +45,7 @@
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -71,10 +82,10 @@
   <div class="home-ref-copy">
     <img class="hero-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">RÉVISION ÉQUESTRE EN LIGNE</p>
     <h1>Révise ton Galop<br>en t’amusant</h1><div class="ornement-line"><i></i><b>✦</b><i></i></div>
-    <p>Des quiz gratuits, conformes à l’esprit du programme FFE,<br>pour réviser la théorie de ton examen de Galop entre deux séances au club.</p>
+    <p>Des quiz corrigés, structurés selon l’esprit du programme FFE,<br>pour réviser la théorie de ton examen de Galop entre deux séances au club.</p>
     <p>Choisis ton niveau, réponds aux questions,<br>corrige-toi tout de suite.</p>
     <div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir les niveaux <span>→</span></a></div>
-    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="">Quiz gratuits</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
+    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="">Galops 1 & 2 gratuits</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
   </div>
 </section>
 
@@ -90,11 +101,12 @@
     <article class="testimonial"><img src="/assets/maquette-temoignage.webp" alt="Cavalière ayant révisé avec Quizz Galop" width="800" height="600" loading="lazy"><div><b>“</b><blockquote>Grâce aux quiz, j’ai compris mes erreurs et j’ai pris confiance.<br>J’ai validé mon Galop 3 du premier coup !</blockquote><div class="stars">★★★★★</div><strong>Louise D.</strong><small>Galop 3 validé</small></div></article>
     <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>106</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>628</strong><b>Questions corrigées</b><small>Correction immédiate après chaque réponse</small></div></div>
   </div>
-  <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>Quiz gratuits</span><i></i><span>Sans inscription</span></small></div></div>
+  <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>Galops 1 & 2 gratuits</span><i></i><span>Sans inscription</span></small></div></div>
 </section>
 
 <section class="home-levels" id="niveaux"><div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">GALOP 1 À 7</p><h2>Choisis ton niveau</h2></div><div class="niveaux-grid"><a class="niveau-card" href="/galop-1/">
   <img class="niveau-badge" src="/assets/badge-galop-1.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge is-free">Gratuit</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 1</div>
     <div class="titre">Les toutes premières notions : le cheval, les allures, la sécurité.</div>
@@ -103,46 +115,52 @@
 </a>
 <a class="niveau-card" href="/galop-2/">
   <img class="niveau-badge" src="/assets/badge-galop-2.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge is-free">Gratuit</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 2</div>
     <div class="titre">Les robes du cheval, le pansage complet et le matériel de base.</div>
     <div class="meta">15 quiz · 82 questions</div>
   </div>
 </a>
-<a class="niveau-card" href="/galop-3/">
+<a class="niveau-card niveau-card-premium" href="/galop-3/">
   <img class="niveau-badge" src="/assets/badge-galop-3.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge">3,99 €</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 3</div>
     <div class="titre">Anatomie approfondie, robes, mécanisme des allures et figures de manège.</div>
     <div class="meta">15 quiz · 83 questions</div>
   </div>
 </a>
-<a class="niveau-card" href="/galop-4/">
+<a class="niveau-card niveau-card-premium" href="/galop-4/">
   <img class="niveau-badge" src="/assets/badge-galop-4.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge">3,99 €</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 4</div>
     <div class="titre">Le matériel avancé (mors, selle), et les bases de l’alimentation du cheval.</div>
     <div class="meta">16 quiz · 88 questions</div>
   </div>
 </a>
-<a class="niveau-card" href="/galop-5/">
+<a class="niveau-card niveau-card-premium" href="/galop-5/">
   <img class="niveau-badge" src="/assets/badge-galop-5.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge">3,99 €</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 5</div>
     <div class="titre">Apprentissage, anatomie, digestion et autonomie dans le travail à pied.</div>
     <div class="meta">15 quiz · 95 questions</div>
   </div>
 </a>
-<a class="niveau-card" href="/galop-6/">
+<a class="niveau-card niveau-card-premium" href="/galop-6/">
   <img class="niveau-badge" src="/assets/badge-galop-6.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge">3,99 €</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 6</div>
     <div class="titre">Pied, ferrure, santé, alimentation et précision dans le travail.</div>
     <div class="meta">15 quiz · 95 questions</div>
   </div>
 </a>
-<a class="niveau-card" href="/galop-7/">
+<a class="niveau-card niveau-card-premium" href="/galop-7/">
   <img class="niveau-badge" src="/assets/badge-galop-7.webp" alt="" width="640" height="800" loading="lazy">
+  <span class="premium-level-badge">3,99 €</span>
   <div class="niveau-card-corps">
     <div class="num">Galop 7</div>
     <div class="titre">Aplombs, rationnement, bride, transport et autonomie technique.</div>
@@ -157,7 +175,7 @@
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul><li><a href="/galop-1/">Galop 1</a></li><li><a href="/galop-2/">Galop 2</a></li><li><a href="/galop-3/">Galop 3</a></li><li><a href="/galop-4/">Galop 4</a></li><li><a href="/galop-5/">Galop 5</a></li><li><a href="/galop-6/">Galop 6</a></li><li><a href="/galop-7/">Galop 7</a></li><li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
@@ -252,6 +270,30 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

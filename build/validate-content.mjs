@@ -71,6 +71,10 @@ for (const niveau of NIVEAUX) {
   assert(illustrations.length === 2, `Deux planches requises: Galop ${niveau.n}`);
   for (const illustration of illustrations) {
     assert(fs.existsSync(path.join(root, illustration.src.replace(/^\//, ''))), `Planche absente: ${illustration.src}`);
+    assert(Array.isArray(illustration.reperes) && illustration.reperes.length >= 2, `Légende numérotée absente: ${illustration.src}`);
+    const numeros = (illustration.reperes || []).map((repere) => repere.n);
+    assert(new Set(numeros).size === numeros.length, `Numéro de repère dupliqué: ${illustration.src}`);
+    assert((illustration.reperes || []).every((repere) => String(repere.label || '').trim().length >= 3), `Libellé de repère invalide: ${illustration.src}`);
   }
   const pdfPath = path.join(root, 'assets', 'pdf', `fiche-revision-galop-${niveau.n}.pdf`);
   assert(fs.existsSync(pdfPath) && fs.statSync(pdfPath).size > 100_000, `PDF absent ou incomplet: Galop ${niveau.n}`);
@@ -78,6 +82,7 @@ for (const niveau of NIVEAUX) {
 
 assert(totalQuizzes >= 100, `Volume insuffisant: ${totalQuizzes} quiz`);
 assert(totalQuestions >= 600, `Volume insuffisant: ${totalQuestions} questions`);
+assert(explainedQuestions === totalQuestions, `Corrections incomplètes: ${explainedQuestions}/${totalQuestions}`);
 
 const result = {
   totalQuizzes,

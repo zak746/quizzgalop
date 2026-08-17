@@ -7,3 +7,4 @@ dist/
 assets/badge-galop-*.png
 assets/banniere-*.png
 output/
+tmp/

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Livret, signalement et transport — Quiz Galop 7</title>
-<meta name="description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate, gratuit.">
+<meta name="description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate. Accès payant, 3,99 €.">
 <link rel="canonical" href="https://quizzgalop.fr/galop-7/programme-officiel/livret-et-transport/">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <meta name="author" content="Quizz Galop">
@@ -12,21 +12,33 @@
 <meta property="og:site_name" content="Quizz Galop — révise tes Galops FFE">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="Livret, signalement et transport — Quiz Galop 7">
-<meta property="og:description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate, gratuit.">
+<meta property="og:description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate. Accès payant, 3,99 €.">
 <meta property="og:url" content="https://quizzgalop.fr/galop-7/programme-officiel/livret-et-transport/">
 <meta property="og:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Livret, signalement et transport — Quiz Galop 7">
-<meta name="twitter:description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate, gratuit.">
+<meta name="twitter:description" content="Livret, signalement et transport : quiz de 5 questions pour réviser le Galop 7. Correction immédiate. Accès payant, 3,99 €.">
 <meta name="twitter:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
 <meta name="theme-color" content="#f9f3e9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx6mq58">
+<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
+<script>(function(){
+  var exige=7;
+  var ouverts=[];
+  try {
+    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
+    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
+  } catch(e) {}
+  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
+  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
+  document.documentElement.setAttribute('data-acces',ouverts.join(','));
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 7","item":"https://quizzgalop.fr/galop-7/"},{"@type":"ListItem","position":3,"name":"Livret, signalement et transport","item":"https://quizzgalop.fr/galop-7/programme-officiel/livret-et-transport/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://quizzgalop.fr/galop-7/programme-officiel/livret-et-transport/","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":"[data-premium-content]"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Livret, signalement et transport","about":"Galop 7","educationalLevel":"Galop 7","numberOfQuestions":5}</script>
 </head>
 <body class="page-quiz-reference">
@@ -35,7 +47,7 @@
   aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
   <div class="consent-txt">
     <p class="consent-titre">Cookies publicitaires</p>
-    <p>Ce site est gratuit et financé par la publicité. Avec votre accord, Google dépose des
+    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
     cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
     et le site fonctionne à l’identique.
     <a href="/confidentialite/">En savoir plus</a></p>
@@ -67,131 +79,135 @@
 <div class="shell shell-main">
 <main class="site" id="contenu">
 
-<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
+<section class="premium-gate" data-premium-locked data-niveau="7">
+    <span class="premium-gate-icon" aria-hidden="true">♞</span>
+    <div><p class="eyebrow">GALOP 7 À DÉBLOQUER</p><h2>Débloque ce quiz Galop 7</h2>
+    <p>Les Galops 1 et 2 sont gratuits. Le Galop 7 se débloque une fois, pour toujours —
+    pas d’abonnement, pas de reconduction.</p>
+    <ul><li>15 quiz du Galop 7</li><li>95 questions corrigées</li><li>La fiche illustrée en PDF</li><li>L’examen blanc chronométré</li></ul></div>
+    <div class="premium-gate-price"><strong>3,99 €</strong><span>une fois, accès à vie</span><a class="btn-primaire" href="/premium/?niveau=7&retour=%2Fgalop-7%2Fprogramme-officiel%2Flivret-et-transport%2F">Débloquer le Galop 7</a><small>Ou les 5 Galops pour 12,99 €</small></div>
+  </section><div data-premium-content><div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
 <section class="quiz-ref-stage">
-  <aside class="quiz-ref-left">
-    <a class="quiz-ref-brand" href="/" aria-label="Quizz Galop — Accueil"><img src="/assets/icon-horseshoe.svg" alt="" width="66" height="66"><span>QUIZZ GALOP</span></a>
-    <h1>Passe ton quiz</h1><div class="ornement-line"><i></i><b>✦</b><i></i></div>
-    <p>Réponds aux questions et progresse<br>vers le Galop supérieur.</p>
-    <section class="quiz-ref-panel quiz-ref-progress"><h2><img src="/assets/icon-horseshoe.svg" alt="">Ta progression</h2><div class="quiz-ref-steps"><div class="quiz-ref-step valide"><span>4</span><small>Validé</small></div><i></i><div class="quiz-ref-step valide"><span>5</span><small>Validé</small></div><i></i><div class="quiz-ref-step valide"><span>6</span><small>Validé</small></div><i></i><div class="quiz-ref-step encours"><span>7</span><small>En cours</small></div></div><div class="quiz-ref-objectif"><span><b>Objectif :</b> Valider le Galop 7</span><div><i style="width:86%"></i></div><em>6 / 7</em></div></section>
-    <section class="quiz-ref-panel quiz-ref-scores"><h2>♕ <span>Tes scores</span></h2><ul><li data-score-level="4"><img src="/assets/pictogramme-cheval-allonge.png" alt=""><span>Galop 4</span><strong>—</strong><em>À venir</em></li><li data-score-level="5"><img src="/assets/pictogramme-cheval-pas.png" alt=""><span>Galop 5</span><strong>—</strong><em>À venir</em></li><li data-score-level="6"><img src="/assets/pictogramme-cheval-trot.png" alt=""><span>Galop 6</span><strong>—</strong><em>À venir</em></li><li data-score-level="7"><img src="/assets/pictogramme-cheval-galop.png" alt=""><span>Galop 7</span><strong>—</strong><em>À venir</em></li></ul></section>
-  </aside>
-
   <div class="quiz-ref-center">
-    <div class="quiz-mobile-context"><a href="/galop-7/" aria-label="Retour aux quiz Galop 7">←</a><span><small>GALOP 7</small><strong>Livret, signalement et transport</strong></span></div>
+    <div class="quiz-mobile-context"><a href="/galop-7/" aria-label="Retour aux quiz Galop 7">←</a><span><small>GALOP 7</small><h1>Livret, signalement et transport</h1></span></div>
     <div class="quiz-ref-card" id="quiz-app" data-quiz="quiz-data-7-programme-officiel-livret-et-transport">
       <header><span id="quiz-compteur">Question 1 / 5</span><div class="quiz-ref-track" id="quiz-progressbar" role="progressbar" aria-label="Progression du quiz" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="quiz-progres"></i></div><strong id="quiz-pourcentage">0%</strong></header>
       <div id="quiz-zone"></div>
     </div>
     <nav class="quiz-ref-nav" aria-label="Navigation dans le quiz"><button type="button" id="quiz-precedent">← <span>Question précédente</span></button><button type="button" id="quiz-suivant" disabled><span>Question suivante</span> →</button></nav>
   </div>
-
-  <aside class="quiz-ref-session">
-    <section class="quiz-ref-panel">
-      <div class="session-title"><img src="/assets/icon-cap.svg" alt=""><h2>Ta session</h2></div><div class="ornement-line"><i></i><b>✦</b><i></i></div>
-      <div class="session-streak"><img src="/assets/icon-horseshoe.svg" alt=""><strong id="session-serie">0</strong><span>Série en cours</span><small id="session-bravo">À toi de jouer !</small></div>
-      <ul class="session-stats"><li><b class="good">✓</b><span>Bonnes réponses</span><strong id="session-bonnes">0</strong></li><li><b class="bad">×</b><span>Mauvaises réponses</span><strong id="session-mauvaises">0</strong></li><li><b class="time">◷</b><span>Temps écoulé</span><strong id="session-temps">00:00</strong></li></ul>
-      <div class="session-tip"><h3>♧ <span>Conseil</span></h3><p>Relis bien les explications après chaque réponse pour progresser durablement.</p></div>
-    </section>
-  </aside>
 </section>
-<script type="application/json" id="quiz-data-7-programme-officiel-livret-et-transport">[{"q":"Sur l’illustration, quel défaut correspond à des pinces orientées vers l’extérieur ?","options":["Panard","Cagneux","Campé","Sous lui"],"bonne":0,"image":"/assets/visuel-g7-aplombs.webp","imageAlt":"Antérieurs vus de face avec flèches vers l’extérieur","explication":"Un cheval panard présente des pinces tournées vers l’extérieur."},{"q":"Vérifier un signalement consiste à :","options":["Comparer le cheval aux éléments de son document","Lire seulement son nom","Mesurer uniquement sa taille","Contrôler la selle"],"bonne":0},{"q":"Pendant un long transport, on surveille :","options":["Ventilation, température, hydratation et comportement","Uniquement les protections","La couleur du véhicule","Le score du cavalier"],"bonne":0},{"q":"Le stress de transport peut influencer :","options":["Comportement, transit et fatigue","La robe définitive","Le numéro SIRE","La taille du sabot"],"bonne":0},{"q":"À l’arrivée, on prévoit :","options":["Débarquement calme, observation et récupération","Travail intense immédiat","Aliment concentré en grande quantité","Isolement sans eau"],"bonne":0}]</script>
+<script type="application/json" id="quiz-data-7-programme-officiel-livret-et-transport">[{"q":"Sur l’illustration, quel défaut correspond à des pinces orientées vers l’extérieur ?","options":["Campé","Sous lui","Panard","Cagneux"],"bonne":2,"image":"/assets/visuel-g7-aplombs.webp","imageAlt":"Antérieurs vus de face avec flèches vers l’extérieur","explication":"Vu de face, un cheval panard présente une rotation externe du membre : ses pinces s’écartent vers l’extérieur."},{"q":"Vérifier un signalement consiste à :","options":["Lire seulement son nom","Mesurer uniquement sa taille","Contrôler la selle","Comparer le cheval aux éléments de son document"],"bonne":3,"explication":"La comparaison porte sur la robe, les marques, les épis et, si nécessaire, la puce afin de confirmer l’identité."},{"q":"Pendant un long transport, on surveille :","options":["Le score du cavalier","Ventilation, température, hydratation et comportement","Uniquement les protections","La couleur du véhicule"],"bonne":1,"explication":"La chaleur, une ventilation insuffisante ou la déshydratation peuvent altérer rapidement l’état général pendant un trajet prolongé."},{"q":"Le stress de transport peut influencer :","options":["La taille du sabot","Comportement, transit et fatigue","La robe définitive","Le numéro SIRE"],"bonne":1,"explication":"Le confinement, les mouvements et le changement d’environnement peuvent provoquer agitation, baisse du transit, sudation et fatigue."},{"q":"À l’arrivée, on prévoit :","options":["Débarquement calme, observation et récupération","Travail intense immédiat","Aliment concentré en grande quantité","Isolement sans eau"],"bonne":0,"explication":"Après le débarquement, on contrôle l’état du cheval, lui propose eau et repos, puis adapte la reprise d’activité."}]</script>
 
 <section class="quiz-ref-related"><p class="eyebrow">CONTINUER À RÉVISER</p><h2>D’autres quiz sur ce thème</h2><section class="quiz-carousel-shell" aria-label="D’autres quiz Galop 7">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card" href="/galop-7/programme-officiel/bandes-et-longues-renes/">
+    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-7/programme-officiel/bandes-et-longues-renes/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Bandes de polo et longues rênes</span>
     <span class="n-questions">5 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Rectitude et épaule en dedans</span>
     <span class="n-questions">5 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/expertise-du-cheval/aplombs/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/expertise-du-cheval/aplombs/">
   <img class="quiz-card-img" src="/assets/quiz-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les aplombs du cheval</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/expertise-du-cheval/rationnement/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/expertise-du-cheval/rationnement/">
   <img class="quiz-card-img" src="/assets/quiz-g7-rationnement.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les principes du rationnement</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/bride-et-enrenements/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/materiel-et-bien-etre/bride-et-enrenements/">
   <img class="quiz-card-img" src="/assets/quiz-g7-bride-et-enrenements.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">La bride et les enrênements</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/transport-et-bien-etre/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/materiel-et-bien-etre/transport-et-bien-etre/">
   <img class="quiz-card-img" src="/assets/quiz-g7-transport-et-bien-etre.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Transport et bien-être du cheval</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/aplombs-statiques-dynamiques/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/aplombs-statiques-dynamiques/">
   <img class="quiz-card-img" src="/assets/diagramme-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Aplombs statiques et dynamiques</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/verifier-identite-documents/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/verifier-identite-documents/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Vérifier identité et documents</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/transport-stress-thermoregulation/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/transport-stress-thermoregulation/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Transport, stress et thermorégulation</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/ration-matiere-seche-calculs/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/ration-matiere-seche-calculs/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Ration : matière sèche et calculs</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/complements-electrolytes-raisonnes/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/complements-electrolytes-raisonnes/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Compléments et électrolytes raisonnés</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/bride-deux-embouchures/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/bride-deux-embouchures/">
   <img class="quiz-card-img" src="/assets/diagramme-g7-bride.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">La bride à deux embouchures</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/enrenements-longe-ethique/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/enrenements-longe-ethique/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Enrênements à la longe : usage raisonné</span>
     <span class="n-questions">6 questions · Galop 7</span>
   </span>
 </a>
-<a class="quiz-card" href="/galop-7/parcours-complet/rectitude-mouvements-lateraux/">
+<a class="quiz-card quiz-card-premium" href="/galop-7/parcours-complet/rectitude-mouvements-lateraux/">
   <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Rectitude et mouvements latéraux</span>
     <span class="n-questions">6 questions · Galop 7</span>
@@ -209,44 +225,24 @@
   var pourcentage = document.getElementById('quiz-pourcentage');
   var precedent = document.getElementById('quiz-precedent');
   var suivant = document.getElementById('quiz-suivant');
-  var data = JSON.parse(document.getElementById('quiz-data-7-programme-officiel-livret-et-transport').textContent);
+  var data = JSON.parse(document.getElementById('quiz-data-7-programme-officiel-livret-et-transport').textContent).map(function(question){
+    var choix=question.options.map(function(texte,index){return {texte:texte,correct:index===question.bonne};});
+    for(var i=choix.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=choix[i];choix[i]=choix[j];choix[j]=tmp;}
+    return Object.assign({},question,{options:choix.map(function(x){return x.texte;}),bonne:choix.findIndex(function(x){return x.correct;})});
+  });
   var chevaux = ["/assets/pictogramme-cheval-pas.png","/assets/pictogramme-cheval-trot.png","/assets/pictogramme-cheval-galop.png","/assets/pictogramme-cheval-allonge.png"];
   var index = 0, score = 0, serie = 0, meilleureSerie = 0, termine = false;
   var reponses = new Array(data.length);
   var debut = Date.now();
 
+  function echapper(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
+  }
+
   function formaterTemps(secondes) {
     var m = Math.floor(secondes / 60); var s = secondes % 60;
     return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
   }
-  var chrono = window.setInterval(function () {
-    document.getElementById('session-temps').textContent = formaterTemps(Math.floor((Date.now() - debut) / 1000));
-  }, 1000);
-
-  function actualiserSession() {
-    var mauvaises = reponses.filter(function (r) { return r && !r.juste; }).length;
-    document.getElementById('session-bonnes').textContent = score;
-    document.getElementById('session-mauvaises').textContent = mauvaises;
-    document.getElementById('session-serie').textContent = serie;
-    document.getElementById('session-bravo').textContent = serie > 1 ? '🔥 Bravo !' : (serie === 1 ? 'Bien joué !' : 'À toi de jouer !');
-  }
-
-  function chargerScores() {
-    try {
-      var h = JSON.parse(localStorage.getItem('quizzgalop-progression-v2') || '{}');
-      document.querySelectorAll('[data-score-level]').forEach(function (ligne) {
-        var niveau = Number(ligne.getAttribute('data-score-level'));
-        var items = Object.values(h).filter(function (x) { return x.niveau === niveau; });
-        var total = items.reduce(function (s, x) { return s + (x.total || 0); }, 0);
-        var points = items.reduce(function (s, x) { return s + (x.best || 0); }, 0);
-        var pct = total ? Math.round(points / total * 100) : 0;
-        ligne.querySelector('strong').textContent = pct + '%';
-        ligne.querySelector('em').textContent = pct >= 80 ? 'Validé' : pct ? 'En cours' : 'À venir';
-        if (pct >= 80) ligne.classList.add('done'); else if (pct) ligne.classList.add('active');
-      });
-    } catch (e) {}
-  }
-
   /* ---- Confettis : petit moteur canvas maison, sans dépendance ---- */
   function lancerConfettis() {
     var canvas = document.getElementById('quiz-confettis');
@@ -299,17 +295,17 @@
     suivant.querySelector('span').textContent = index + 1 < data.length ? 'Question suivante' : 'Voir mon score';
     suivant.hidden = false;
     var html = '<div class="quiz-ref-question" role="group" aria-labelledby="quiz-enonce">' +
-      '<h2 class="enonce" id="quiz-enonce" tabindex="-1">' + q.q + '</h2>' +
-      (q.image ? '<figure class="quiz-visuel"><img src="' + q.image + '" alt="' + (q.imageAlt || '') + '" width="960" height="720"></figure>' : '') +
+      '<h2 class="enonce" id="quiz-enonce" tabindex="-1">' + echapper(q.q) + '</h2>' +
+      (q.image ? '<figure class="quiz-visuel quiz-visuel-large"><img src="' + echapper(q.image) + '" alt="' + echapper(q.imageAlt || '') + '" width="1536" height="1024"></figure>' : '') +
       '<div class="quiz-ref-options" role="group" aria-labelledby="quiz-enonce">' +
       q.options.map(function (opt, i) {
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt=""><span>' + opt + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt=""><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
       '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
-      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + q.options[q.bonne]) + '</strong><span>' + (q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
@@ -331,24 +327,26 @@
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>Bonne réponse !</strong><span>' + (q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt=""><div><strong>La bonne réponse : ' + q.options[bonne] + '</strong><span>' + (q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt=""><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
-        suivant.disabled = false; actualiserSession();
+        suivant.disabled = false;
       });
     });
   }
 
   function rendreResultat() {
-    termine = true; window.clearInterval(chrono); barre.style.width = '100%'; progressbar.setAttribute('aria-valuenow', '100'); pourcentage.textContent = '100%'; compteur.textContent = 'Quiz terminé';
-    precedent.disabled = false; suivant.hidden = true;
+    termine = true; barre.style.width = '100%'; progressbar.setAttribute('aria-valuenow', '100'); pourcentage.textContent = '100%'; compteur.textContent = 'Quiz terminé';
+    precedent.hidden = true; suivant.hidden = true;
     var pct = Math.round((score / data.length) * 100);
+    var secondes = Math.floor((Date.now() - debut) / 1000);
+    var erreurs = data.length - score;
     var emoji = pct >= 90 ? '🏆' : pct >= 70 ? '🎉' : pct >= 50 ? '💪' : '📚';
     var appreciation = pct >= 90 ? 'Excellent, ce thème est maîtrisé !'
       : pct >= 70 ? 'Très solide, tu es prêt·e pour ce thème !'
@@ -370,7 +368,7 @@
       '<div class="quiz-resultat-emoji">' + emoji + '</div>' +
       '<div class="score">' + score + ' / ' + data.length + '</div>' +
       '<p class="appreciation">' + appreciation + '</p>' +
-      '<p class="quiz-record">Meilleur score enregistré : <strong>' + meilleur + ' / ' + data.length + '</strong></p>' +
+      '<div class="quiz-resultat-stats"><div><strong>' + score + '</strong><span>bonnes réponses</span></div><div><strong>' + erreurs + '</strong><span>réponses à revoir</span></div><div><strong>' + formaterTemps(secondes) + '</strong><span>temps total</span></div><div><strong>' + meilleur + '/' + data.length + '</strong><span>meilleur score</span></div></div>' +
       (meilleureSerie > 2 ? '<p class="quiz-meilleure-serie">🔥 Meilleure série : ' + meilleureSerie + ' bonnes réponses d’affilée</p>' : '') +
       '<div class="quiz-resultat-actions"><button type="button" class="quiz-btn" id="quiz-recommencer">Recommencer</button>' +
       '<a class="btn-secondaire" href="/fiches/galop-7/">Revoir la fiche</a>' +
@@ -379,16 +377,15 @@
     zone.querySelector('.quiz-resultat').focus();
     document.getElementById('quiz-recommencer').addEventListener('click', function () {
       index = 0; score = 0; serie = 0; meilleureSerie = 0; termine = false; reponses = new Array(data.length); debut = Date.now();
-      chrono = window.setInterval(function () { document.getElementById('session-temps').textContent = formaterTemps(Math.floor((Date.now() - debut) / 1000)); }, 1000);
-      suivant.hidden = false; actualiserSession(); rendreQuestion(true);
+      precedent.hidden = false; suivant.hidden = false; rendreQuestion(true);
     });
   }
 
   precedent.addEventListener('click', function () { if (termine) { termine = false; suivant.hidden = false; } if (index > 0) { index--; rendreQuestion(true); } });
   suivant.addEventListener('click', function () { if (!reponses[index]) return; index++; if (index < data.length) rendreQuestion(true); else rendreResultat(); });
-  chargerScores(); actualiserSession(); rendreQuestion(false);
+  rendreQuestion(false);
 })();
-</script>
+</script></div>
 </main>
 </div>
 
@@ -479,6 +476,30 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
+<script>(function(){
+  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
+  var aAcces=ouverts.length>0;
+  document.querySelectorAll('[data-premium-label]').forEach(function(el){
+    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
+  });
+  document.querySelectorAll('[data-premium-status]').forEach(function(el){
+    el.textContent=aAcces
+      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
+      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
+  });
+  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
+  ouverts.forEach(function(n){
+    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
+      el.setAttribute('data-achete','1');
+    });
+  });
+  document.addEventListener('click',function(e){
+    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
+    if(!reset)return;
+    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
+    location.reload();
+  });
+})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';
