@@ -48,10 +48,14 @@ copier();
 fs.writeFileSync(path.join(DIST, '_headers'), `/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
+/* Les URL propres ('/galop-3/') ne correspondent pas au motif '/*.html', donc
+   elles retombaient sur le cache par défaut de Cloudflare : une page supprimée
+   restait servie une semaine, et une correction de contenu n'apparaissait pas.
+   La règle de revalidation est donc portée sur '/*' ci-dessous ; '/assets/*'
+   garde son immutable puisque ces fichiers sont versionnés par le BUILD_ID. */
 
 /*
+  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 `);
