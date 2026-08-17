@@ -7,6 +7,7 @@
  * avec moteur interactif, plus mentions légales / confidentialité / sitemap.
  */
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, url, slugify, layout, CSS, BUILD_ID, pubContenu } from './site.mjs';
@@ -89,10 +90,39 @@ function vignette(src) {
 /** Bloc flou + fondu partagé, en bas de toute bannière pleine largeur. */
 const HERO_TRANSITION = `<div class="hero-blur-bas"></div><div class="hero-fade-bas"></div>`;
 
+/* ---------- Versionnement des visuels ----------
+   Les fichiers d'assets/ sont servis avec « immutable, max-age=1 an », ce qui est
+   le bon réglage tant que l'adresse change quand le contenu change. Sans cela,
+   réencoder une image sous le même nom ne sert à rien : le cache de Cloudflare et
+   celui des visiteurs continuent de servir l'ancienne version pendant un an.
+   L'empreinte est calculée sur le contenu du fichier, donc seuls les visuels
+   réellement modifiés changent d'adresse — un identifiant de build unique aurait
+   invalidé toutes les images à chaque déploiement. */
+const empreintes = new Map();
+function empreinte(cheminRelatif) {
+  if (empreintes.has(cheminRelatif)) return empreintes.get(cheminRelatif);
+  let valeur = '';
+  try {
+    valeur = crypto.createHash('sha1').update(fs.readFileSync(path.join(ROOT, cheminRelatif))).digest('hex').slice(0, 8);
+  } catch { /* fichier absent : on laisse l'adresse telle quelle, le validateur le signalera */ }
+  empreintes.set(cheminRelatif, valeur);
+  return valeur;
+}
+
+/* Le remplacement porte sur le texte final : les visuels sont produits à des
+   dizaines d'endroits du générateur, y compris dans des chaînes de script. */
+function versionnerAssets(texte) {
+  return texte.replace(/\/assets\/[A-Za-z0-9/._-]+\.(?:webp|png|jpe?g|svg)/g, (adresse) => {
+    if (adresse.includes('?')) return adresse;
+    const v = empreinte(adresse.slice(1));
+    return v ? `${adresse}?v=${v}` : adresse;
+  });
+}
+
 function ecrire(relPath, html) {
   const dest = path.join(OUT, relPath, 'index.html');
   fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.writeFileSync(dest, html, 'utf8');
+  fs.writeFileSync(dest, versionnerAssets(html), 'utf8');
 }
 
 /* ---------- Carte quiz, réutilisée sur le hub, les pages niveau et « autres quiz » ---------- */
@@ -818,7 +848,7 @@ for (const n of NIVEAUX) {
 
 /* ---------- Assets ---------- */
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
-fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), CSS, 'utf8');
+fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), versionnerAssets(CSS), 'utf8');
 
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#fff8ed"/><rect x="1.5" y="1.5" width="61" height="61" rx="13.5" fill="none" stroke="#d2ad77" stroke-width="3"/><path d="M17 11c-6 9-8 20-6 30 2 13 10 20 21 20s19-7 21-20c2-10 0-21-6-30l-9 6c4 6 5 14 4 21-1 8-4 12-10 12s-9-4-10-12c-1-7 0-15 4-21l-9-6Z" fill="#c69652"/><circle cx="19" cy="26" r="2" fill="#fff8ed"/><circle cx="45" cy="26" r="2" fill="#fff8ed"/><path d="m32 25 2.5 5.5L40 33l-5.5 2.5L32 41l-2.5-5.5L24 33l5.5-2.5L32 25Z" fill="#fff8ed"/></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), favicon, 'utf8');
@@ -831,7 +861,7 @@ fs.writeFileSync(path.join(OUT, 'assets', 'og-quizzgalop.svg'), og, 'utf8');
    l'accueil avec un code 200. Google appelle cela un soft-404 : il indexe
    l'adresse fantôme comme un doublon de la page d'accueil. Le fichier reste
    hors sitemap et en noindex — c'est une page de service, pas de contenu. */
-fs.writeFileSync(path.join(OUT, '404.html'), layout({
+fs.writeFileSync(path.join(OUT, '404.html'), versionnerAssets(layout({
   path: '/404.html',
   title: 'Page introuvable — Quizz Galop',
   description: 'Cette adresse ne correspond à aucune page de Quizz Galop. Rejoignez les quiz, les fiches de révision et l’examen blanc des Galops 1 à 7.',
@@ -847,7 +877,7 @@ fs.writeFileSync(path.join(OUT, '404.html'), layout({
   <a class="conseil-card" href="/conseils/"><span>MÉTHODE</span><h2>Les conseils</h2><p>Comment réviser, gérer ses erreurs et aborder le jour de l’examen.</p><em>Lire →</em></a>
   <a class="conseil-card" href="/"><span>DÉPART</span><h2>L’accueil</h2><p>La présentation du site et le choix du niveau.</p><em>Retour →</em></a>
 </div>`
-}), 'utf8');
+})), 'utf8');
 
 /* ---------- robots.txt + sitemap.xml ---------- */
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${url('/sitemap.xml')}\n`, 'utf8');

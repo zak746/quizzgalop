@@ -1,4 +1,6 @@
 /** Configuration commune + gabarit des pages statiques — Quizz Galop. */
+import { createHash } from 'node:crypto';
+import { CSS } from './site-css.mjs';
 
 export const SITE = {
   origin: 'https://quizzgalop.fr',
@@ -10,8 +12,12 @@ export const SITE = {
 
 export const url = (p = '/') => SITE.origin + p;
 
-/** Un identifiant par build : casse le cache un an sur /assets/site.css. */
-export const BUILD_ID = Date.now().toString(36);
+/* Empreinte du contenu de la feuille de style, et non horodatage du build : la
+   feuille est servie avec « immutable, max-age=1 an », il faut donc que son
+   adresse change quand elle change — mais seulement quand elle change. Un
+   identifiant par build forçait les visiteurs à la retélécharger à chaque mise
+   en ligne, y compris pour une correction de texte qui ne la touchait pas. */
+export const BUILD_ID = createHash('sha1').update(CSS).digest('hex').slice(0, 8);
 
 export function slugify(s) {
   return String(s)
@@ -23,7 +29,7 @@ export function slugify(s) {
     .replace(/^-+|-+$/g, '');
 }
 
-export { CSS } from './site-css.mjs';
+export { CSS };
 
 const NIVEAUX = [1, 2, 3, 4, 5, 6, 7];
 
