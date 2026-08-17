@@ -141,6 +141,8 @@ function pageAccueil() {
   <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>100% gratuit</span><i></i><span>Sans inscription</span></small></div></div>
 </section>
 
+${pubContenu('accueil-niveaux')}
+
 <section class="home-levels" id="niveaux"><div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">GALOP 1 À 7</p><h2>Choisis ton niveau</h2></div><div class="niveaux-grid">${cartes}</div></section>`;
 
   return layout({
