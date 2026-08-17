@@ -268,6 +268,19 @@ li{margin:.35em 0}
   main.site{padding:32px 22px 40px}
 }
 
+/* ---- Emplacement publicitaire intégré au contenu ----
+   Visible à toutes les largeurs, contrairement aux colonnes latérales. C'est le
+   seul emplacement que voit un visiteur mobile. */
+.pub-contenu{display:flex;flex-direction:column;align-items:center;gap:6px;
+  margin:38px auto;padding:14px;max-width:760px;
+  border:1px dashed var(--line);border-radius:var(--r-sm);background:var(--card)}
+.pub-contenu .adsbygoogle{display:block;width:100%;min-height:90px}
+.pub-contenu-creatif{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  width:100%;min-height:90px;border-radius:10px;background:var(--bg);color:var(--soft);text-align:center}
+.pub-contenu-creatif span{font-size:12px;font-weight:700}
+.pub-contenu-creatif small{font-size:10px;letter-spacing:.06em}
+@media (max-width:600px){ .pub-contenu{margin:26px auto;padding:10px} }
+
 /* ---- Pubs latérales ---- */
 .pub{display:none}
 @media (min-width:1400px){

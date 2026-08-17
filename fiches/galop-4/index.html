@@ -23,22 +23,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
+<link rel="stylesheet" href="/assets/site.css?v=msxeo7o3">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
-<script>(function(){
-  var exige=4;
-  var ouverts=[];
-  try {
-    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
-    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
-  } catch(e) {}
-  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
-  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
-  document.documentElement.setAttribute('data-acces',ouverts.join(','));
-})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Fiches","item":"https://quizzgalop.fr/fiches/"},{"@type":"ListItem","position":3,"name":"Galop 4","item":"https://quizzgalop.fr/fiches/galop-4/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://quizzgalop.fr/fiches/galop-4/","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":"[data-premium-content]"}}</script>
 </head>
 <body class="page-fiche-reference level-4">
 <a class="skip" href="#contenu">Aller au contenu</a>
@@ -90,9 +78,8 @@
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
         <a href="/examen/">Examen</a>
-        <a href="/premium/">Premium</a>
       </nav>
-      <a class="nav-cta" href="/premium/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span data-premium-label>Passer Premium</span></a>
+      <a class="nav-cta" href="/examen/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22"><span>Examen blanc</span></a>
       <button class="nav-burger" id="nav-burger" type="button"
         aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
         <svg class="ouvrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -106,15 +93,12 @@
 <div class="shell shell-main">
 <main class="site" id="contenu">
 <nav class="crumb" aria-label="Fil d’Ariane"><ol><li><a href="/">Accueil</a></li><li><a href="/fiches/">Fiches</a></li><li aria-current="page">Galop 4</li></ol></nav>
-<div class="fiche-hero fiche-hero-4"><img src="/assets/badge-galop-4.webp" alt="Badge Galop 4" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION · NIVEAU 4</p><h1>Fiche de révision Galop 4</h1><p class="lede">Le Galop 4 valide un premier niveau solide d’autonomie. Le cavalier apprend à repérer un cheval qui ne va pas bien, à raisonner alimentation et protections, à comprendre le galop sur chaque pied et à obtenir un cheval actif, incurvé et disponible sans confondre contact et traction.</p><div class="ornement-line"><i></i><b>✦</b><i></i></div><div class="fiche-hero-actions"><a class="btn-primaire" href="#programme">Lire la fiche</a><a class="btn-secondaire fiche-download" href="/premium/?niveau=4&retour=%2Ffiches%2Fgalop-4%2F" data-premium-locked>Débloquer le PDF — 3,99 €</a><a class="btn-secondaire fiche-download" href="/assets/pdf/fiche-revision-galop-4.pdf" download data-premium-content>Télécharger le PDF ↓</a></div></div></div>
-  <section class="premium-gate" data-premium-locked data-niveau="4">
-    <span class="premium-gate-icon" aria-hidden="true">♞</span>
-    <div><p class="eyebrow">GALOP 4 À DÉBLOQUER</p><h2>Débloque la fiche Galop 4</h2>
-    <p>Les Galops 1 et 2 sont gratuits. Le Galop 4 se débloque une fois, pour toujours —
-    pas d’abonnement, pas de reconduction.</p>
-    <ul><li>16 quiz du Galop 4</li><li>88 questions corrigées</li><li>La fiche illustrée en PDF</li><li>L’examen blanc chronométré</li></ul></div>
-    <div class="premium-gate-price"><strong>3,99 €</strong><span>une fois, accès à vie</span><a class="btn-primaire" href="/premium/?niveau=4&retour=%2Ffiches%2Fgalop-4%2F">Débloquer le Galop 4</a><small>Ou les 5 Galops pour 12,99 €</small></div>
-  </section><div data-premium-content><div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#planches">Planches</a><a href="#cours">Cours</a><a href="#checklist">Checklist</a><a href="#pieges">Erreurs</a><a href="#lexique">Lexique</a><a href="#entrainement">Quiz</a></div>
+<div class="fiche-hero fiche-hero-4"><img src="/assets/badge-galop-4.webp" alt="Badge Galop 4" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION · NIVEAU 4</p><h1>Fiche de révision Galop 4</h1><p class="lede">Le Galop 4 valide un premier niveau solide d’autonomie. Le cavalier apprend à repérer un cheval qui ne va pas bien, à raisonner alimentation et protections, à comprendre le galop sur chaque pied et à obtenir un cheval actif, incurvé et disponible sans confondre contact et traction.</p><div class="ornement-line"><i></i><b>✦</b><i></i></div><div class="fiche-hero-actions"><a class="btn-primaire" href="#programme">Lire la fiche</a><a class="btn-secondaire fiche-download" href="/assets/pdf/fiche-revision-galop-4.pdf" download>Télécharger le PDF ↓</a></div></div></div>
+  <aside class="pub-contenu" aria-hidden="true" data-nosnippet data-pub-repere="fiche-haut">
+  <span class="pub-etiquette">Publicité</span>
+  <div class="pub-contenu-creatif"><span>Emplacement publicitaire</span><small>728 × 90 · responsive</small></div>
+</aside>
+  <div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#planches">Planches</a><a href="#cours">Cours</a><a href="#checklist">Checklist</a><a href="#pieges">Erreurs</a><a href="#lexique">Lexique</a><a href="#entrainement">Quiz</a></div>
   <div id="programme" class="axes-grid"><section class="axe-card"><span class="axe-index">01</span><h2>Connaître le cheval</h2><ul><li>Identification de base et livret signalétique</li><li>Normes physiologiques et signes de maladie</li><li>Besoins alimentaires et végétaux toxiques</li><li>Mécanisme du galop à droite et à gauche</li></ul></section><section class="axe-card"><span class="axe-index">02</span><h2>S’occuper du cheval</h2><ul><li>Protections de travail et de transport</li><li>Inspection et soins des membres</li><li>Préparer le cheval pour le travail et le transport</li><li>Reconnaître les mors de filet usuels</li></ul></section><section class="axe-card"><span class="axe-index">03</span><h2>À pied et à cheval</h2><ul><li>Contact moelleux, flexions et embûches simples</li><li>Pli et incurvation</li><li>Déplacer épaules et hanches au pas</li><li>Parcours de 8 à 10 obstacles et sortie aux trois allures</li></ul></section></div>
   <section id="planches" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">COMPRENDRE EN IMAGE</p><h2>Deux planches pour mieux mémoriser</h2></div><div class="fiche-planches"><figure class="fiche-planche"><img src="/assets/diagramme-g4-principal-v2.webp" alt="Quatre phases successives d’un cheval au galop avec appuis colorés" width="1536" height="1024" loading="eager"><figcaption><span>PLANCHE 01</span><p>Le galop se lit comme une succession d’appuis dissymétriques suivie d’un temps de suspension.</p><ol class="fiche-reperes" aria-label="Légende des repères"><li><b>1</b><span>Premier temps : postérieur extérieur</span></li><li><b>2</b><span>Deuxième temps : bipède diagonal</span></li><li><b>3</b><span>Troisième temps : antérieur directeur</span></li><li><b>4</b><span>Temps de suspension</span></li></ol></figcaption></figure><figure class="fiche-planche"><img src="/assets/diagramme-g4-pratique.webp" alt="Comparaison d’une guêtre correctement centrée et d’une guêtre tournée sur le tendon" width="1536" height="1024" loading="lazy"><figcaption><span>PLANCHE 02</span><p>Une protection propre, centrée et régulièrement serrée protège sans créer de point de pression.</p><ol class="fiche-reperes" aria-label="Légende des repères"><li><b>1</b><span>Guêtre correcte : centrée et régulièrement serrée</span></li><li><b>2</b><span>Guêtre tournée : point de pression et frottement possibles</span></li></ol></figcaption></figure></div></section>
   <section id="cours" class="fiche-section fiche-cours"><div class="fiche-section-heading"><p class="eyebrow">COURS STRUCTURÉ</p><h2>Contrôler, analyser et devenir autonome</h2></div><article class="fiche-chapitre"><span>01</span><div><h3>Identifier un cheval</h3><p>L’identification associe un document, un numéro de transpondeur et un signalement descriptif ou graphique. Robe, sexe, marques blanches, épis et particularités permettent de vérifier que le document correspond au cheval présenté. Le cavalier alerte en cas d’incohérence plutôt que de la corriger lui-même.</p><ul><li>Comparer les signes permanents dans un ordre constant.</li><li>Le numéro de puce se lit avec un lecteur adapté.</li><li>Un document d’identification doit rester associé au bon équidé.</li></ul></div></article><article class="fiche-chapitre"><span>02</span><div><h3>Surveiller les constantes et les signes de maladie</h3><p>Avant de mesurer, on observe comportement, appétit, posture, locomotion, respiration et crottins. Chez un adulte au repos, température, fréquence cardiaque et fréquence respiratoire se situent dans des plages habituelles qui varient selon l’individu et le contexte. Une mesure anormale se recontrôle calmement et se transmet au responsable.</p><ul><li>Comparer après un véritable retour au calme, pas immédiatement après l’effort.</li><li>Noter la valeur, l’heure, les conditions et les autres signes observés.</li><li>Ne jamais administrer un traitement sans décision compétente.</li></ul></div></article><article class="fiche-chapitre"><span>03</span><div><h3>Raisonner alimentation et végétaux toxiques</h3><p>Les besoins dépendent notamment du poids, du travail, du climat et de l’état du cheval. Le fourrage reste le socle ; les apports concentrés et minéraux se raisonnent. Certaines plantes, comme l’if ou le laurier-rose, sont dangereuses : on empêche l’accès et on signale immédiatement toute ingestion suspectée.</p><ul><li>Contrôler la qualité du foin et l’absence de moisissure ou de corps étranger.</li><li>Fractionner les repas concentrés selon l’organisation de l’écurie.</li><li>Ne pas laisser le cheval goûter une plante inconnue en promenade.</li></ul></div></article><article class="fiche-chapitre"><span>04</span><div><h3>Comprendre le galop à droite et à gauche</h3><p>Le galop est dissymétrique : au galop à droite, le latéral droit termine la séquence avant la suspension ; au galop à gauche, c’est le gauche. Sur une courbe, le bon pied facilite généralement l’équilibre. Le départ se prépare par l’activité, l’équilibre, le pli et une demande coordonnée.</p><ul><li>Identifier le pied en observant l’antérieur qui avance le plus dans la foulée.</li><li>Corriger un mauvais pied en repassant dans une allure organisée.</li><li>Éviter de multiplier les demandes fortes qui précipitent le cheval.</li></ul></div></article><article class="fiche-chapitre"><span>05</span><div><h3>Choisir et poser les protections</h3><p>Guêtres, protège-boulets, cloches ou protections de transport répondent à des risques différents. Une protection propre se place dans le bon sens, sans pli ni compression excessive. Après le travail, on la retire pour contrôler chaleur, frottement, gonflement ou saleté.</p><ul><li>Choisir la taille et le modèle pour l’usage prévu.</li><li>Nettoyer le membre et la protection avant la pose.</li><li>Vérifier la fermeture et le confort après quelques minutes.</li></ul></div></article><article class="fiche-chapitre"><span>06</span><div><h3>Obtenir contact, pli et incurvation</h3><p>Le contact est une relation élastique transmise par les rênes, pas un appui fixe. Le pli est une légère orientation de la tête et de l’encolure ; l’incurvation concerne l’ensemble du corps autour de la courbe. La jambe intérieure entretient activité et incurvation, les aides extérieures contrôlent épaule, allure et tracé.</p><ul><li>Créer l’activité avant de chercher une forme d’encolure.</li><li>Conserver les épaules et les hanches sur la trajectoire choisie.</li><li>Céder dans les doigts quand le cheval répond, sans abandonner le contact.</li></ul></div></article></section>
@@ -125,65 +109,57 @@
   <div class="source-officielle fiche-source"><span>À utiliser avec ton enseignant</span><p>Cette synthèse aide à réviser la théorie. Elle ne remplace ni la pratique encadrée, ni les critères d’évaluation de ton club, ni le document fédéral de référence.</p></div>
   <section id="entrainement" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">PASSER À L’ACTION</p><h2>Vérifie tes acquis</h2></div><section class="quiz-carousel-shell" aria-label="Quiz associés à la fiche Galop 4">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
-    <div class="quiz-carousel"><a class="quiz-card quiz-card-premium" href="/galop-4/le-materiel/les-mors/">
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-4/le-materiel/les-mors/">
   <img class="quiz-card-img" src="/assets/quiz-g4-les-mors.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les principaux types de mors</span>
     <span class="n-questions">4 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/le-materiel/parties-de-la-selle/">
+</a><a class="quiz-card" href="/galop-4/le-materiel/parties-de-la-selle/">
   <img class="quiz-card-img" src="/assets/quiz-g4-parties-de-la-selle.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Les parties détaillées de la selle</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/theorie-avancee/mecanisme-du-galop/">
+</a><a class="quiz-card" href="/galop-4/theorie-avancee/mecanisme-du-galop/">
   <img class="quiz-card-img" src="/assets/visuel-g4-galop.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Équilibre et mécanisme du galop</span>
     <span class="n-questions">8 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/theorie-avancee/alimentation-du-cheval/">
+</a><a class="quiz-card" href="/galop-4/theorie-avancee/alimentation-du-cheval/">
   <img class="quiz-card-img" src="/assets/quiz-g4-alimentation-du-cheval.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">L’alimentation du cheval</span>
     <span class="n-questions">4 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/programme-officiel/constantes-et-sante/">
+</a><a class="quiz-card" href="/galop-4/programme-officiel/constantes-et-sante/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Constantes et signes de santé</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/programme-officiel/protections-et-transport/">
+</a><a class="quiz-card" href="/galop-4/programme-officiel/protections-et-transport/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Protections de travail et transport</span>
     <span class="n-questions">5 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/decoder-livret-signaletique/">
+</a><a class="quiz-card" href="/galop-4/parcours-complet/decoder-livret-signaletique/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Décoder un livret signalétique</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
-</a><a class="quiz-card quiz-card-premium" href="/galop-4/parcours-complet/observation-avant-apres-seance/">
+</a><a class="quiz-card" href="/galop-4/parcours-complet/observation-avant-apres-seance/">
   <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
-  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>
   <span class="quiz-card-corps">
     <span class="titre">Observer avant et après la séance</span>
     <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a></div>
   </section></section>
-  <div class="fiche-nav"><a class="btn-primaire" href="/galop-4/">Tous les quiz Galop 4</a><a class="btn-secondaire" href="/fiches/galop-5/">Fiche Galop 5 →</a></div></div>
+  <div class="fiche-nav"><a class="btn-primaire" href="/galop-4/">Tous les quiz Galop 4</a><a class="btn-secondaire" href="/fiches/galop-5/">Fiche Galop 5 →</a></div>
 </main>
 </div>
 <div class="shell">
@@ -192,7 +168,7 @@
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul><li><a href="/galop-1/">Galop 1</a></li><li><a href="/galop-2/">Galop 2</a></li><li><a href="/galop-3/">Galop 3</a></li><li><a href="/galop-4/">Galop 4</a></li><li><a href="/galop-5/">Galop 5</a></li><li><a href="/galop-6/">Galop 6</a></li><li><a href="/galop-7/">Galop 7</a></li><li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
-    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li><li><a href="/premium/">Accès Premium</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
     <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li></ul></div>
   </div>
@@ -287,30 +263,6 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
-<script>(function(){
-  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
-  var aAcces=ouverts.length>0;
-  document.querySelectorAll('[data-premium-label]').forEach(function(el){
-    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
-  });
-  document.querySelectorAll('[data-premium-status]').forEach(function(el){
-    el.textContent=aAcces
-      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
-      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
-  });
-  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
-  ouverts.forEach(function(n){
-    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
-      el.setAttribute('data-achete','1');
-    });
-  });
-  document.addEventListener('click',function(e){
-    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
-    if(!reset)return;
-    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
-    location.reload();
-  });
-})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>La checklist avant de monter — Quiz Galop 1</title>
-<meta name="description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate. Accès gratuit.">
+<meta name="description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate.">
 <link rel="canonical" href="https://quizzgalop.fr/galop-1/parcours-complet/checklist-avant-monter/">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <meta name="author" content="Quizz Galop">
@@ -12,31 +12,20 @@
 <meta property="og:site_name" content="Quizz Galop — révise tes Galops FFE">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="La checklist avant de monter — Quiz Galop 1">
-<meta property="og:description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate. Accès gratuit.">
+<meta property="og:description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate.">
 <meta property="og:url" content="https://quizzgalop.fr/galop-1/parcours-complet/checklist-avant-monter/">
 <meta property="og:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="La checklist avant de monter — Quiz Galop 1">
-<meta name="twitter:description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate. Accès gratuit.">
+<meta name="twitter:description" content="La checklist avant de monter : quiz de 6 questions pour réviser le Galop 1. Correction immédiate.">
 <meta name="twitter:image" content="https://quizzgalop.fr/assets/og-quizzgalop.svg">
 <meta name="theme-color" content="#f9f3e9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msxaz6ll">
+<link rel="stylesheet" href="/assets/site.css?v=msxeo7o3">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
-<script>(function(){
-  var exige=null;
-  var ouverts=[];
-  try {
-    var acces=JSON.parse(localStorage.getItem("quizzgalop-acces-v1")||'null');
-    if(acces&&Array.isArray(acces.niveaux))ouverts=acces.niveaux.map(Number);
-  } catch(e) {}
-  var actif=exige===null?ouverts.length>0:ouverts.indexOf(exige)!==-1;
-  document.documentElement.setAttribute('data-premium',actif?'active':'inactive');
-  document.documentElement.setAttribute('data-acces',ouverts.join(','));
-})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 1","item":"https://quizzgalop.fr/galop-1/"},{"@type":"ListItem","position":3,"name":"La checklist avant de monter","item":"https://quizzgalop.fr/galop-1/parcours-complet/checklist-avant-monter/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"La checklist avant de monter","about":"Galop 1","educationalLevel":"Galop 1","numberOfQuestions":6}</script>
 </head>
@@ -363,7 +352,10 @@
   suivant.addEventListener('click', function () { if (!reponses[index]) return; index++; if (index < data.length) rendreQuestion(true); else rendreResultat(); });
   rendreQuestion(false);
 })();
-</script>
+</script><aside class="pub-contenu" aria-hidden="true" data-nosnippet data-pub-repere="quiz-fin">
+  <span class="pub-etiquette">Publicité</span>
+  <div class="pub-contenu-creatif"><span>Emplacement publicitaire</span><small>728 × 90 · responsive</small></div>
+</aside>
 </main>
 </div>
 
@@ -454,30 +446,6 @@ window.addEventListener('resize', function () {
   });
 })();
 </script>
-<script>(function(){
-  var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean);
-  var aAcces=ouverts.length>0;
-  document.querySelectorAll('[data-premium-label]').forEach(function(el){
-    el.textContent=aAcces?'Mes Galops':'Débloquer un Galop';
-  });
-  document.querySelectorAll('[data-premium-status]').forEach(function(el){
-    el.textContent=aAcces
-      ?'Galops débloqués sur cet appareil : '+ouverts.join(', ')+'.'
-      :'Galops 1 et 2 gratuits · Galops 3 à 7 à débloquer à l’unité.';
-  });
-  /* Marque les cartes des niveaux déjà achetés pour ne plus afficher le prix. */
-  ouverts.forEach(function(n){
-    document.querySelectorAll('[data-niveau="'+n+'"]').forEach(function(el){
-      el.setAttribute('data-achete','1');
-    });
-  });
-  document.addEventListener('click',function(e){
-    var reset=e.target.closest&&e.target.closest('[data-premium-reset]');
-    if(!reset)return;
-    try{localStorage.removeItem("quizzgalop-acces-v1");}catch(err){}
-    location.reload();
-  });
-})();</script>
 <script>
 (function () {
   var CLE = 'quizzgalop-consent';

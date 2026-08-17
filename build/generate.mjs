@@ -9,14 +9,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SITE, url, slugify, layout, CSS, BUILD_ID } from './site.mjs';
+import { SITE, url, slugify, layout, CSS, BUILD_ID, pubContenu } from './site.mjs';
 import { NIVEAUX } from '../data/quizzes.mjs';
 import { PROGRAMMES, CONSEILS } from '../data/content.mjs';
 import { EXTRA_QUIZZES } from '../data/extra-quizzes.mjs';
 import { QUIZ_EXPANSION as QUIZ_EXPANSION_1_3 } from '../data/quiz-expansion-g1-3.mjs';
 import { QUIZ_EXPANSION as QUIZ_EXPANSION_4_7 } from '../data/quiz-expansion-g4-7.mjs';
 import { FICHES_DETAILLEES } from '../data/fiches-detaillees.mjs';
-import { ACHAT, niveauPremium } from '../data/subscription.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = ROOT;
@@ -74,9 +73,8 @@ function ecrire(relPath, html) {
 
 /* ---------- Carte quiz, réutilisée sur le hub, les pages niveau et « autres quiz » ---------- */
 function quizCardHtml(n, cat, quiz) {
-  const verrou = niveauPremium(n.n) ? '\n  <span class="premium-card-badge" aria-label="Contenu payant">3,99 €</span>' : '';
-  return `<a class="quiz-card${niveauPremium(n.n) ? ' quiz-card-premium' : ''}" href="/galop-${n.n}/${cat.slug}/${quiz.slug}/">
-  <img class="quiz-card-img" src="${imageQuiz(n, quiz)}" alt="" width="960" height="720" loading="lazy">${verrou}
+  return `<a class="quiz-card" href="/galop-${n.n}/${cat.slug}/${quiz.slug}/">
+  <img class="quiz-card-img" src="${imageQuiz(n, quiz)}" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">${quiz.titre}</span>
     <span class="n-questions">${quiz.questions.length} questions · Galop ${n.n}</span>
@@ -105,27 +103,10 @@ function totalQuestions(niveau) {
 const TOTAL_QUIZZES = NIVEAUX.reduce((s, n) => s + totalQuizzes(n), 0);
 const TOTAL_QUESTIONS = NIVEAUX.reduce((s, n) => s + totalQuestions(n), 0);
 
-function premiumGate(niveau, contenu, retour, titre = `Débloque le Galop ${niveau}`) {
-  if (!niveauPremium(niveau)) return contenu;
-  const chemin = encodeURIComponent(retour);
-  const quizNiveau = NIVEAUX.find((x) => x.n === Number(niveau));
-  const nbQuiz = quizNiveau ? totalQuizzes(quizNiveau) : 0;
-  const nbQuestions = quizNiveau ? totalQuestions(quizNiveau) : 0;
-  return `<section class="premium-gate" data-premium-locked data-niveau="${niveau}">
-    <span class="premium-gate-icon" aria-hidden="true">♞</span>
-    <div><p class="eyebrow">GALOP ${niveau} À DÉBLOQUER</p><h2>${titre}</h2>
-    <p>Les Galops 1 et 2 sont gratuits. Le Galop ${niveau} se débloque une fois, pour toujours —
-    pas d’abonnement, pas de reconduction.</p>
-    <ul><li>${nbQuiz} quiz du Galop ${niveau}</li><li>${nbQuestions} questions corrigées</li><li>La fiche illustrée en PDF</li><li>L’examen blanc chronométré</li></ul></div>
-    <div class="premium-gate-price"><strong>${ACHAT.niveau.prixAffiche}</strong><span>une fois, accès à vie</span><a class="btn-primaire" href="/premium/?niveau=${niveau}&retour=${chemin}">Débloquer le Galop ${niveau}</a><small>Ou les 5 Galops pour ${ACHAT.pack.prixAffiche}</small></div>
-  </section><div data-premium-content>${contenu}</div>`;
-}
-
 /* ================= ACCUEIL ================= */
 function pageAccueil() {
-  const cartes = NIVEAUX.map((n) => `<a class="niveau-card${niveauPremium(n.n) ? ' niveau-card-premium' : ''}" href="/galop-${n.n}/">
+  const cartes = NIVEAUX.map((n) => `<a class="niveau-card" href="/galop-${n.n}/">
   <img class="niveau-badge" src="/assets/badge-galop-${n.n}.webp" alt="" width="640" height="800" loading="lazy">
-  ${niveauPremium(n.n) ? '<span class="premium-level-badge">3,99 €</span>' : '<span class="premium-level-badge is-free">Gratuit</span>'}
   <div class="niveau-card-corps">
     <div class="num">Galop ${n.n}</div>
     <div class="titre">${n.accroche}</div>
@@ -141,7 +122,7 @@ function pageAccueil() {
     <p>Des quiz corrigés, structurés selon l’esprit du programme FFE,<br>pour réviser la théorie de ton examen de Galop entre deux séances au club.</p>
     <p>Choisis ton niveau, réponds aux questions,<br>corrige-toi tout de suite.</p>
     <div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir les niveaux <span>→</span></a></div>
-    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="">Galops 1 & 2 gratuits</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
+    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="">100% gratuit</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
   </div>
 </section>
 
@@ -157,7 +138,7 @@ function pageAccueil() {
     <article class="testimonial"><img src="/assets/maquette-temoignage.webp" alt="Cavalière ayant révisé avec Quizz Galop" width="800" height="600" loading="lazy"><div><b>“</b><blockquote>Grâce aux quiz, j’ai compris mes erreurs et j’ai pris confiance.<br>J’ai validé mon Galop 3 du premier coup !</blockquote><div class="stars">★★★★★</div><strong>Louise D.</strong><small>Galop 3 validé</small></div></article>
     <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>${TOTAL_QUIZZES}</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>${TOTAL_QUESTIONS}</strong><b>Questions corrigées</b><small>Correction immédiate après chaque réponse</small></div></div>
   </div>
-  <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>Galops 1 & 2 gratuits</span><i></i><span>Sans inscription</span></small></div></div>
+  <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>100% gratuit</span><i></i><span>Sans inscription</span></small></div></div>
 </section>
 
 <section class="home-levels" id="niveaux"><div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">GALOP 1 À 7</p><h2>Choisis ton niveau</h2></div><div class="niveaux-grid">${cartes}</div></section>`;
@@ -256,13 +237,12 @@ function pageNiveau(n) {
 <div class="niveau-facts" aria-label="Aperçu du parcours"><div><strong>${totalQuizzes(n)}</strong><span>quiz thématiques</span></div><div><strong>${totalQuestions(n)}</strong><span>questions corrigées</span></div><div><strong>3</strong><span>axes du programme</span></div></div>
 ${sections}
 <section class="other-levels-wrap"><p class="eyebrow">POURSUIVRE LE PARCOURS</p><h2>Réviser un autre niveau</h2><div class="other-levels">${autres}</div></section>`;
-  const body = `${hero}${premiumGate(n.n, contenu, `/galop-${n.n}/`)}`;
+  const body = `${hero}${pubContenu('niveau-haut')}${contenu}`;
 
   return layout({
     path: `/galop-${n.n}/`,
-    niveauRequis: niveauPremium(n.n) ? n.n : null,
     title: `Quiz Galop ${n.n} : révise toute la théorie — Quizz Galop`,
-    description: `Quiz Galop ${n.n} en ligne : ${n.accroche} Réponses immédiates, ${totalQuestions(n)} questions au total.${niveauPremium(n.n) ? ' Accès payant, 3,99 €.' : ' Accès gratuit.'}`,
+    description: `Quiz Galop ${n.n} en ligne : ${n.accroche} Réponses immédiates, ${totalQuestions(n)} questions au total.`,
     body,
     crumbs: [{ nom: 'Accueil', href: '/' }, { nom: `Galop ${n.n}`, href: `/galop-${n.n}/` }],
     masquerFilCrumb: Boolean(banniere),
@@ -465,16 +445,15 @@ function pageQuiz(n, cat, quiz) {
 })();
 </script>`;
 
-  const body = premiumGate(n.n, experience, `/galop-${n.n}/${cat.slug}/${quiz.slug}/`, `Débloque ce quiz Galop ${n.n}`);
+  const body = `${experience}${pubContenu('quiz-fin')}`;
 
   return layout({
     path: `/galop-${n.n}/${cat.slug}/${quiz.slug}/`,
-    niveauRequis: niveauPremium(n.n) ? n.n : null,
     /* Pas de suffixe de marque ici : « Sujet — Quiz Galop N — Quizz Galop »
        dépassait 75 caractères, or Google tronque l'affichage vers 60. On garde
        « Quiz Galop N » qui porte le mot-clé, on lâche le nom du site. */
     title: `${quiz.titre} — Quiz Galop ${n.n}`,
-    description: `${quiz.titre} : quiz de ${quiz.questions.length} questions pour réviser le Galop ${n.n}. Correction immédiate.${niveauPremium(n.n) ? ' Accès payant, 3,99 €.' : ' Accès gratuit.'}`,
+    description: `${quiz.titre} : quiz de ${quiz.questions.length} questions pour réviser le Galop ${n.n}. Correction immédiate.`,
     body,
     crumbs: [
       { nom: 'Accueil', href: '/' },
@@ -499,8 +478,7 @@ function pageQuiz(n, cat, quiz) {
 /* ================= FICHES DE RÉVISION ================= */
 function ficheCard(p) {
   const niveau = NIVEAUX.find((n) => n.n === p.n);
-  return `<a class="fiche-card fiche-card-${p.n}${niveauPremium(p.n) ? ' fiche-card-premium' : ''}" href="/fiches/galop-${p.n}/">
-    ${niveauPremium(p.n) ? '<span class="premium-card-badge">3,99 €</span>' : '<span class="premium-card-badge is-free">Gratuit</span>'}
+  return `<a class="fiche-card fiche-card-${p.n}" href="/fiches/galop-${p.n}/">
     <img class="fiche-card-art" src="/assets/badge-galop-${p.n}.webp" alt="" width="640" height="800" loading="lazy"><span><strong>Fiche Galop ${p.n}</strong>
     <small>${p.objectif}</small><em>Guide illustré · PDF · ${totalQuizzes(niveau)} quiz →</em></span></a>`;
 }
@@ -530,9 +508,7 @@ function pageFiche(p) {
   const quizzes = niveau.categories.flatMap((c) => c.quizzes.slice(0, 2).map((q) => quizCardHtml(niveau, c, q))).join('');
   const suivant = p.n < 7 ? `<a class="btn-secondaire" href="/fiches/galop-${p.n + 1}/">Fiche Galop ${p.n + 1} →</a>` : '';
   const pdf = `/assets/pdf/fiche-revision-galop-${p.n}.pdf`;
-  const telechargement = niveauPremium(p.n)
-    ? `<a class="btn-secondaire fiche-download" href="/premium/?niveau=${p.n}&retour=${encodeURIComponent(`/fiches/galop-${p.n}/`)}" data-premium-locked>Débloquer le PDF — 3,99 €</a><a class="btn-secondaire fiche-download" href="${pdf}" download data-premium-content>Télécharger le PDF ↓</a>`
-    : `<a class="btn-secondaire fiche-download" href="${pdf}" download>Télécharger le PDF ↓</a>`;
+  const telechargement = `<a class="btn-secondaire fiche-download" href="${pdf}" download>Télécharger le PDF ↓</a>`;
   const contenu = `<div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#planches">Planches</a><a href="#cours">Cours</a><a href="#checklist">Checklist</a><a href="#pieges">Erreurs</a><a href="#lexique">Lexique</a><a href="#entrainement">Quiz</a></div>
   <div id="programme" class="axes-grid">${axes}</div>
   <section id="planches" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">COMPRENDRE EN IMAGE</p><h2>Deux planches pour mieux mémoriser</h2></div><div class="fiche-planches">${illustrations}</div></section>
@@ -545,8 +521,9 @@ function pageFiche(p) {
   <section id="entrainement" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">PASSER À L’ACTION</p><h2>Vérifie tes acquis</h2></div>${quizCarouselHtml(quizzes, `Quiz associés à la fiche Galop ${p.n}`)}</section>
   <div class="fiche-nav"><a class="btn-primaire" href="/galop-${p.n}/">Tous les quiz Galop ${p.n}</a>${suivant}</div>`;
   const body = `<div class="fiche-hero fiche-hero-${p.n}"><img src="/assets/badge-galop-${p.n}.webp" alt="Badge Galop ${p.n}" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION · NIVEAU ${p.n}</p><h1>Fiche de révision Galop ${p.n}</h1><p class="lede">${detail.intro}</p><div class="ornement-line"><i></i><b>✦</b><i></i></div><div class="fiche-hero-actions"><a class="btn-primaire" href="#programme">Lire la fiche</a>${telechargement}</div></div></div>
-  ${premiumGate(p.n, contenu, `/fiches/galop-${p.n}/`, `Débloque la fiche Galop ${p.n}`)}`;
-  return layout({path:`/fiches/galop-${p.n}/`, niveauRequis:niveauPremium(p.n)?p.n:null, title:`Fiche de révision Galop ${p.n} illustrée — Quizz Galop`, description:`Fiche Galop ${p.n} complète : programme, cours structuré, illustrations, checklist, erreurs fréquentes, lexique et quiz corrigés.`, body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'},{nom:`Galop ${p.n}`,href:`/fiches/galop-${p.n}/`}], bodyClass:`page-fiche-reference level-${p.n}`});
+  ${pubContenu('fiche-haut')}
+  ${contenu}`;
+  return layout({path:`/fiches/galop-${p.n}/`, title:`Fiche de révision Galop ${p.n} illustrée — Quizz Galop`, description:`Fiche Galop ${p.n} complète : programme, cours structuré, illustrations, checklist, erreurs fréquentes, lexique et quiz corrigés.`, body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'},{nom:`Galop ${p.n}`,href:`/fiches/galop-${p.n}/`}], bodyClass:`page-fiche-reference level-${p.n}`});
 }
 
 /* ================= CONSEILS ================= */
@@ -594,8 +571,8 @@ function pageExamenBlanc() {
   const banque = NIVEAUX.map((n) => ({n:n.n,questions:n.categories.flatMap((c) => c.quizzes.flatMap((q) => q.questions.map((x) => ({...x,theme:q.titre}))))}));
   const body = `<div class="examen-hero"><img class="exam-emblem" src="/assets/logo-embleme.svg" alt="" width="120" height="120"><div><p class="eyebrow">CONDITIONS D’EXAMEN</p><h1>Examen blanc chronométré</h1><p class="lede">20 questions mélangées, un chrono visible et aucune correction avant le résultat final.</p></div><div class="examen-horloge" aria-hidden="true"><span>20</span><small>questions</small><i>⏱</i></div></div><div id="exam-app" class="exam-app"></div>
   <script>(function(){var app=document.getElementById('exam-app'), banque=${JSON.stringify(banque).replace(/</g,'\\u003c')};
-  app.innerHTML='<div class="exam-start"><h2>Quel niveau prépares-tu ?</h2><div class="exam-levels">'+banque.map(function(x){var verrou=x.n>=3;return '<button type="button" class="'+(verrou?'exam-level-premium':'')+'" data-n="'+x.n+'">Galop '+x.n+(verrou?' <small>3,99 €</small>':'')+'</button>'}).join('')+'</div><p>Le chrono démarre à la première question. Ton bilan affichera les thèmes à retravailler.</p></div>';
-  app.addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;var n=+b.dataset.n;var ouverts=(document.documentElement.getAttribute('data-acces')||'').split(',').filter(Boolean).map(Number);if(n>=3&&ouverts.indexOf(n)===-1){location.href='/premium/?niveau='+n+'&retour=%2Fexamen%2F';return;}demarrer(n)});
+  app.innerHTML='<div class="exam-start"><h2>Quel niveau prépares-tu ?</h2><div class="exam-levels">'+banque.map(function(x){return '<button type="button" data-n="'+x.n+'">Galop '+x.n+'</button>'}).join('')+'</div><p>Le chrono démarre à la première question. Ton bilan affichera les thèmes à retravailler.</p></div>';
+  app.addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;demarrer(+b.dataset.n)});
   function melanger(a){return a.slice().sort(function(){return Math.random()-.5})}
   function formater(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60);return String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
   function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now(),timer=setInterval(tick,250);function tick(){var t=document.getElementById('exam-chrono');if(t)t.textContent=formater(Date.now()-debut)}function render(){var q=qs[i],pct=Math.round(100*(i+1)/qs.length);app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><time id="exam-chrono">'+formater(Date.now()-debut)+'</time><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre" role="progressbar" aria-label="Progression de l’examen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><i style="width:'+pct+'%"></i></div><div class="quiz-question" role="group" aria-labelledby="exam-enonce"><h2 class="enonce" id="exam-enonce" tabindex="-1">'+q.q+'</h2>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'"></figure>':'')+'<div class="quiz-options" role="group" aria-labelledby="exam-enonce">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';var titre=document.getElementById('exam-enonce');if(titre)titre.focus();app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){clearInterval(timer);var duree=formater(Date.now()-debut),score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result" role="status" aria-live="polite" tabindex="-1"><span>EXAMEN TERMINÉ · '+duree+'</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-primaire" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';app.querySelector('.exam-result').focus();document.getElementById('again').onclick=function(){demarrer(n)}}render()}
@@ -603,166 +580,16 @@ function pageExamenBlanc() {
   return layout({path:'/examen/',title:'Examen blanc chronométré — Quizz Galop',description:'Simule un examen théorique Galop avec 20 questions mélangées, un chrono et un bilan par thème.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Examen',href:'/examen/'}],bodyClass:'page-examen-reference'});
 }
 
-/* ================= ACHAT / STRIPE CHECKOUT ================= */
-function pagePremium() {
-  const cartesNiveaux = ACHAT.lockedLevels.map((n) => {
-    const niv = NIVEAUX.find((x) => x.n === n);
-    return `<article class="achat-niveau" data-niveau="${n}">
-      <img src="/assets/badge-galop-${n}.webp" alt="" width="320" height="400" loading="lazy">
-      <h3>Galop ${n}</h3>
-      <p>${niv ? totalQuizzes(niv) : 0} quiz · ${niv ? totalQuestions(niv) : 0} questions</p>
-      <div class="achat-prix"><strong>${ACHAT.niveau.prixAffiche}</strong><span>accès à vie</span></div>
-      <a class="btn-secondaire" data-article="niveau" data-n="${n}" href="/premium/checkout/?article=niveau&niveau=${n}">Débloquer</a>
-      <span class="achat-deja">Déjà débloqué ✓</span>
-    </article>`;
-  }).join('\n');
-
-  const body = `<section class="premium-reference-hero">
-    <div><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><p class="eyebrow">DÉBLOQUER UN GALOP</p>
-    <h1>Paie une fois,<br>garde-le pour toujours</h1>
-    <p class="lede">Les Galops 1 et 2 sont gratuits. Les Galops 3 à 7 se débloquent à l’unité, en un
-    seul paiement. Pas d’abonnement, pas de reconduction, rien à résilier.</p>
-    <div class="premium-hero-trust"><span>✓ Paiement unique</span><span>✓ Accès à vie</span><span>✓ Paiement sécurisé Stripe</span></div></div>
-    <aside><span>Contenu total</span><strong>Galops 3 → 7</strong><p>${TOTAL_QUIZZES} quiz · ${TOTAL_QUESTIONS} questions · 7 fiches illustrées</p><small data-premium-status></small></aside>
-  </section>
-
-  <section class="premium-pricing" aria-labelledby="achat-offres">
-    <div class="premium-heading"><p class="eyebrow">DEUX FAÇONS D’ACHETER</p><h2 id="achat-offres">Un seul Galop, ou les cinq</h2>
-    <p>Le contenu est identique : le pack revient simplement à ${ACHAT.pack.equivalent} au lieu de ${ACHAT.niveau.prixAffiche}.</p></div>
-    <div class="premium-plans">
-      <article><span class="plan-kicker">À l’unité</span><h3>${ACHAT.niveau.nom}</h3>
-        <div class="plan-price"><strong>${ACHAT.niveau.prixAffiche}</strong><span>${ACHAT.niveau.rythme}</span></div>
-        <p>${ACHAT.niveau.engagement}</p>
-        <ul><li>Tous les quiz du Galop choisi</li><li>Sa fiche PDF illustrée</li><li>Son examen blanc chronométré</li></ul>
-        <a class="btn-secondaire" href="#choisir-galop">Choisir mon Galop</a></article>
-      <article class="plan-featured"><span class="plan-badge">Le meilleur prix</span><span class="plan-kicker">Recommandé</span><h3>${ACHAT.pack.nom}</h3>
-        <div class="plan-price"><strong>${ACHAT.pack.prixAffiche}</strong><span>${ACHAT.pack.rythme}</span></div>
-        <p><b>${ACHAT.pack.equivalent}</b> · ${ACHAT.pack.engagement}</p>
-        <ul><li>Les Galops 3, 4, 5, 6 et 7</li><li>Les 7 fiches PDF</li><li>Tous les examens blancs</li></ul>
-        <a class="btn-primaire" data-article="pack" href="/premium/checkout/?article=pack">Prendre le pack</a></article>
-    </div>
-  </section>
-
-  <section class="premium-benefits" id="choisir-galop"><p class="eyebrow">À L’UNITÉ</p><h2>Quel Galop prépares-tu ?</h2>
-    <div class="achat-niveaux">${cartesNiveaux}</div>
-  </section>
-
-  <section class="premium-faq"><p class="eyebrow">QUESTIONS FRÉQUENTES</p><h2>Avant d’acheter</h2>
-    <details><summary>Que reste-t-il gratuit ?</summary><p>Les Galops 1 et 2 en entier : leurs quiz, leurs fiches et leurs pages de révision restent accessibles sans payer.</p></details>
-    <details><summary>Est-ce un abonnement ?</summary><p>Non. C’est un paiement unique par Galop, sans reconduction et sans rien à résilier. Une fois payé, l’accès reste ouvert.</p></details>
-    <details><summary>Si j’achète un Galop, puis-je prendre le pack après ?</summary><p>Oui, mais le pack ne déduit pas l’achat déjà effectué. Si tu penses passer plusieurs Galops, le pack est plus avantageux dès le départ.</p></details>
-    <details><summary>Où est enregistré mon accès ?</summary><p>Dans ce navigateur, sur cet appareil. Conserve l’e-mail de confirmation Stripe : il te servira de preuve d’achat si tu changes d’appareil.</p></details>
-    <details><summary>Le contenu est-il officiel ?</summary><p>Non, Quizz Galop est indépendant et n’est affilié à aucune fédération. Le contenu suit l’esprit du programme mais doit toujours être vérifié face au livret de ton club.</p></details>
-  </section>
-
-  <div class="premium-active-panel" data-premium-content><div><p class="eyebrow">ACCÈS ACTIF</p><h2>Tu as déjà débloqué du contenu</h2><p data-premium-status></p></div><div><a class="btn-primaire" href="/quiz/">Voir les quiz</a><button class="btn-texte" type="button" data-premium-reset>Réinitialiser sur cet appareil</button></div></div>
-
-  <script>(function(){
-    var params=new URLSearchParams(location.search),retour=params.get('retour')||'/quiz/';
-    var caracteresChemin='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/_-';
-    if(retour.charAt(0)!=='/'||retour.charAt(1)==='/'||!retour.split('').every(function(c){return caracteresChemin.indexOf(c)!==-1;}))retour='/quiz/';
-    document.querySelectorAll('[data-article]').forEach(function(lien){
-      var url='/premium/checkout/?article='+lien.dataset.article;
-      if(lien.dataset.n)url+='&niveau='+lien.dataset.n;
-      lien.href=url+'&retour='+encodeURIComponent(retour);
-    });
-    /* Si un niveau est demandé dans l'URL, on met sa carte en avant. */
-    var vise=params.get('niveau');
-    if(vise){var carte=document.querySelector('.achat-niveau[data-niveau="'+vise.replace(/[^0-9]/g,'')+'"]');
-      if(carte){carte.classList.add('is-vise');carte.scrollIntoView({block:'center'});}}
-  })();</script>`;
-  return layout({path:'/premium/',title:'Débloquer un Galop : 3,99 € l’unité, accès à vie | Quizz Galop',description:'Débloque les quiz, fiches PDF et examens blancs du Galop de ton choix pour 3,99 € en paiement unique. Galops 1 et 2 gratuits. Pas d’abonnement.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Débloquer un Galop',href:'/premium/'}],bodyClass:'page-premium-reference'});
-}
-
-function pagePremiumCheckout() {
-  const body = `<section class="checkout-shell"><a class="checkout-brand" href="/premium/"><img src="/assets/logo-embleme.svg" alt="" width="96" height="96"><span>QUIZZ GALOP</span></a>
-    <div class="checkout-grid"><div><p class="eyebrow">FINALISER L’ACHAT</p><h1>Débloquer ton accès</h1><p class="lede">Tu vas être redirigé vers la page de paiement sécurisée Stripe. Le paiement est unique : aucun prélèvement ne sera reconduit.</p>
-      <label for="checkout-email">Adresse e-mail <span>(pour recevoir ta preuve d’achat)</span></label><input id="checkout-email" type="email" autocomplete="email" placeholder="cavalier@exemple.fr">
-      <button class="btn-primaire" id="checkout-submit" type="button">Payer</button><p class="checkout-feedback" id="checkout-feedback" role="status" aria-live="polite"></p><small>🔒 Les clés Stripe restent exclusivement côté serveur. Aucune donnée bancaire n’est saisie sur Quizz Galop.</small></div>
-      <aside><span id="checkout-plan-label">Un Galop</span><div><strong id="checkout-price">${ACHAT.niveau.prixAffiche}</strong><small id="checkout-rhythm">paiement unique</small></div><ul id="checkout-details"><li>Accès à vie</li><li>Quiz, fiche PDF et examen</li></ul><a href="/premium/">Modifier mon choix</a></aside></div>
-  </section>
-  <script>(function(){
-    var params=new URLSearchParams(location.search);
-    var article=params.get('article')==='pack'?'pack':'niveau';
-    var niveauBrut=parseInt(params.get('niveau'),10);
-    var niveauxPayants=${JSON.stringify(ACHAT.lockedLevels)};
-    var niveau=niveauxPayants.indexOf(niveauBrut)!==-1?niveauBrut:null;
-    var retour=params.get('retour')||'/quiz/',caracteresChemin='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/_-';
-    if(retour.charAt(0)!=='/'||retour.charAt(1)==='/'||!retour.split('').every(function(c){return caracteresChemin.indexOf(c)!==-1;}))retour='/quiz/';
-    var offres=${JSON.stringify({ niveau: ACHAT.niveau, pack: ACHAT.pack }).replace(/</g, '\\u003c')};
-    /* Un achat de niveau sans niveau valide : on renvoie choisir plutôt que de
-       lancer un paiement sur un contenu indéterminé. */
-    if(article==='niveau'&&niveau===null){location.replace('/premium/#choisir-galop');return;}
-    var offre=offres[article];
-    document.getElementById('checkout-plan-label').textContent=article==='pack'?'Pack Galops 3 à 7':'Galop '+niveau;
-    document.getElementById('checkout-price').textContent=offre.prixAffiche;
-    document.getElementById('checkout-rhythm').textContent=offre.rythme;
-    document.getElementById('checkout-details').innerHTML=article==='pack'
-      ?'<li>Les 5 Galops payants</li><li>Les 7 fiches PDF</li><li>Accès à vie</li>'
-      :'<li>Tous les quiz du Galop '+niveau+'</li><li>Sa fiche PDF</li><li>Accès à vie</li>';
-    var bouton=document.getElementById('checkout-submit'),feedback=document.getElementById('checkout-feedback');
-    bouton.onclick=async function(){bouton.disabled=true;feedback.textContent='Préparation du paiement…';var email=document.getElementById('checkout-email').value.trim();
-      try{var response=await fetch(${JSON.stringify(ACHAT.stripe.checkoutEndpoint)},{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({article:article,niveau:niveau,email:email,returnPath:retour})});if(!response.ok)throw new Error('endpoint');var resultat=await response.json();if(!resultat.url)throw new Error('url');location.href=resultat.url;}
-      catch(e){bouton.disabled=false;feedback.textContent='Le paiement est momentanément indisponible. Réessaie dans un instant.';}
-    };
-  })();</script>`;
-  return layout({path:'/premium/checkout/',title:'Paiement — Quizz Galop',description:'Finalisation de l’achat Quizz Galop.',body,crumbs:[],masquerHeader:true,masquerFooter:true,masquerFilCrumb:true,bodyClass:'page-checkout-reference',robots:'noindex,nofollow'});
-}
-
-function pagePremiumSucces() {
-  const body = `<section class="success-shell"><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><p class="eyebrow">QUIZZ GALOP</p><h1 id="success-title">Vérification de ton paiement…</h1><p class="lede" id="success-message">Un instant, nous ouvrons ton accès.</p><div class="success-actions" id="success-actions" hidden><a class="btn-primaire" id="success-return" href="/quiz/">Commencer à réviser</a><a class="btn-secondaire" href="/premium/">Voir mes accès</a></div><div class="success-loader" id="success-loader" aria-hidden="true"></div></section>
-  <script>(async function(){
-    var params=new URLSearchParams(location.search),demo=params.get('demo')==='1',session=params.get('session_id');
-    var niveauxPayants=${JSON.stringify(ACHAT.lockedLevels)};
-    var article=params.get('article')==='pack'?'pack':'niveau';
-    var niveauBrut=parseInt(params.get('niveau'),10);
-    var niveauDemo=niveauxPayants.indexOf(niveauBrut)!==-1?niveauBrut:null;
-    var retour=params.get('retour')||'/quiz/',caracteresChemin='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/_-';
-    if(retour.charAt(0)!=='/'||retour.charAt(1)==='/'||!retour.split('').every(function(c){return caracteresChemin.indexOf(c)!==-1;}))retour='/quiz/';
-    var titre=document.getElementById('success-title'),message=document.getElementById('success-message'),actions=document.getElementById('success-actions'),loader=document.getElementById('success-loader');
-    /* On fusionne avec les niveaux déjà possédés : un second achat ne doit pas
-       effacer le premier. */
-    function ouvrir(niveaux,estDemo){
-      var deja=[];
-      try{var brut=JSON.parse(localStorage.getItem(${JSON.stringify(ACHAT.storageKey)})||'null');if(brut&&Array.isArray(brut.niveaux))deja=brut.niveaux.map(Number);}catch(e){}
-      var fusion=deja.slice();
-      niveaux.forEach(function(n){if(fusion.indexOf(Number(n))===-1)fusion.push(Number(n));});
-      fusion.sort(function(a,b){return a-b;});
-      try{localStorage.setItem(${JSON.stringify(ACHAT.storageKey)},JSON.stringify({niveaux:fusion,dernierAchat:Date.now(),test:!!estDemo}));}catch(e){}
-      document.documentElement.setAttribute('data-premium','active');
-      document.documentElement.setAttribute('data-acces',fusion.join(','));
-      titre.textContent=fusion.length>1?'Tes Galops sont débloqués':'Ton Galop est débloqué';
-      message.textContent=estDemo
-        ?'Accès de démonstration ouvert : aucun débit n’a été effectué.'
-        :'Ton paiement a été vérifié. Galops accessibles : '+fusion.join(', ')+'.';
-      document.getElementById('success-return').href=retour;
-      actions.hidden=false;loader.hidden=true;
-    }
-    function echouer(){titre.textContent='Paiement non confirmé';message.textContent='La session n’a pas pu être vérifiée. Aucun accès n’a été ouvert et, si un débit a eu lieu, contacte-nous avec ton e-mail Stripe.';actions.hidden=false;loader.hidden=true;}
-    if(demo){ouvrir(article==='pack'?niveauxPayants:(niveauDemo!==null?[niveauDemo]:[]),true);return;}
-    if(!session){echouer();return;}
-    try{
-      var response=await fetch(${JSON.stringify(ACHAT.stripe.verifyEndpoint)}+'?session_id='+encodeURIComponent(session));
-      var resultat=await response.json();
-      if(!response.ok||!resultat.active||!Array.isArray(resultat.niveaux)||!resultat.niveaux.length)throw new Error('invalid');
-      ouvrir(resultat.niveaux,false);
-    }catch(e){echouer();}
-  })();</script>`;
-  return layout({path:'/premium/succes/',title:'Accès ouvert — Quizz Galop',description:'Confirmation de l’achat Quizz Galop.',body,crumbs:[],masquerHeader:true,masquerFooter:true,masquerFilCrumb:true,bodyClass:'page-success-reference',robots:'noindex,nofollow'});
-}
-
 /* ================= Pages légales minimales ================= */
 function pageMentionsLegales() {
   const body = `<article class="legal-document"><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><p class="eyebrow">INFORMATIONS LÉGALES</p>
 <h1>Mentions légales</h1>
-<p class="lede">Ce site propose des contenus de révision payants. Les informations d’identification de
-l’éditeur ci-dessous doivent être complétées avant toute mise en vente effective.</p>
+<p class="lede">Quizz Galop est un site gratuit, financé par la publicité. Aucun contenu n’est payant
+et aucun paiement n’est encaissé sur ce site.</p>
 
-<div class="callout"><p><b>À compléter obligatoirement avant d’encaisser :</b> dénomination ou nom de
-l’éditeur, statut (micro-entreprise, société…), numéro SIREN, adresse du siège, adresse e-mail de contact,
-et numéro de TVA intracommunautaire le cas échéant. La dispense d’identification prévue par l’article
-6-III-2 de la LCEN ne s’applique qu’aux éditeurs non professionnels : elle cesse dès qu’un site vend
-quelque chose.</p></div>
+<p>Site édité à titre non professionnel, conformément à l’article 6-III-2 de la loi n° 2004-575 du
+21 juin 2004 pour la confiance dans l’économie numérique (LCEN), qui permet à un éditeur non
+professionnel de conserver l’anonymat vis-à-vis du public.</p>
 
 <p>Hébergement : Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
 
@@ -771,23 +598,10 @@ quelque chose.</p></div>
 aucune fédération équestre. Le contenu de révision est fourni à titre indicatif : vérifie-le toujours face
 au livret officiel de ton club avant un passage d’examen.</p>
 
-<h2>Conditions de vente</h2>
-<p>Les Galops 1 et 2 sont accessibles gratuitement. Les Galops 3 à 7 sont vendus par
-<strong>paiement unique</strong> : ${ACHAT.niveau.prixAffiche} pour un Galop, ${ACHAT.pack.prixAffiche}
-pour les cinq. Il ne s’agit pas d’un abonnement : aucun prélèvement n’est reconduit et il n’y a rien à
-résilier. L’accès acheté est enregistré dans le navigateur utilisé lors de l’achat.</p>
-<p>Le paiement est traité par <strong>Stripe Payments Europe</strong>. Aucune donnée bancaire ne transite
-par ce site ni n’y est conservée.</p>
-
-<h2>Droit de rétractation</h2>
-<p>Il s’agit d’un contenu numérique fourni immédiatement après le paiement. Conformément à l’article
-L221-28 13° du Code de la consommation, en validant l’achat l’acheteur demande expressément l’exécution
-immédiate de la prestation et <strong>renonce à son droit de rétractation de quatorze jours</strong>. En
-cas de problème technique empêchant l’accès au contenu acheté, un remboursement est effectué sur
-présentation de l’e-mail de confirmation Stripe.</p>
-
-<div class="callout"><p><b>Mineurs :</b> le public de ce site comprend des mineurs. L’achat doit être
-effectué par un titulaire de l’autorité parentale ou avec son accord.</p></div></article>`;
+<h2>Financement</h2>
+<p>L’intégralité des quiz, des fiches et des examens blancs est accessible gratuitement. Le site est
+financé par l’affichage de publicités, soumis à ton consentement : si tu refuses les cookies
+publicitaires, aucun cookie n’est déposé et le site fonctionne à l’identique.</p></article>`;
   return layout({
     path: '/mentions-legales/',
     title: 'Mentions légales — Quizz Galop',
@@ -801,29 +615,14 @@ effectué par un titulaire de l’autorité parentale ou avec son accord.</p></d
 function pageConfidentialite() {
   const body = `<article class="legal-document"><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><p class="eyebrow">DONNÉES PERSONNELLES</p>
 <h1>Confidentialité</h1>
-<p class="lede">Les réponses aux quiz, la progression et la liste des Galops débloqués restent dans ton
-navigateur, sur ton appareil. Ce site ne possède aucun compte utilisateur et aucune base de données.</p>
+<p class="lede">Les réponses aux quiz et ta progression restent dans ton navigateur, sur ton appareil.
+Ce site ne possède aucun compte utilisateur et aucune base de données.</p>
 
 <h2>Ce qui reste local</h2>
-<p>Scores, progression et Galops achetés sont enregistrés en <code>localStorage</code>. Conséquence à
-connaître : si tu changes de navigateur ou d’appareil, ou si tu effaces les données du site, l’accès acheté
-n’est plus reconnu. <strong>Conserve l’e-mail de confirmation Stripe</strong>, il constitue ta preuve
-d’achat.</p>
+<p>Scores et progression sont enregistrés en <code>localStorage</code>. Ils ne quittent jamais ton
+appareil et ne nous sont pas transmis. Si tu changes de navigateur ou que tu effaces les données du site,
+ta progression repart de zéro.</p>
 
-<h2>Paiement Stripe</h2>
-<p>Le paiement est traité par Stripe Payments Europe. Lors d’un achat, ton adresse e-mail et les données
-nécessaires à la transaction sont transmises directement à Stripe via sa page de paiement sécurisée.
-Quizz Galop ne voit ni ne conserve aucun numéro de carte.</p>
-<ul>
-<li><b>Finalité :</b> exécution de la vente et délivrance de l’accès acheté.</li>
-<li><b>Base légale :</b> exécution du contrat (article 6.1.b du RGPD).</li>
-<li><b>Conservation :</b> les données de transaction sont conservées par Stripe selon ses propres durées
-légales, notamment comptables.</li>
-<li><b>Sous-traitant :</b> Stripe Payments Europe, Ltd., Irlande.</li>
-</ul>
-
-<div class="callout"><p>Pour exercer tes droits d’accès, de rectification ou d’effacement, l’adresse de
-contact du responsable du traitement doit être renseignée dans les mentions légales.</p></div>
 <h2>Cookies publicitaires</h2>
 <p>Si tu acceptes le bandeau de cookies, Google peut déposer des cookies publicitaires. Si tu refuses,
 aucun cookie publicitaire n’est déposé et le site fonctionne à l’identique. Tu peux changer d’avis à tout
@@ -846,9 +645,6 @@ ecrire('fiches', pageFiches()); pages++;
 ecrire('conseils', pageConseils()); pages++;
 ecrire('progression', pageProgression()); pages++;
 ecrire('examen', pageExamenBlanc()); pages++;
-ecrire('premium', pagePremium()); pages++;
-ecrire('premium/checkout', pagePremiumCheckout()); pages++;
-ecrire('premium/succes', pagePremiumSucces()); pages++;
 ecrire('mentions-legales', pageMentionsLegales()); pages++;
 ecrire('confidentialite', pageConfidentialite()); pages++;
 
@@ -858,8 +654,7 @@ const urls = [
   { loc: url('/fiches/'), priority: '0.9' },
   { loc: url('/conseils/'), priority: '0.7' },
   { loc: url('/progression/'), priority: '0.6' },
-  { loc: url('/examen/'), priority: '0.8' },
-  { loc: url('/premium/'), priority: '0.8' }
+  { loc: url('/examen/'), priority: '0.8' }
 ];
 
 for (const p of PROGRAMMES) {
