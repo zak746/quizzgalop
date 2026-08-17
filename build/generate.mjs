@@ -75,6 +75,17 @@ function imageQuiz(n, quiz) {
   return quiz.questions.find((q) => q.image)?.image || banniereLarge(n.n) || `/assets/badge-galop-${n.n}.webp`;
 }
 
+/* Version réduite d'un visuel pour les cartes du carrousel, quand elle existe.
+   Les cartes font au plus 258 px alors que les visuels réutilisés — bannières de
+   niveau, planches anatomiques — sont produits pour la pleine largeur. Les
+   fichiers d'assets/vignettes/ sont fabriqués par build/generer-vignettes.mjs ;
+   sans eux, on retombe simplement sur l'original. */
+function vignette(src) {
+  if (!src.startsWith('/assets/') || src.startsWith('/assets/vignettes/')) return src;
+  const nom = src.slice('/assets/'.length);
+  return fs.existsSync(path.join(ROOT, 'assets', 'vignettes', nom)) ? `/assets/vignettes/${nom}` : src;
+}
+
 /** Bloc flou + fondu partagé, en bas de toute bannière pleine largeur. */
 const HERO_TRANSITION = `<div class="hero-blur-bas"></div><div class="hero-fade-bas"></div>`;
 
@@ -87,7 +98,7 @@ function ecrire(relPath, html) {
 /* ---------- Carte quiz, réutilisée sur le hub, les pages niveau et « autres quiz » ---------- */
 function quizCardHtml(n, cat, quiz) {
   return `<a class="quiz-card" href="/galop-${n.n}/${cat.slug}/${quiz.slug}/">
-  <img class="quiz-card-img" src="${imageQuiz(n, quiz)}" alt="" width="960" height="720" loading="lazy">
+  <img class="quiz-card-img" src="${vignette(imageQuiz(n, quiz))}" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">${quiz.titre}</span>
     <span class="n-questions">${quiz.questions.length} questions · Galop ${n.n}</span>
