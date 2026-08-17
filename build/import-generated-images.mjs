@@ -36,15 +36,22 @@ const files = {
   ,'exec-92e6ca08-fb4d-494c-8b89-b26cdb8ff4eb.png': 'maquette-cta-cheval.webp'
   ,'exec-2994f6ab-531a-4a9d-a0fa-78683110d163.png': 'maquette-quiz-fond.webp'
   ,'exec-187d88bc-1c53-4c8f-b7e5-9e1c1f6c048f.png': 'maquette-feuillage.png'
+  ,'exec-6210515d-230b-4006-8ade-c0e1ab566023.png': 'pictogramme-cheval-pas.png'
+  ,'exec-90d2f181-e5a6-4812-8530-b11eaf9c9bc2.png': 'pictogramme-cheval-trot.png'
+  ,'exec-a9a53c39-69a2-491a-bba0-061a271c147e.png': 'pictogramme-cheval-galop.png'
+  ,'exec-f1a12a26-f954-483d-bc95-584511ced3b6.png': 'pictogramme-cheval-allonge.png'
+  ,'exec-ec3538ee-4f0f-4f0e-83e6-d8e365c7ccf6.png': 'banniere-tous-quiz-v2.webp'
 };
 
 for (const [source, target] of Object.entries(files)) {
   const banner = target.startsWith('banniere-');
   const foliage = target === 'maquette-feuillage.png';
+  const pictogram = target.startsWith('pictogramme-cheval-');
+  const transparent = target.endsWith('.png');
   const wide = target === 'maquette-cta-cheval.webp' || target === 'maquette-quiz-fond.webp';
   const pipeline = sharp(path.join(generated, source))
-    .resize({ width: foliage ? 760 : (banner || wide ? 1800 : 960), withoutEnlargement: true });
-  if (foliage) await pipeline.png({ compressionLevel: 9 }).toFile(path.join(root, 'assets', target));
+    .resize({ width: pictogram ? 320 : (foliage ? 760 : (banner || wide ? 1800 : 960)), withoutEnlargement: true });
+  if (transparent) await pipeline.png({ compressionLevel: 9 }).toFile(path.join(root, 'assets', target));
   else await pipeline.webp({ quality: wide ? 86 : 82 }).toFile(path.join(root, 'assets', target));
 }
 

@@ -23,9 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswvtun0">
+<link rel="stylesheet" href="/assets/site.css?v=msx2hldm">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 5","item":"https://quizzgalop.fr/galop-5/"},{"@type":"ListItem","position":3,"name":"Longer et embarquer en sécurité","item":"https://quizzgalop.fr/galop-5/soins-et-pratique/longe-et-embarquement/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Longer et embarquer en sécurité","about":"Galop 5","educationalLevel":"Galop 5","numberOfQuestions":8}</script>
@@ -71,16 +70,17 @@
 <div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
 <section class="quiz-ref-stage">
   <aside class="quiz-ref-left">
-    <div class="quiz-ref-brand"><img src="/assets/icon-horseshoe.svg" alt="" width="66" height="66"><span>QUIZZ GALOP</span></div>
+    <a class="quiz-ref-brand" href="/" aria-label="Quizz Galop — Accueil"><img src="/assets/icon-horseshoe.svg" alt="" width="66" height="66"><span>QUIZZ GALOP</span></a>
     <h1>Passe ton quiz</h1><div class="ornement-line"><i></i><b>✦</b><i></i></div>
     <p>Réponds aux questions et progresse<br>vers le Galop supérieur.</p>
     <section class="quiz-ref-panel quiz-ref-progress"><h2><img src="/assets/icon-horseshoe.svg" alt="">Ta progression</h2><div class="quiz-ref-steps"><div class="quiz-ref-step valide"><span>4</span><small>Validé</small></div><i></i><div class="quiz-ref-step encours"><span>5</span><small>En cours</small></div><i></i><div class="quiz-ref-step avenir"><span>6</span><small>À venir</small></div><i></i><div class="quiz-ref-step avenir"><span>7</span><small>À venir</small></div></div><div class="quiz-ref-objectif"><span><b>Objectif :</b> Valider le Galop 5</span><div><i style="width:57%"></i></div><em>4 / 7</em></div></section>
-    <section class="quiz-ref-panel quiz-ref-scores"><h2>♕ <span>Tes scores</span></h2><ul><li data-score-level="4"><img src="/assets/icon-knight.svg" alt=""><span>Galop 4</span><strong>—</strong><em>À venir</em></li><li data-score-level="5"><img src="/assets/icon-knight.svg" alt=""><span>Galop 5</span><strong>—</strong><em>À venir</em></li><li data-score-level="6"><img src="/assets/icon-knight.svg" alt=""><span>Galop 6</span><strong>—</strong><em>À venir</em></li><li data-score-level="7"><img src="/assets/icon-knight.svg" alt=""><span>Galop 7</span><strong>—</strong><em>À venir</em></li></ul></section>
+    <section class="quiz-ref-panel quiz-ref-scores"><h2>♕ <span>Tes scores</span></h2><ul><li data-score-level="4"><img src="/assets/pictogramme-cheval-allonge.png" alt=""><span>Galop 4</span><strong>—</strong><em>À venir</em></li><li data-score-level="5"><img src="/assets/pictogramme-cheval-pas.png" alt=""><span>Galop 5</span><strong>—</strong><em>À venir</em></li><li data-score-level="6"><img src="/assets/pictogramme-cheval-trot.png" alt=""><span>Galop 6</span><strong>—</strong><em>À venir</em></li><li data-score-level="7"><img src="/assets/pictogramme-cheval-galop.png" alt=""><span>Galop 7</span><strong>—</strong><em>À venir</em></li></ul></section>
   </aside>
 
   <div class="quiz-ref-center">
+    <div class="quiz-mobile-context"><a href="/galop-5/" aria-label="Retour aux quiz Galop 5">←</a><span><small>GALOP 5</small><strong>Longer et embarquer en sécurité</strong></span></div>
     <div class="quiz-ref-card" id="quiz-app" data-quiz="quiz-data-5-soins-et-pratique-longe-et-embarquement">
-      <header><span id="quiz-compteur">Question 1 / 8</span><div class="quiz-ref-track"><i id="quiz-progres"></i></div><strong id="quiz-pourcentage">0%</strong></header>
+      <header><span id="quiz-compteur">Question 1 / 8</span><div class="quiz-ref-track" id="quiz-progressbar" role="progressbar" aria-label="Progression du quiz" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="quiz-progres"></i></div><strong id="quiz-pourcentage">0%</strong></header>
       <div id="quiz-zone"></div>
     </div>
     <nav class="quiz-ref-nav" aria-label="Navigation dans le quiz"><button type="button" id="quiz-precedent">← <span>Question précédente</span></button><button type="button" id="quiz-suivant" disabled><span>Question suivante</span> →</button></nav>
@@ -97,7 +97,7 @@
 </section>
 <script type="application/json" id="quiz-data-5-soins-et-pratique-longe-et-embarquement">[{"q":"En longe, le longeur forme avec le cheval et la chambrière :","options":["Un triangle de communication","Une ligne droite rigide","Un cercle fermé par la longe","Aucune forme utile"],"bonne":0},{"q":"La chambrière sert principalement à :","options":["Prolonger l’action et entretenir l’impulsion sans frapper","Attacher le cheval","Remplacer la longe","Bloquer les épaules"],"bonne":0},{"q":"Où doit se placer le longeur ?","options":["Au centre dynamique du cercle, orienté vers l’épaule et la hanche","Juste derrière le cheval","Devant sa tête","À l’extérieur de la carrière"],"bonne":0},{"q":"Avant d’embarquer, le van doit être :","options":["Stable, ouvert, lumineux et sécurisé","Dételé et incliné","Sombre et fermé","Placée sur une pente"],"bonne":0},{"q":"Si le cheval hésite sur le pont, la meilleure attitude est :","options":["Rester calme, garder un axe droit et récompenser chaque progrès","Tirer brutalement","Se placer derrière lui","Fermer toutes les issues immédiatement"],"bonne":0},{"q":"Pourquoi ne faut-il jamais enrouler la longe autour de la main ?","options":["Elle pourrait serrer et blesser si le cheval tire","Elle deviendrait trop courte uniquement","Le cheval ne la verrait plus","Cela abîme le cuir"],"bonne":0},{"q":"Les protections de transport doivent être :","options":["Ajustées sans compression et vérifiées avant le départ","Très lâches","Posées uniquement sur un membre","Humides pour mieux tenir"],"bonne":0},{"q":"Après embarquement, on sécurise normalement :","options":["La barre ou le bas-flanc avant d’attacher court de façon adaptée","La tête avant toute fermeture arrière","Uniquement la porte avant","Rien si le trajet est court"],"bonne":0}]</script>
 
-<section class="quiz-ref-related"><p class="eyebrow">CONTINUER À RÉVISER</p><h2>D’autres quiz sur ce thème</h2><div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 5">
+<section class="quiz-ref-related"><p class="eyebrow">CONTINUER À RÉVISER</p><h2>D’autres quiz sur ce thème</h2><section class="quiz-carousel-shell" aria-label="D’autres quiz Galop 5">
     <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
     <div class="quiz-carousel"><a class="quiz-card" href="/galop-5/soins-et-pratique/digestion-et-identification/">
   <img class="quiz-card-img" src="/assets/quiz-g5-digestion-et-identification.webp" alt="" width="960" height="720" loading="lazy">
@@ -141,18 +141,20 @@
     <span class="n-questions">5 questions · Galop 5</span>
   </span>
 </a></div>
-  </div></section>
+  </section></section>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
 (function () {
   var zone = document.getElementById('quiz-zone');
   var barre = document.getElementById('quiz-progres');
+  var progressbar = document.getElementById('quiz-progressbar');
   var compteur = document.getElementById('quiz-compteur');
   var pourcentage = document.getElementById('quiz-pourcentage');
   var precedent = document.getElementById('quiz-precedent');
   var suivant = document.getElementById('quiz-suivant');
   var data = JSON.parse(document.getElementById('quiz-data-5-soins-et-pratique-longe-et-embarquement').textContent);
+  var chevaux = ["/assets/pictogramme-cheval-pas.png","/assets/pictogramme-cheval-trot.png","/assets/pictogramme-cheval-galop.png","/assets/pictogramme-cheval-allonge.png"];
   var index = 0, score = 0, serie = 0, meilleureSerie = 0, termine = false;
   var reponses = new Array(data.length);
   var debut = Date.now();
@@ -231,29 +233,30 @@
     boucle();
   }
 
-  function rendreQuestion() {
+  function rendreQuestion(placerFocus) {
     var q = data[index];
     var deja = reponses[index];
     var pct = Math.round(((index + 1) / data.length) * 100);
-    barre.style.width = pct + '%'; compteur.textContent = 'Question ' + (index + 1) + ' / ' + data.length; pourcentage.textContent = pct + '%';
+    barre.style.width = pct + '%'; progressbar.setAttribute('aria-valuenow', pct); compteur.textContent = 'Question ' + (index + 1) + ' / ' + data.length; pourcentage.textContent = pct + '%';
     precedent.disabled = index === 0;
     suivant.disabled = !deja;
     suivant.querySelector('span').textContent = index + 1 < data.length ? 'Question suivante' : 'Voir mon score';
     suivant.hidden = false;
-    var html = '<div class="quiz-ref-question">' +
-      '<div class="enonce">' + q.q + '</div>' +
+    var html = '<div class="quiz-ref-question" role="group" aria-labelledby="quiz-enonce">' +
+      '<h2 class="enonce" id="quiz-enonce" tabindex="-1">' + q.q + '</h2>' +
       (q.image ? '<figure class="quiz-visuel"><img src="' + q.image + '" alt="' + (q.imageAlt || '') + '" width="960" height="720"></figure>' : '') +
-      '<div class="quiz-ref-options">' +
+      '<div class="quiz-ref-options" role="group" aria-labelledby="quiz-enonce">' +
       q.options.map(function (opt, i) {
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="/assets/icon-knight.svg" alt=""><span>' + opt + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt=""><span>' + opt + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
-      '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback">' +
-      (deja ? '<img src="/assets/icon-knight.svg" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + q.options[q.bonne]) + '</strong><span>' + (q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + q.options[q.bonne]) + '</strong><span>' + (q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
+    if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
     var feedback = document.getElementById('quiz-feedback');
     zone.querySelectorAll('.quiz-ref-option').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -272,12 +275,12 @@
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/icon-knight.svg" alt=""><div><strong>Bonne réponse !</strong><span>' + (q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>Bonne réponse !</strong><span>' + (q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/icon-knight.svg" alt=""><div><strong>La bonne réponse : ' + q.options[bonne] + '</strong><span>' + (q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt=""><div><strong>La bonne réponse : ' + q.options[bonne] + '</strong><span>' + (q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
@@ -287,7 +290,7 @@
   }
 
   function rendreResultat() {
-    termine = true; window.clearInterval(chrono); barre.style.width = '100%'; pourcentage.textContent = '100%'; compteur.textContent = 'Quiz terminé';
+    termine = true; window.clearInterval(chrono); barre.style.width = '100%'; progressbar.setAttribute('aria-valuenow', '100'); pourcentage.textContent = '100%'; compteur.textContent = 'Quiz terminé';
     precedent.disabled = false; suivant.hidden = true;
     var pct = Math.round((score / data.length) * 100);
     var emoji = pct >= 90 ? '🏆' : pct >= 70 ? '🎉' : pct >= 50 ? '💪' : '📚';
@@ -307,7 +310,7 @@
         last:score, best:meilleur, attempts:(ancien.attempts || 0) + 1, updated:Date.now() };
       localStorage.setItem(cle, JSON.stringify(historique));
     } catch (e) {}
-    zone.innerHTML = '<div class="quiz-ref-question quiz-resultat">' +
+    zone.innerHTML = '<div class="quiz-ref-question quiz-resultat" role="status" aria-live="polite" tabindex="-1">' +
       '<div class="quiz-resultat-emoji">' + emoji + '</div>' +
       '<div class="score">' + score + ' / ' + data.length + '</div>' +
       '<p class="appreciation">' + appreciation + '</p>' +
@@ -317,33 +320,22 @@
       '<a class="btn-secondaire" href="/fiches/galop-5/">Revoir la fiche</a>' +
       '<a class="btn-secondaire" href="/progression/">Mon diagnostic</a></div>' +
       '</div>';
+    zone.querySelector('.quiz-resultat').focus();
     document.getElementById('quiz-recommencer').addEventListener('click', function () {
       index = 0; score = 0; serie = 0; meilleureSerie = 0; termine = false; reponses = new Array(data.length); debut = Date.now();
       chrono = window.setInterval(function () { document.getElementById('session-temps').textContent = formaterTemps(Math.floor((Date.now() - debut) / 1000)); }, 1000);
-      suivant.hidden = false; actualiserSession(); rendreQuestion();
+      suivant.hidden = false; actualiserSession(); rendreQuestion(true);
     });
   }
 
-  precedent.addEventListener('click', function () { if (termine) { termine = false; suivant.hidden = false; } if (index > 0) { index--; rendreQuestion(); } });
-  suivant.addEventListener('click', function () { if (!reponses[index]) return; index++; if (index < data.length) rendreQuestion(); else rendreResultat(); });
-  chargerScores(); actualiserSession(); rendreQuestion();
+  precedent.addEventListener('click', function () { if (termine) { termine = false; suivant.hidden = false; } if (index > 0) { index--; rendreQuestion(true); } });
+  suivant.addEventListener('click', function () { if (!reponses[index]) return; index++; if (index < data.length) rendreQuestion(true); else rendreResultat(); });
+  chargerScores(); actualiserSession(); rendreQuestion(false);
 })();
 </script>
 </main>
 </div>
 
-<script>
-document.addEventListener('click', function (e) {
-  if (!e.target.closest || !e.target.closest('#theme-toggle')) return;
-  var r = document.documentElement;
-  var sombreActuel = r.getAttribute('data-theme')
-    ? r.getAttribute('data-theme') === 'dark'
-    : matchMedia('(prefers-color-scheme: dark)').matches;
-  var suivant = sombreActuel ? 'light' : 'dark';
-  r.setAttribute('data-theme', suivant);
-  try { localStorage.setItem('quizzgalop-theme', suivant); } catch (err) {}
-});
-</script>
 <script>
 (function () {
   function actualiser(shell) {
@@ -358,10 +350,10 @@ document.addEventListener('click', function (e) {
     var track = shell.querySelector('.quiz-carousel');
     actualiser(shell);
     shell.querySelector('[data-carousel-prev]').onclick = function () {
-      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     };
     shell.querySelector('[data-carousel-next]').onclick = function () {
-      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     };
     track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
   });
@@ -376,6 +368,13 @@ document.addEventListener('click', function (e) {
     var ouvert = nav.classList.toggle('ouvert');
     b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
     b.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+    if (ouvert) setTimeout(function () { var premier = nav.querySelector('a'); if (premier) premier.focus(); }, 0);
+    return;
+  }
+  if (e.target.closest('#site-nav a')) {
+    nav.classList.remove('ouvert');
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-label', 'Ouvrir le menu');
     return;
   }
   if (nav.classList.contains('ouvert') && !e.target.closest('#site-nav')) {
@@ -383,6 +382,43 @@ document.addEventListener('click', function (e) {
     b.setAttribute('aria-expanded', 'false');
   }
 });
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav || !nav.classList.contains('ouvert')) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
+  b.setAttribute('aria-label', 'Ouvrir le menu');
+  b.focus();
+});
+window.addEventListener('resize', function () {
+  if (window.innerWidth <= 860) return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
+});
+</script>
+<script>
+(function () {
+  var selecteur = '.editorial-hero,.categorie-heading,.quiz-card,.niveau-card,.fiche-card,.conseil-card,.progression-card,.article-section,.axe-card,.other-levels-wrap,.method-steps article,.method-proof>*';
+  var elements = Array.prototype.slice.call(document.querySelectorAll(selecteur));
+  if (!elements.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  elements.forEach(function (el, index) {
+    el.classList.add('ui-reveal');
+    el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+  });
+  var observateur = new IntersectionObserver(function (entrees) {
+    entrees.forEach(function (entree) {
+      if (!entree.isIntersecting) return;
+      entree.target.classList.add('ui-visible');
+      observateur.unobserve(entree.target);
+    });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
+  elements.forEach(function (el) { observateur.observe(el); });
+})();
 </script>
 <script>
 (function () {
@@ -404,6 +440,7 @@ document.addEventListener('click', function (e) {
   }
   function afficher() { if (banniere) banniere.hidden = false; }
   function masquer() { if (banniere) banniere.hidden = true; }
+  if (!CLIENT) { masquer(); return; }
   var choix = lire();
   if (choix === 'accepte') chargerPub();
   else if (choix !== 'refuse') afficher();

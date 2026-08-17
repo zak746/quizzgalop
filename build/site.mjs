@@ -38,16 +38,20 @@ const NAV = [
 
 function navHtml(pathCourant) {
   const liens = NAV.map(([href, nom]) => {
-    const actif = href === pathCourant || (href !== '/' && pathCourant.startsWith(href));
+    const actif = href === pathCourant || (href !== '/' && pathCourant.startsWith(href)) ||
+      (href === '/quiz/' && /^\/galop-\d+\//.test(pathCourant));
     return `<a href="${href}"${actif ? ' class="site-nav-current" aria-current="page"' : ''}>${nom}</a>`;
   }).join('\n        ');
   return `<div class="site-nav-row">
-      <a class="site-brand" href="/">Quizz <span>Galop</span></a>
+      <a class="site-brand" href="/" aria-label="Quizz Galop — Accueil">
+        <img src="/assets/logo-embleme.svg" alt="" width="120" height="120">
+        <span class="site-brand-copy"><strong>QUIZZ GALOP</strong><small>RÉVISION ÉQUESTRE</small></span>
+      </a>
       <div class="site-nav-sep"></div>
       <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
         ${liens}
       </nav>
-      ${BOUTON_THEME}
+      <a class="nav-cta" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="22" height="22">Faire un quiz</a>
       ${BOUTON_MENU}
     </div>`;
 }
@@ -69,12 +73,37 @@ document.addEventListener('click', function (e) {
     var ouvert = nav.classList.toggle('ouvert');
     b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
     b.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+    if (ouvert) setTimeout(function () { var premier = nav.querySelector('a'); if (premier) premier.focus(); }, 0);
+    return;
+  }
+  if (e.target.closest('#site-nav a')) {
+    nav.classList.remove('ouvert');
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-label', 'Ouvrir le menu');
     return;
   }
   if (nav.classList.contains('ouvert') && !e.target.closest('#site-nav')) {
     nav.classList.remove('ouvert');
     b.setAttribute('aria-expanded', 'false');
   }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav || !nav.classList.contains('ouvert')) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
+  b.setAttribute('aria-label', 'Ouvrir le menu');
+  b.focus();
+});
+window.addEventListener('resize', function () {
+  if (window.innerWidth <= 860) return;
+  var b = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (!b || !nav) return;
+  nav.classList.remove('ouvert');
+  b.setAttribute('aria-expanded', 'false');
 });
 </script>`;
 
@@ -144,6 +173,7 @@ export const SCRIPT_CONSENTEMENT = `<script>
   }
   function afficher() { if (banniere) banniere.hidden = false; }
   function masquer() { if (banniere) banniere.hidden = true; }
+  if (!CLIENT) { masquer(); return; }
   var choix = lire();
   if (choix === 'accepte') chargerPub();
   else if (choix !== 'refuse') afficher();
@@ -233,13 +263,33 @@ export const SCRIPT_CAROUSEL = `<script>
     var track = shell.querySelector('.quiz-carousel');
     actualiser(shell);
     shell.querySelector('[data-carousel-prev]').onclick = function () {
-      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     };
     shell.querySelector('[data-carousel-next]').onclick = function () {
-      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     };
     track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
   });
+})();
+</script>`;
+
+export const SCRIPT_UI_POLISH = `<script>
+(function () {
+  var selecteur = '.editorial-hero,.categorie-heading,.quiz-card,.niveau-card,.fiche-card,.conseil-card,.progression-card,.article-section,.axe-card,.other-levels-wrap,.method-steps article,.method-proof>*';
+  var elements = Array.prototype.slice.call(document.querySelectorAll(selecteur));
+  if (!elements.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  elements.forEach(function (el, index) {
+    el.classList.add('ui-reveal');
+    el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+  });
+  var observateur = new IntersectionObserver(function (entrees) {
+    entrees.forEach(function (entree) {
+      if (!entree.isIntersecting) return;
+      entree.target.classList.add('ui-visible');
+      observateur.unobserve(entree.target);
+    });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
+  elements.forEach(function (el) { observateur.observe(el); });
 })();
 </script>`;
 
@@ -308,7 +358,6 @@ export function layout(o) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-${SCRIPT_THEME_INLINE}
 ${SCRIPT_ADSENSE}
 ${ld}
 </head>
@@ -336,15 +385,15 @@ ${o.masquerFooter ? '' : `<div class="shell">
     <div><h2>Niveaux</h2><ul>${NIVEAUX.map((n) => `<li><a href="/galop-${n}/">Galop ${n}</a></li>`).join('')}<li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
     <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
-    <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li><li><a href="#" data-rouvrir-cons>Cookies</a></li></ul></div>
+    <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li>${pubActive() ? '<li><a href="#" data-rouvrir-consent>Cookies</a></li>' : ''}</ul></div>
   </div>
-  <div class="footer-newsletter"><div class="newsletter-icon">✉</div><div><h2>Restez informé</h2><p>Recevez nos conseils, nouveautés et ressources pour progresser à cheval.</p></div><form><label class="sr-only" for="footer-email">Votre adresse e-mail</label><input id="footer-email" type="email" placeholder="Votre adresse e-mail"><button type="button">S’abonner <span>→</span></button><small>✓ Pas de spam, désinscription en 1 clic.</small></form></div>
-  <div class="footer-bas"><span>♢ Conforme au programme officiel FFE</span><span>© ${new Date().getFullYear()} Quizz Galop — Tous droits réservés.</span><div class="footer-social"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a></div></div>
+  <div class="footer-newsletter footer-resources"><div class="newsletter-icon"><img src="/assets/icon-cap.svg" alt="" width="64" height="64"></div><div><h2>Continue ta révision</h2><p>Retrouve une ressource adaptée à ton objectif du moment.</p></div><div class="footer-resource-actions"><a href="/fiches/">Voir les fiches <span>→</span></a><a href="/examen/">Examen blanc <span>→</span></a></div></div>
+  <div class="footer-bas"><span class="footer-compliance"><img src="/assets/icon-medal.svg" alt="" width="24" height="24">Conforme au programme officiel FFE</span><span>© ${new Date().getFullYear()} Quizz Galop — Tous droits réservés.</span><div class="footer-social footer-shortcuts"><a href="/fiches/" aria-label="Fiches de révision">F</a><a href="/quiz/" aria-label="Tous les quiz">Q</a><a href="/examen/" aria-label="Examen blanc">E</a></div></div>
 </footer>
 </div>`}
-${SCRIPT_THEME}
 ${SCRIPT_CAROUSEL}
 ${SCRIPT_MENU}
+${SCRIPT_UI_POLISH}
 ${SCRIPT_CONSENTEMENT}
 ${SCRIPT_PUB}
 </body>
