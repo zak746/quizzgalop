@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-7-expertise-du-cheval-aplombs">[{"q":"Sur l’illustration, quel défaut d’aplomb montre la flèche ?","image":"/assets/visuel-g7-aplombs.webp","imageAlt":"Illustration de face des antérieurs d’un cheval avec pointes des pieds orientées vers l’extérieur","options":["Panard","Cagneux","Campé","Sous lui"],"bonne":0,"explication":"Panard signifie que les pinces sont orientées vers l’extérieur."},{"q":"Des aplombs corrects favorisent :","options":["Une répartition régulière des contraintes","Une usure volontairement asymétrique","Une vitesse supérieure automatique","Une robe plus brillante"],"bonne":0},{"q":"Un cheval cagneux présente des pinces orientées :","options":["Vers l’intérieur","Vers l’extérieur","Vers l’arrière","Sans direction particulière"],"bonne":0},{"q":"“Campé du devant” signifie que les antérieurs sont :","options":["Placés trop en avant de la verticale","Placés sous le corps","Croisés","Orientés vers l’intérieur"],"bonne":0},{"q":"L’observation dynamique sert à repérer :","options":["Déviation des membres et irrégularités en mouvement","Uniquement la taille","La couleur des sabots","Le numéro SIRE"],"bonne":0},{"q":"Un défaut d’aplomb peut influencer :","options":["Usure du pied, articulations et locomotion","Uniquement le pansage","La digestion seulement","Le sexe du cheval"],"bonne":0},{"q":"Pour observer de face, le cheval doit être :","options":["D’aplomb sur un sol plat et régulier","Sur une pente","En mouvement rapide","Avec un antérieur levé"],"bonne":0},{"q":"L’analyse d’un aplomb doit être reliée :","options":["À la locomotion, au pied et à l’usage du cheval","À un seul angle photographique","À la robe uniquement","Au niveau du cavalier"],"bonne":0}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-7/expertise-du-cheval/rationnement/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 7">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-7/expertise-du-cheval/rationnement/">
   <img class="quiz-card-img" src="/assets/quiz-g7-rationnement.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Les principes du rationnement</span>
     <span class="n-questions">8 questions · Galop 7</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/bride-et-enrenements/">
+  <img class="quiz-card-img" src="/assets/quiz-g7-bride-et-enrenements.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">La bride et les enrênements</span>
+    <span class="n-questions">8 questions · Galop 7</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-7/materiel-et-bien-etre/transport-et-bien-etre/">
+  <img class="quiz-card-img" src="/assets/quiz-g7-transport-et-bien-etre.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Transport et bien-être du cheval</span>
+    <span class="n-questions">8 questions · Galop 7</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-7/programme-officiel/livret-et-transport/">
+  <img class="quiz-card-img" src="/assets/visuel-g7-aplombs.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Livret, signalement et transport</span>
+    <span class="n-questions">5 questions · Galop 7</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-7/programme-officiel/bandes-et-longues-renes/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Bandes de polo et longues rênes</span>
+    <span class="n-questions">5 questions · Galop 7</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-7-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Rectitude et épaule en dedans</span>
+    <span class="n-questions">5 questions · Galop 7</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

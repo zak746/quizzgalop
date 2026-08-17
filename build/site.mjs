@@ -33,7 +33,7 @@ const NAV = [
   ['/fiches/', 'Fiches'],
   ['/conseils/', 'Conseils'],
   ['/progression/', 'Progression'],
-  ['/premium/', 'Premium']
+  ['/examen/', 'Examen']
 ];
 
 function navHtml(pathCourant) {
@@ -219,12 +219,27 @@ document.addEventListener('click', function (e) {
 });
 </script>`;
 
-export const SCRIPT_PREMIUM = `<script>
+export const SCRIPT_CAROUSEL = `<script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>`;
 
@@ -334,7 +349,7 @@ ${o.body}
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -347,7 +362,7 @@ ${o.body}
 </footer>
 </div>
 ${SCRIPT_THEME}
-${SCRIPT_PREMIUM}
+${SCRIPT_CAROUSEL}
 ${SCRIPT_MENU}
 ${SCRIPT_CONSENTEMENT}
 ${SCRIPT_PUB}

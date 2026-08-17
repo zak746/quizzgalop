@@ -25,6 +25,13 @@ const files = {
   'exec-b3a1e574-5663-40a9-b837-fe5d0bd2a739.png': 'quiz-g7-bride-et-enrenements.webp',
   'exec-980ed343-db7b-40fe-bae5-2425cf48b7b8.png': 'quiz-g7-transport-et-bien-etre.webp',
   'exec-1d3786b8-3e2a-4066-b907-0ce7160f554b.png': 'banniere-galop-4-v2.webp'
+  ,'exec-e4e53923-b40f-4325-b135-746e672d323a.png': 'banniere-galop-1-v3.webp'
+  ,'exec-16d22816-c3fe-4dc1-9353-07b9951e3c54.png': 'banniere-galop-2-v3.webp'
+  ,'exec-6a06e773-b785-4ee6-ac3d-eb3889f8dbff.png': 'banniere-galop-3-v3.webp'
+  ,'exec-b3257885-ee5c-43d7-b07d-3dcfeef817fb.png': 'banniere-galop-4-v3.webp'
+  ,'exec-ac167163-a491-4893-913b-ea8b7805a331.png': 'banniere-galop-5-v3.webp'
+  ,'exec-4ae03984-7eea-4073-90fa-210746f07d5c.png': 'banniere-galop-6-v3.webp'
+  ,'exec-493fb1c1-4b19-4c85-9c99-6be66097fdd4.png': 'banniere-galop-7-v3.webp'
 };
 
 for (const [source, target] of Object.entries(files)) {

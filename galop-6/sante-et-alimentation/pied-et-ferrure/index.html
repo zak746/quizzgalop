@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-6-sante-et-alimentation-pied-et-ferrure">[{"q":"Sur l’illustration, quelle structure est indiquée par la flèche ?","image":"/assets/visuel-g6-pied.webp","imageAlt":"Coupe illustrée du pied du cheval avec une flèche vers la fourchette","options":["La fourchette","La pince","La couronne","Le tendon fléchisseur"],"bonne":0,"explication":"La fourchette est la structure triangulaire et souple visible sous le pied."},{"q":"Quel est le rôle majeur de la fourchette ?","options":["Participer à l’amortissement et au fonctionnement du pied","Produire le poil","Fixer la selle","Refroidir le membre"],"bonne":0},{"q":"La muraille du sabot est constituée principalement de :","options":["Corne","Os","Cartilage uniquement","Muscle"],"bonne":0},{"q":"Quel professionnel pare et ferre le cheval ?","options":["Le maréchal-ferrant","Le vétérinaire uniquement","Le dentiste équin","Le sellier"],"bonne":0},{"q":"Que signifie “parer” un pied ?","options":["Rétablir longueur, forme et équilibre de la corne","Peindre le sabot","Retirer la fourchette","Poser une bande"],"bonne":0},{"q":"Un fer perdu ou déplacé impose :","options":["De limiter le travail et prévenir l’encadrement","De continuer normalement","De clouer soi-même le fer","De doucher uniquement"],"bonne":0},{"q":"Une chaleur anormale et un pouls digité marqué peuvent signaler :","options":["Une inflammation du pied","Une robe qui change","Une bonne détente","Un manque de pansage"],"bonne":0},{"q":"Pourquoi cure-t-on les pieds avant et après le travail ?","options":["Pour retirer les corps étrangers et contrôler l’état du pied","Pour accélérer le galop","Pour user la sole","Pour tendre les tendons"],"bonne":0}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-6/sante-et-alimentation/besoins-alimentaires/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 6">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-6/sante-et-alimentation/besoins-alimentaires/">
   <img class="quiz-card-img" src="/assets/quiz-g6-besoins-alimentaires.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Évaluer les besoins alimentaires</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-6/biologie-et-locomotion/reproduction-et-identification/">
+  <img class="quiz-card-img" src="/assets/quiz-g6-reproduction-et-identification.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Reproduction et identification</span>
+    <span class="n-questions">8 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/biologie-et-locomotion/allures-et-reculer/">
+  <img class="quiz-card-img" src="/assets/quiz-g6-allures-et-reculer.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Qualité des allures et mécanisme du reculer</span>
+    <span class="n-questions">8 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/symptomes-et-boiteries/">
+  <img class="quiz-card-img" src="/assets/visuel-g6-pied.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Symptômes, maladies et boiteries</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/etat-corporel/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">État corporel et besoins variables</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/contre-galop-et-longe/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Contre-galop, cession et longe</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

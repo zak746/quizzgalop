@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-3-anatomie-et-robes-parties-du-corps-approfondi">[{"q":"Comment s’appelle le repli de peau formant l’aisselle du membre antérieur ?","options":["L'ars","Le grasset","Le jarret","Le boulet"],"bonne":0},{"q":"Comment s’appelle l’articulation du membre postérieur équivalente au genou humain, à mi-hauteur ?","options":["Le grasset","Le paturon","Le boulet","Le sabot"],"bonne":0},{"q":"Comment s’appelle l’articulation coudée du membre postérieur, plus bas que le grasset ?","options":["Le jarret","Le coude","Le genou","L'ars"],"bonne":0},{"q":"Comment s’appelle l’articulation du membre antérieur équivalente au poignet ?","options":["Le genou","Le jarret","Le grasset","Le paturon"],"bonne":0},{"q":"Comment s’appelle la zone charnue à l’arrière du paturon, juste au-dessus du sabot ?","options":["Le fanon","La châtaigne","La ganache","Le chanfrein"],"bonne":0},{"q":"Comment s’appelle la petite callosité sur la face interne des membres du cheval ?","options":["La châtaigne","Le fanon","La couronne","La sole"],"bonne":0}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-3/anatomie-et-robes/robes-et-declinaisons/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 3">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-3/anatomie-et-robes/robes-et-declinaisons/">
   <img class="quiz-card-img" src="/assets/quiz-g3-robes-et-declinaisons.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Les robes et leurs déclinaisons</span>
     <span class="n-questions">5 questions · Galop 3</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-3/theorie-equestre/mecanisme-des-allures/">
+  <img class="quiz-card-img" src="/assets/quiz-g3-mecanisme-des-allures.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le mécanisme des allures</span>
+    <span class="n-questions">5 questions · Galop 3</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-3/theorie-equestre/figures-de-manege/">
+  <img class="quiz-card-img" src="/assets/quiz-g3-figures-de-manege.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Les figures de manège de base</span>
+    <span class="n-questions">4 questions · Galop 3</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-3/programme-officiel/vie-sociale-du-cheval/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Vie sociale et besoins du cheval</span>
+    <span class="n-questions">5 questions · Galop 3</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-3/programme-officiel/pied-et-fer/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-3-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le pied et le fer</span>
+    <span class="n-questions">5 questions · Galop 3</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-3/programme-officiel/diagonal-pied-et-parcours/">
+  <img class="quiz-card-img" src="/assets/visuel-g3-serpentine.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Diagonal, bon pied et parcours</span>
+    <span class="n-questions">5 questions · Galop 3</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

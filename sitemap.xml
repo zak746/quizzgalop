@@ -5,7 +5,7 @@
   <url><loc>https://quizzgalop.fr/fiches/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/conseils/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/progression/</loc><priority>0.6</priority></url>
-  <url><loc>https://quizzgalop.fr/premium/</loc><priority>0.6</priority></url>
+  <url><loc>https://quizzgalop.fr/examen/</loc><priority>0.8</priority></url>
   <url><loc>https://quizzgalop.fr/fiches/galop-1/</loc><priority>0.8</priority></url>
   <url><loc>https://quizzgalop.fr/fiches/galop-2/</loc><priority>0.8</priority></url>
   <url><loc>https://quizzgalop.fr/fiches/galop-3/</loc><priority>0.8</priority></url>
@@ -24,35 +24,56 @@
   <url><loc>https://quizzgalop.fr/galop-1/connaitre-le-cheval/les-allures/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-1/securite-et-materiel/securite-a-pied/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-1/securite-et-materiel/materiel-de-pansage/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-1/programme-officiel/comportement-et-sens/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-1/programme-officiel/licol-et-attache/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-1/programme-officiel/position-et-aides/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-2/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-2/robes-du-cheval/robes-de-base/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-2/robes-du-cheval/marques-blanches/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-2/prendre-soin-du-cheval/pansage-complet/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-2/prendre-soin-du-cheval/le-filet-et-la-selle/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-2/programme-officiel/aliments-et-eau/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-2/programme-officiel/sabot-et-membres/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-2/programme-officiel/figures-et-priorites/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-3/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-3/anatomie-et-robes/parties-du-corps-approfondi/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-3/anatomie-et-robes/robes-et-declinaisons/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-3/theorie-equestre/mecanisme-des-allures/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-3/theorie-equestre/figures-de-manege/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-3/programme-officiel/vie-sociale-du-cheval/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-3/programme-officiel/pied-et-fer/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-3/programme-officiel/diagonal-pied-et-parcours/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/le-materiel/les-mors/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/le-materiel/parties-de-la-selle/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/theorie-avancee/mecanisme-du-galop/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/theorie-avancee/alimentation-du-cheval/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-4/theorie-avancee/robes-complexes/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-4/programme-officiel/constantes-et-sante/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-4/programme-officiel/protections-et-transport/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-4/programme-officiel/incurvation-et-controle/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-5/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-5/connaissance-du-cheval/principes-apprentissage/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-5/connaissance-du-cheval/squelette-et-muscles/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-5/soins-et-pratique/digestion-et-identification/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-5/soins-et-pratique/longe-et-embarquement/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-5/programme-officiel/robes-et-signalement/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-5/programme-officiel/bandes-et-embouchures/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-5/programme-officiel/cadence-cession-et-cross/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-6/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-6/sante-et-alimentation/pied-et-ferrure/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-6/sante-et-alimentation/besoins-alimentaires/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-6/biologie-et-locomotion/reproduction-et-identification/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-6/biologie-et-locomotion/allures-et-reculer/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-6/programme-officiel/symptomes-et-boiteries/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-6/programme-officiel/etat-corporel/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-6/programme-officiel/contre-galop-et-longe/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-7/</loc><priority>0.9</priority></url>
   <url><loc>https://quizzgalop.fr/galop-7/expertise-du-cheval/aplombs/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-7/expertise-du-cheval/rationnement/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-7/materiel-et-bien-etre/bride-et-enrenements/</loc><priority>0.7</priority></url>
   <url><loc>https://quizzgalop.fr/galop-7/materiel-et-bien-etre/transport-et-bien-etre/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-7/programme-officiel/livret-et-transport/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-7/programme-officiel/bandes-et-longues-renes/</loc><priority>0.7</priority></url>
+  <url><loc>https://quizzgalop.fr/galop-7/programme-officiel/rectitude-et-epaule-en-dedans/</loc><priority>0.7</priority></url>
 </urlset>

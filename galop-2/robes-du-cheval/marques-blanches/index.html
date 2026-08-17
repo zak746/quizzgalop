@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-2-robes-du-cheval-marques-blanches">[{"q":"Comment s’appelle une petite marque blanche sur le front ?","options":["Liste","Pelote","Balzane","Lentille"],"bonne":1},{"q":"Comment s’appelle une fine ligne blanche verticale sur le chanfrein ?","options":["Pelote","Liste","Étoile","Balzane"],"bonne":1},{"q":"Comment s’appelle une large marque blanche couvrant tout le chanfrein ?","options":["Liste","Balzane","Bande","Pelote"],"bonne":2},{"q":"Comment appelle-t-on une marque blanche sur un membre, au niveau du sabot ou plus haut ?","options":["Une balzane","Une pelote","Une liste","Une étoile"],"bonne":0}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-2/robes-du-cheval/robes-de-base/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 2">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-2/robes-du-cheval/robes-de-base/">
   <img class="quiz-card-img" src="/assets/quiz-g2-robes-de-base.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Les robes de base</span>
     <span class="n-questions">6 questions · Galop 2</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-2/prendre-soin-du-cheval/pansage-complet/">
+  <img class="quiz-card-img" src="/assets/quiz-g2-pansage-complet.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le pansage complet</span>
+    <span class="n-questions">4 questions · Galop 2</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-2/prendre-soin-du-cheval/le-filet-et-la-selle/">
+  <img class="quiz-card-img" src="/assets/quiz-g2-le-filet-et-la-selle.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le filet et la selle : les grandes parties</span>
+    <span class="n-questions">5 questions · Galop 2</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-2/programme-officiel/aliments-et-eau/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-2-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Aliments et besoins en eau</span>
+    <span class="n-questions">5 questions · Galop 2</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-2/programme-officiel/sabot-et-membres/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-2-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Parties du sabot et des membres</span>
+    <span class="n-questions">5 questions · Galop 2</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-2/programme-officiel/figures-et-priorites/">
+  <img class="quiz-card-img" src="/assets/visuel-g3-serpentine.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Figures et règles de circulation</span>
+    <span class="n-questions">5 questions · Galop 2</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

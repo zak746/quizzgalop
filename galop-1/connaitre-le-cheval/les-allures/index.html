@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-1-connaitre-le-cheval-les-allures">[{"q":"Combien y a-t-il d’allures naturelles chez le cheval ?","options":["Deux","Trois","Quatre","Cinq"],"bonne":1},{"q":"Quelle est l’allure la plus lente du cheval ?","options":["Le trot","Le galop","Le pas","L'amble"],"bonne":2},{"q":"Combien de temps compte le pas ?","options":["2 temps","3 temps","4 temps","1 temps"],"bonne":2},{"q":"Quelle est l’allure à deux temps, où les membres bougent par paires diagonales ?","options":["Le pas","Le trot","Le galop","Le reculer"],"bonne":1},{"q":"Combien de temps compte le galop ?","options":["2 temps","3 temps","4 temps","5 temps"],"bonne":1},{"q":"Quelle est l’allure la plus rapide parmi les trois allures naturelles ?","options":["Le pas","Le trot","Le galop","Aucune"],"bonne":2},{"q":"À l’arrêt, sur combien de membres le cheval peut-il se tenir en équilibre ?","options":["2","3","4","1"],"bonne":2}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-1/connaitre-le-cheval/parties-du-corps/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 1">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-1/connaitre-le-cheval/parties-du-corps/">
   <img class="quiz-card-img" src="/assets/quiz-g1-parties-du-corps.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Les parties du corps du cheval</span>
     <span class="n-questions">8 questions · Galop 1</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-1/securite-et-materiel/securite-a-pied/">
+  <img class="quiz-card-img" src="/assets/quiz-g1-securite-a-pied.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">La sécurité à pied</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/securite-et-materiel/materiel-de-pansage/">
+  <img class="quiz-card-img" src="/assets/quiz-g1-materiel-de-pansage.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le matériel de pansage</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/programme-officiel/comportement-et-sens/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Comportement et sens du cheval</span>
+    <span class="n-questions">5 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/programme-officiel/licol-et-attache/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Licol, conduite et attache</span>
+    <span class="n-questions">5 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/programme-officiel/position-et-aides/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Position et aides élémentaires</span>
+    <span class="n-questions">5 questions · Galop 1</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

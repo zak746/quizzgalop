@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -75,7 +75,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -113,15 +113,51 @@
 <script type="application/json" id="quiz-data-6-biologie-et-locomotion-reproduction-et-identification">[{"q":"La gestation de la jument dure environ :","options":["Onze mois","Six mois","Dix-huit mois","Trois mois"],"bonne":0},{"q":"Comment appelle-t-on la mise bas chez la jument ?","options":["Le poulinage","Le sevrage","La saillie","Le débourrage"],"bonne":0},{"q":"Le colostrum apporte principalement au poulain :","options":["Des anticorps essentiels","Des fibres longues","Un apprentissage moteur","Une identification électronique"],"bonne":0},{"q":"Le sevrage correspond à :","options":["La séparation alimentaire progressive d’avec la mère","La naissance","La saillie","La pose de la puce"],"bonne":0},{"q":"Le signalement graphique décrit :","options":["Les marques et particularités visibles du cheval","Son programme de travail","Sa ration","Son caractère uniquement"],"bonne":0},{"q":"Quel outil lit le transpondeur électronique ?","options":["Un lecteur de puce","Un stéthoscope","Un nuancier","Une pince à sonder"],"bonne":0},{"q":"Le nuancier aide principalement à :","options":["Déterminer précisément une robe","Mesurer le pied","Lire une puce","Évaluer la cadence"],"bonne":0},{"q":"Avant tout déplacement, il faut vérifier :","options":["Identité, documents et exigences sanitaires applicables","Uniquement la selle","La couleur du licol","Le nombre de friandises"],"bonne":0}]</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-<a class="quiz-card" href="/galop-6/biologie-et-locomotion/allures-et-reculer/">
+<div class="quiz-carousel-shell" aria-label="D’autres quiz Galop 6">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel"><a class="quiz-card" href="/galop-6/biologie-et-locomotion/allures-et-reculer/">
   <img class="quiz-card-img" src="/assets/quiz-g6-allures-et-reculer.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Qualité des allures et mécanisme du reculer</span>
     <span class="n-questions">8 questions · Galop 6</span>
   </span>
 </a>
-</div>
+<a class="quiz-card" href="/galop-6/sante-et-alimentation/pied-et-ferrure/">
+  <img class="quiz-card-img" src="/assets/quiz-g6-pied-et-ferrure.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le pied et la ferrure</span>
+    <span class="n-questions">8 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/sante-et-alimentation/besoins-alimentaires/">
+  <img class="quiz-card-img" src="/assets/quiz-g6-besoins-alimentaires.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Évaluer les besoins alimentaires</span>
+    <span class="n-questions">8 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/symptomes-et-boiteries/">
+  <img class="quiz-card-img" src="/assets/visuel-g6-pied.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Symptômes, maladies et boiteries</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/etat-corporel/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">État corporel et besoins variables</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-6/programme-officiel/contre-galop-et-longe/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-6-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Contre-galop, cession et longe</span>
+    <span class="n-questions">5 questions · Galop 6</span>
+  </span>
+</a></div>
+  </div>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -293,7 +329,7 @@
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -319,10 +355,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>

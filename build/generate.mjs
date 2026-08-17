@@ -12,12 +12,24 @@ import { fileURLToPath } from 'node:url';
 import { SITE, url, slugify, layout, CSS, BUILD_ID } from './site.mjs';
 import { NIVEAUX } from '../data/quizzes.mjs';
 import { PROGRAMMES, CONSEILS } from '../data/content.mjs';
+import { EXTRA_QUIZZES } from '../data/extra-quizzes.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = ROOT;
 
+for (const niveau of NIVEAUX) {
+  const extras = EXTRA_QUIZZES[niveau.n] || [];
+  if (extras.length) niveau.categories.push({
+    slug:'programme-officiel',
+    titre:'Programme officiel approfondi',
+    intro:'Des quiz complémentaires pour couvrir les connaissances, soins et pratiques attendus à ce niveau.',
+    quizzes:extras
+  });
+}
+
 /** Bannière large optionnelle par niveau — utilisée dès qu'elle existe dans assets/. */
 function banniereLarge(n) {
+  if (fs.existsSync(path.join(ROOT, 'assets', `banniere-galop-${n}-v3.webp`))) return `/assets/banniere-galop-${n}-v3.webp`;
   if (n === 4 && fs.existsSync(path.join(ROOT, 'assets', 'banniere-galop-4-v2.webp'))) return '/assets/banniere-galop-4-v2.webp';
   return fs.existsSync(path.join(ROOT, 'assets', `banniere-galop-${n}.webp`)) ? `/assets/banniere-galop-${n}.webp` : null;
 }
@@ -30,7 +42,7 @@ function banniereQuiz() {
 function imageQuiz(n, quiz) {
   const nom = `quiz-g${n.n}-${quiz.slug}.webp`;
   if (fs.existsSync(path.join(ROOT, 'assets', nom))) return `/assets/${nom}`;
-  return quiz.questions.find((q) => q.image)?.image || `/assets/badge-galop-${n.n}.webp`;
+  return quiz.questions.find((q) => q.image)?.image || banniereLarge(n.n) || `/assets/badge-galop-${n.n}.webp`;
 }
 
 /** Bloc flou + fondu partagé, en bas de toute bannière pleine largeur. */
@@ -51,6 +63,13 @@ function quizCardHtml(n, cat, quiz) {
     <span class="n-questions">${quiz.questions.length} questions · Galop ${n.n}</span>
   </span>
 </a>`;
+}
+
+function quizCarouselHtml(items, label = 'Quiz') {
+  return `<div class="quiz-carousel-shell" aria-label="${label}">
+    <div class="quiz-carousel-controls"><button type="button" data-carousel-prev aria-label="Quiz précédents">←</button><button type="button" data-carousel-next aria-label="Quiz suivants">→</button></div>
+    <div class="quiz-carousel">${items}</div>
+  </div>`;
 }
 
 /* ---------- Totaux, utiles à plusieurs pages ---------- */
@@ -134,9 +153,7 @@ function pageHubQuiz() {
     ).join('\n');
     return `<div class="categorie">
   <h2>Galop ${n.n}</h2>
-  <div class="quiz-grid">
-  ${items}
-  </div>
+  ${quizCarouselHtml(items, `Quiz Galop ${n.n}`)}
 </div>`;
   }).join('\n');
 
@@ -172,9 +189,7 @@ function pageNiveau(n) {
     return `<div class="categorie">
   <h2>${c.titre}</h2>
   <p class="categorie-intro">${c.intro}</p>
-  <div class="quiz-grid">
-  ${items}
-  </div>
+  ${quizCarouselHtml(items, `${c.titre} — Galop ${n.n}`)}
 </div>`;
   }).join('\n');
 
@@ -228,6 +243,10 @@ ${sections}
 function pageQuiz(n, cat, quiz) {
   const dataId = `quiz-data-${n.n}-${cat.slug}-${quiz.slug}`;
   const questionsJson = JSON.stringify(quiz.questions).replace(/</g, '\\u003c');
+  const autresQuiz = [
+    ...cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat, q)),
+    ...n.categories.filter((c) => c.slug !== cat.slug).flatMap((c) => c.quizzes.map((q) => quizCardHtml(n, c, q)))
+  ].join('\n');
 
   const body = `<div class="quiz-intro">
   <img src="${imageQuiz(n, quiz)}" alt="Illustration : ${quiz.titre}" width="960" height="720" loading="eager">
@@ -245,9 +264,7 @@ function pageQuiz(n, cat, quiz) {
 <script type="application/json" id="${dataId}">${questionsJson}</script>
 
 <h2>D’autres quiz sur ce thème</h2>
-<div class="quiz-grid">
-${cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat, q)).join('\n') || '<p>C’était le seul quiz de cette catégorie pour l’instant.</p>'}
-</div>
+${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
 
 <canvas id="quiz-confettis"></canvas>
 <script>
@@ -468,7 +485,7 @@ function pageProgression() {
   <div class="progression-resume" id="progression-resume"><div class="skeleton-line"></div></div>
   <div id="progression-niveaux" class="progression-grid"></div>
   <div class="diagnostic" id="diagnostic"></div>
-  <div class="progression-actions"><a class="btn-premium" href="/examen-blanc/">Lancer un examen blanc <span>Premium</span></a><button class="btn-texte" id="effacer-progression" type="button">Effacer mes résultats</button></div>
+  <div class="progression-actions"><a class="btn-primaire" href="/examen/">Lancer un examen chronométré</a><button class="btn-texte" id="effacer-progression" type="button">Effacer mes résultats</button></div>
   <script>(function(){
     var catalogue=${JSON.stringify(catalogue).replace(/</g,'\\u003c')};
     var key='quizzgalop-progression-v2', hist={}; try{hist=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
@@ -498,14 +515,15 @@ function pagePremium() {
 
 function pageExamenBlanc() {
   const banque = NIVEAUX.map((n) => ({n:n.n,questions:n.categories.flatMap((c) => c.quizzes.flatMap((q) => q.questions.map((x) => ({...x,theme:q.titre}))))}));
-  const body = `<p class="eyebrow">MODE PREMIUM</p><h1>Examen blanc</h1><p class="lede">20 questions mélangées, sans correction immédiate. Ton bilan final met en évidence les thèmes à revoir.</p><div id="exam-app" class="exam-app"><div class="exam-lock"><h2>Vérification de ton accès…</h2></div></div>
-  <script>(function(){var app=document.getElementById('exam-app'), banque=${JSON.stringify(banque).replace(/</g,'\\u003c')}, actif=false;try{var p=JSON.parse(localStorage.getItem('quizzgalop-premium-demo')||'null');actif=p&&p.expires>Date.now()}catch(e){}if(!actif){app.innerHTML='<div class="exam-lock"><span>FER À CHEVAL PREMIUM</span><h2>Active ton essai de 7 jours</h2><p>L’examen blanc fait partie du parcours Premium.</p><a class="btn-premium" href="/premium/">Découvrir Premium</a></div>';return}
-  app.innerHTML='<div class="exam-start"><h2>Quel niveau prépares-tu ?</h2><div class="exam-levels">'+banque.map(function(x){return '<button type="button" data-n="'+x.n+'">Galop '+x.n+'</button>'}).join('')+'</div><p>Le résultat ne s’affichera qu’après la dernière question.</p></div>';
+  const body = `<div class="examen-hero"><div><p class="eyebrow">CONDITIONS D’EXAMEN</p><h1>Examen blanc chronométré</h1><p class="lede">20 questions mélangées, un chrono visible et aucune correction avant le résultat final.</p></div><div class="examen-horloge" aria-hidden="true"><span>20</span><small>questions</small><i>⏱</i></div></div><div id="exam-app" class="exam-app"></div>
+  <script>(function(){var app=document.getElementById('exam-app'), banque=${JSON.stringify(banque).replace(/</g,'\\u003c')};
+  app.innerHTML='<div class="exam-start"><h2>Quel niveau prépares-tu ?</h2><div class="exam-levels">'+banque.map(function(x){return '<button type="button" data-n="'+x.n+'">Galop '+x.n+'</button>'}).join('')+'</div><p>Le chrono démarre à la première question. Ton bilan affichera les thèmes à retravailler.</p></div>';
   app.addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(b)demarrer(+b.dataset.n)});
   function melanger(a){return a.slice().sort(function(){return Math.random()-.5})}
-  function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now();function render(){var q=qs[i];app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre"><i style="width:'+(100*i/qs.length)+'%"></i></div><div class="quiz-question"><div class="enonce">'+q.q+'</div>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'"></figure>':'')+'<div class="quiz-options">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){var score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result"><span>EXAMEN TERMINÉ · '+Math.max(1,Math.round((Date.now()-debut)/60000))+' MIN</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-premium" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';document.getElementById('again').onclick=function(){demarrer(n)}}render()}
+  function formater(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60);return String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+  function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now(),timer=setInterval(tick,250);function tick(){var t=document.getElementById('exam-chrono');if(t)t.textContent=formater(Date.now()-debut)}function render(){var q=qs[i];app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><time id="exam-chrono">'+formater(Date.now()-debut)+'</time><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre"><i style="width:'+(100*i/qs.length)+'%"></i></div><div class="quiz-question"><div class="enonce">'+q.q+'</div>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'"></figure>':'')+'<div class="quiz-options">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){clearInterval(timer);var duree=formater(Date.now()-debut),score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result"><span>EXAMEN TERMINÉ · '+duree+'</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-primaire" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';document.getElementById('again').onclick=function(){demarrer(n)}}render()}
   })();</script>`;
-  return layout({path:'/examen-blanc/',title:'Examen blanc Premium — Quizz Galop',description:'Simule un examen théorique Galop avec 20 questions mélangées et un bilan par thème.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Premium',href:'/premium/'},{nom:'Examen blanc',href:'/examen-blanc/'}]});
+  return layout({path:'/examen/',title:'Examen blanc chronométré — Quizz Galop',description:'Simule un examen théorique Galop avec 20 questions mélangées, un chrono et un bilan par thème.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Examen',href:'/examen/'}]});
 }
 
 /* ================= Pages légales minimales ================= */
@@ -554,8 +572,7 @@ ecrire('quiz', pageHubQuiz()); pages++;
 ecrire('fiches', pageFiches()); pages++;
 ecrire('conseils', pageConseils()); pages++;
 ecrire('progression', pageProgression()); pages++;
-ecrire('premium', pagePremium()); pages++;
-ecrire('examen-blanc', pageExamenBlanc()); pages++;
+ecrire('examen', pageExamenBlanc()); pages++;
 ecrire('mentions-legales', pageMentionsLegales()); pages++;
 ecrire('confidentialite', pageConfidentialite()); pages++;
 
@@ -565,7 +582,7 @@ const urls = [
   { loc: url('/fiches/'), priority: '0.9' },
   { loc: url('/conseils/'), priority: '0.7' },
   { loc: url('/progression/'), priority: '0.6' },
-  { loc: url('/premium/'), priority: '0.6' }
+  { loc: url('/examen/'), priority: '0.8' }
 ];
 
 for (const p of PROGRAMMES) {
@@ -609,4 +626,4 @@ ${urls.map((u) => `  <url><loc>${u.loc}</loc><priority>${u.priority}</priority><
 `;
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), sitemapXml, 'utf8');
 
-console.log(`${pages} pages générées (${NIVEAUX.length} niveaux, fiches, conseils et Premium).`);
+console.log(`${pages} pages générées (${NIVEAUX.length} niveaux, fiches, conseils et examen chronométré).`);

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=mswbv8mv">
+<link rel="stylesheet" href="/assets/site.css?v=mswu17ok">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
@@ -74,7 +74,7 @@
         <a href="/fiches/">Fiches</a>
         <a href="/conseils/">Conseils</a>
         <a href="/progression/">Progression</a>
-        <a href="/premium/">Premium</a>
+        <a href="/examen/">Examen</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button"
         aria-label="Basculer entre le thème clair et sombre" title="Thème clair / sombre">
@@ -121,7 +121,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 1</div>
     <div class="titre">Les toutes premières notions : le cheval, les allures, la sécurité.</div>
-    <div class="meta">4 quiz · 27 questions</div>
+    <div class="meta">7 quiz · 42 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-2/">
@@ -129,7 +129,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 2</div>
     <div class="titre">Les robes du cheval, le pansage complet et le matériel de base.</div>
-    <div class="meta">4 quiz · 19 questions</div>
+    <div class="meta">7 quiz · 34 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-3/">
@@ -137,7 +137,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 3</div>
     <div class="titre">Anatomie approfondie, robes, mécanisme des allures et figures de manège.</div>
-    <div class="meta">4 quiz · 20 questions</div>
+    <div class="meta">7 quiz · 35 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-4/">
@@ -145,7 +145,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 4</div>
     <div class="titre">Le matériel avancé (mors, selle), et les bases de l’alimentation du cheval.</div>
-    <div class="meta">5 quiz · 24 questions</div>
+    <div class="meta">8 quiz · 39 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-5/">
@@ -153,7 +153,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 5</div>
     <div class="titre">Apprentissage, anatomie, digestion et autonomie dans le travail à pied.</div>
-    <div class="meta">4 quiz · 32 questions</div>
+    <div class="meta">7 quiz · 47 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-6/">
@@ -161,7 +161,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 6</div>
     <div class="titre">Pied, ferrure, santé, alimentation et précision dans le travail.</div>
-    <div class="meta">4 quiz · 32 questions</div>
+    <div class="meta">7 quiz · 47 questions</div>
   </div>
 </a>
 <a class="niveau-card" href="/galop-7/">
@@ -169,7 +169,7 @@
   <div class="niveau-card-corps">
     <div class="num">Galop 7</div>
     <div class="titre">Aplombs, rationnement, bride, transport et autonomie technique.</div>
-    <div class="meta">4 quiz · 32 questions</div>
+    <div class="meta">7 quiz · 47 questions</div>
   </div>
 </a>
 </div>
@@ -208,7 +208,7 @@ l’examen sans stress sur les questions de théorie.</p>
           <li><a href="/fiches/">Fiches de révision</a></li>
           <li><a href="/conseils/">Conseils</a></li>
           <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/premium/">Quizz Galop Premium</a></li>
+          <li><a href="/examen/">Examen chronométré</a></li>
           <li><a href="/mentions-legales/">Mentions légales</a></li>
           <li><a href="/confidentialite/">Confidentialité</a></li>
           <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
@@ -234,10 +234,25 @@ document.addEventListener('click', function (e) {
 </script>
 <script>
 (function () {
-  try {
-    var p = JSON.parse(localStorage.getItem('quizzgalop-premium-demo') || 'null');
-    if (p && p.expires > Date.now()) document.documentElement.classList.add('premium-actif');
-  } catch (e) {}
+  function actualiser(shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    var prev = shell.querySelector('[data-carousel-prev]');
+    var next = shell.querySelector('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+  }
+  document.querySelectorAll('.quiz-carousel-shell').forEach(function (shell) {
+    var track = shell.querySelector('.quiz-carousel');
+    actualiser(shell);
+    shell.querySelector('[data-carousel-prev]').onclick = function () {
+      track.scrollBy({left:-Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    shell.querySelector('[data-carousel-next]').onclick = function () {
+      track.scrollBy({left:Math.max(240, track.clientWidth * .82),behavior:'smooth'});
+    };
+    track.addEventListener('scroll', function(){ actualiser(shell); }, {passive:true});
+  });
 })();
 </script>
 <script>
