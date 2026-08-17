@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx2hldm">
+<link rel="stylesheet" href="/assets/site.css?v=msx5xb0m">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 4","item":"https://quizzgalop.fr/galop-4/"},{"@type":"ListItem","position":3,"name":"Protections de travail et transport","item":"https://quizzgalop.fr/galop-4/programme-officiel/protections-et-transport/"}]}</script>
@@ -145,7 +145,63 @@
   <img class="quiz-card-img" src="/assets/quiz-g4-robes-complexes.webp" alt="" width="960" height="720" loading="lazy">
   <span class="quiz-card-corps">
     <span class="titre">Les robes plus complexes</span>
-    <span class="n-questions">3 questions · Galop 4</span>
+    <span class="n-questions">4 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/decoder-livret-signaletique/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Décoder un livret signalétique</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/observation-avant-apres-seance/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Observer avant et après la séance</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/fourrages-concentres-equilibre/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Fourrages, concentrés et équilibre</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/plantes-toxiques-prevention/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Plantes toxiques : prévenir le risque</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/pied-du-galop-et-dissociation/">
+  <img class="quiz-card-img" src="/assets/diagramme-g4-galop-gauche.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Pied du galop et dissociation</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/choisir-ajuster-protections/">
+  <img class="quiz-card-img" src="/assets/diagramme-g4-protections.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Choisir et ajuster les protections</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/ajustement-filet-action-main/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Ajustement du filet et action de main</span>
+    <span class="n-questions">6 questions · Galop 4</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-4/parcours-complet/courbes-contact-equilibre/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-4-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Courbes, contact et équilibre</span>
+    <span class="n-questions">6 questions · Galop 4</span>
   </span>
 </a></div>
   </section></section>
@@ -416,6 +472,7 @@ window.addEventListener('resize', function () {
   elements.forEach(function (el, index) {
     el.classList.add('ui-reveal');
     el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+    el.classList.add('ui-visible');
   });
   var observateur = new IntersectionObserver(function (entrees) {
     entrees.forEach(function (entree) {
@@ -424,7 +481,9 @@ window.addEventListener('resize', function () {
       observateur.unobserve(entree.target);
     });
   }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
-  elements.forEach(function (el) { observateur.observe(el); });
+  elements.forEach(function (el) {
+    if (!el.classList.contains('ui-visible')) observateur.observe(el);
+  });
 })();
 </script>
 <script>

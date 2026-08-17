@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msx2hldm">
+<link rel="stylesheet" href="/assets/site.css?v=msx5xb0m">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 1","item":"https://quizzgalop.fr/galop-1/"},{"@type":"ListItem","position":3,"name":"Les parties du corps du cheval","item":"https://quizzgalop.fr/galop-1/connaitre-le-cheval/parties-du-corps/"}]}</script>
@@ -139,6 +139,62 @@
   <span class="quiz-card-corps">
     <span class="titre">Position et aides élémentaires</span>
     <span class="n-questions">5 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/observer-avant-approcher/">
+  <img class="quiz-card-img" src="/assets/diagramme-g1-attitudes.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Observer avant d’approcher</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/reconnaitre-noir-alezan-bai/">
+  <img class="quiz-card-img" src="/assets/diagramme-g1-robes.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Reconnaître noir, alezan et bai</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/tenue-cavalier-securite/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">La tenue du cavalier en sécurité</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/checklist-avant-monter/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">La checklist avant de monter</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/monter-descendre-methodiquement/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Monter et descendre méthodiquement</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/diriger-et-changer-allure/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Diriger et changer d’allure</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/retour-ecurie-apres-seance/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Le retour à l’écurie après la séance</span>
+    <span class="n-questions">6 questions · Galop 1</span>
+  </span>
+</a>
+<a class="quiz-card" href="/galop-1/parcours-complet/situations-poney-club/">
+  <img class="quiz-card-img" src="/assets/banniere-galop-1-v3.webp" alt="" width="960" height="720" loading="lazy">
+  <span class="quiz-card-corps">
+    <span class="titre">Les bons réflexes au poney-club</span>
+    <span class="n-questions">6 questions · Galop 1</span>
   </span>
 </a></div>
   </section></section>
@@ -409,6 +465,7 @@ window.addEventListener('resize', function () {
   elements.forEach(function (el, index) {
     el.classList.add('ui-reveal');
     el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+    el.classList.add('ui-visible');
   });
   var observateur = new IntersectionObserver(function (entrees) {
     entrees.forEach(function (entree) {
@@ -417,7 +474,9 @@ window.addEventListener('resize', function () {
       observateur.unobserve(entree.target);
     });
   }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
-  elements.forEach(function (el) { observateur.observe(el); });
+  elements.forEach(function (el) {
+    if (!el.classList.contains('ui-visible')) observateur.observe(el);
+  });
 })();
 </script>
 <script>

@@ -278,9 +278,10 @@ export const NIVEAUX = [
             slug: 'robes-complexes',
             titre: 'Les robes plus complexes',
             questions: [
-              { q: 'Une robe « bai brun » se distingue d’un bai classique par :', options: ['Une teinte plus sombre, presque marron foncé', 'Des taches blanches', 'Une robe entièrement noire', 'Des crins blancs'], bonne: 0 },
-              { q: 'Le terme « pangaré » désigne :', options: ['Des zones plus claires autour du museau, des yeux et du ventre', 'Une robe entièrement blanche', 'Une tache sur le front uniquement', 'Un type de mors'], bonne: 0 },
-              { q: 'Un cheval « louvet » a une robe qui ressemble à celle :', options: ['D’un loup, gris-brun avec crins noirs', 'D’un tigre', 'D’une zèbre', 'D’un mouton'], bonne: 0 }
+              { q: 'Une robe « bai brun » se distingue d’un bai classique par :', options: ['Une teinte plus sombre, presque marron foncé', 'Des taches blanches', 'Une robe entièrement noire', 'Des crins blancs'], bonne: 0, explication:'Le bai brun conserve les extrémités et les crins noirs du bai, avec un corps nettement plus sombre.' },
+              { q: 'Le terme « pangaré » désigne :', options: ['Des zones plus claires autour du museau, des yeux et du ventre', 'Une robe entièrement blanche', 'Une tache sur le front uniquement', 'Un type de mors'], bonne: 0, explication:'Le pangaré correspond à des zones éclaircies caractéristiques, notamment au museau et sous le ventre.' },
+              { q: 'Un cheval « louvet » a une robe qui ressemble à celle :', options: ['D’un loup, gris-brun avec crins noirs', 'D’un tigre', 'D’une zèbre', 'D’un mouton'], bonne: 0, explication:'La robe louvet associe une teinte fauve ou gris-brun à des crins et extrémités plus foncés.' },
+              { q: 'Quel ensemble décrit le mieux une robe isabelle ?', options: ['Un corps beige à jaune avec crins et extrémités noirs', 'Un corps alezan avec crins alezans', 'Un mélange uniforme de poils blancs et noirs', 'De grandes plages blanches et noires'], bonne: 0, explication:'L’isabelle présente un fond jaune ou beige, associé à des crins et des extrémités noirs.' }
             ]
           }
         ]

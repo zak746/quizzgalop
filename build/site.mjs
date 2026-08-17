@@ -281,6 +281,7 @@ export const SCRIPT_UI_POLISH = `<script>
   elements.forEach(function (el, index) {
     el.classList.add('ui-reveal');
     el.style.setProperty('--reveal-delay', Math.min(index % 5, 4) * 45 + 'ms');
+    el.classList.add('ui-visible');
   });
   var observateur = new IntersectionObserver(function (entrees) {
     entrees.forEach(function (entree) {
@@ -289,7 +290,9 @@ export const SCRIPT_UI_POLISH = `<script>
       observateur.unobserve(entree.target);
     });
   }, {rootMargin:'0px 0px -5% 0px', threshold:.06});
-  elements.forEach(function (el) { observateur.observe(el); });
+  elements.forEach(function (el) {
+    if (!el.classList.contains('ui-visible')) observateur.observe(el);
+  });
 })();
 </script>`;
 
@@ -379,7 +382,7 @@ ${o.body}
 </div>
 ${o.masquerFooter ? '' : `<div class="shell">
 <footer class="site footer-luxury">
-  <div class="footer-ornement"><img src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"></div>
+  <div class="footer-ornement" aria-hidden="true"><span>✦</span></div>
   <div class="footer-grid-luxury">
     <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
     <div><h2>Niveaux</h2><ul>${NIVEAUX.map((n) => `<li><a href="/galop-${n}/">Galop ${n}</a></li>`).join('')}<li><a href="/quiz/">Tous les niveaux</a></li></ul></div>

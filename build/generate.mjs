@@ -13,6 +13,9 @@ import { SITE, url, slugify, layout, CSS, BUILD_ID } from './site.mjs';
 import { NIVEAUX } from '../data/quizzes.mjs';
 import { PROGRAMMES, CONSEILS } from '../data/content.mjs';
 import { EXTRA_QUIZZES } from '../data/extra-quizzes.mjs';
+import { QUIZ_EXPANSION as QUIZ_EXPANSION_1_3 } from '../data/quiz-expansion-g1-3.mjs';
+import { QUIZ_EXPANSION as QUIZ_EXPANSION_4_7 } from '../data/quiz-expansion-g4-7.mjs';
+import { FICHES_DETAILLEES } from '../data/fiches-detaillees.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT = ROOT;
@@ -30,6 +33,13 @@ for (const niveau of NIVEAUX) {
     titre:'Programme officiel approfondi',
     intro:'Des quiz complémentaires pour couvrir les connaissances, soins et pratiques attendus à ce niveau.',
     quizzes:extras
+  });
+  const approfondissement = QUIZ_EXPANSION_1_3[niveau.n] || QUIZ_EXPANSION_4_7[niveau.n] || [];
+  if (approfondissement.length) niveau.categories.push({
+    slug:'parcours-complet',
+    titre:'Parcours complet du niveau',
+    intro:'Des situations précises pour relier connaissances, soins, travail à pied et pratique montée.',
+    quizzes:approfondissement
   });
 }
 
@@ -90,6 +100,9 @@ function totalQuestions(niveau) {
   );
 }
 
+const TOTAL_QUIZZES = NIVEAUX.reduce((s, n) => s + totalQuizzes(n), 0);
+const TOTAL_QUESTIONS = NIVEAUX.reduce((s, n) => s + totalQuestions(n), 0);
+
 /* ================= ACCUEIL ================= */
 function pageAccueil() {
   const cartes = NIVEAUX.map((n) => `<a class="niveau-card" href="/galop-${n.n}/">
@@ -123,7 +136,7 @@ function pageAccueil() {
   </div>
   <div class="method-proof">
     <article class="testimonial"><img src="/assets/maquette-temoignage.webp" alt="Cavalière ayant révisé avec Quizz Galop" width="800" height="600" loading="lazy"><div><b>“</b><blockquote>Grâce aux quiz, j’ai compris mes erreurs et j’ai pris confiance.<br>J’ai validé mon Galop 3 du premier coup !</blockquote><div class="stars">★★★★★</div><strong>Louise D.</strong><small>Galop 3 validé</small></div></article>
-    <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>50+</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>291</strong><b>Questions corrigées</b><small>Avec explications détaillées</small></div></div>
+    <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>${TOTAL_QUIZZES}</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>${TOTAL_QUESTIONS}</strong><b>Questions corrigées</b><small>Correction immédiate après chaque réponse</small></div></div>
   </div>
   <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>Quiz gratuits</span><i></i><span>Sans inscription</span></small></div></div>
 </section>
@@ -160,7 +173,7 @@ function pageHubQuiz() {
   <img src="${banniere}" alt="Tous les quiz équestres" width="1800" height="720" loading="eager">
   ${HERO_TRANSITION}
   <div class="hub-hero-large-texte">
-    <img src="/assets/icon-horseshoe.svg" alt="" width="64" height="64"><p class="eyebrow">50 QUIZ · GALOPS 1 À 7</p><h1>Tous les quiz,<br>à ton rythme</h1>
+    <img src="/assets/icon-horseshoe.svg" alt="" width="64" height="64"><p class="eyebrow">${TOTAL_QUIZZES} QUIZ · ${TOTAL_QUESTIONS} QUESTIONS</p><h1>Tous les quiz,<br>à ton rythme</h1>
     <div class="ornement-line"><i></i><b>✦</b><i></i></div><p class="lede">Choisis ton niveau ou ton thème, puis entraîne-toi avec une correction immédiate.</p>
   </div>
 </div>` : `<p class="eyebrow">TOUS LES QUIZ</p><h1>Tous les quiz, par niveau</h1>
@@ -507,30 +520,44 @@ function ficheCard(p) {
   const niveau = NIVEAUX.find((n) => n.n === p.n);
   return `<a class="fiche-card fiche-card-${p.n}" href="/fiches/galop-${p.n}/">
     <img class="fiche-card-art" src="/assets/badge-galop-${p.n}.webp" alt="" width="640" height="800" loading="lazy"><span><strong>Fiche Galop ${p.n}</strong>
-    <small>${p.objectif}</small><em>${totalQuizzes(niveau)} quiz associés →</em></span></a>`;
+    <small>${p.objectif}</small><em>Guide illustré · PDF · ${totalQuizzes(niveau)} quiz →</em></span></a>`;
 }
 
 function pageFiches() {
   const body = `<section class="editorial-hero"><img src="/assets/logo-embleme.svg" alt="" width="120" height="120"><div><p class="eyebrow">PROGRAMME & MÉMORISATION</p><h1>Fiches de révision Galops 1 à 7</h1>
-  <p class="lede">Des synthèses originales, structurées selon les trois grands modules du programme fédéral : connaître le cheval, s’en occuper, pratiquer à pied et à cheval.</p></div></section>
+  <p class="lede">Sept guides complets, illustrés et téléchargeables, pour relier connaissances du cheval, soins, pratique à pied et pratique montée.</p></div></section>
   <div class="source-officielle"><span>Source de cadrage</span><p>Contenus organisés à partir du <a href="https://www.ffe.com/system/files/cavalier/documents/pdf/PROGRAMME_OFFICIEL_GALOPS_CAVALIER_1a7_PAR_MODULE.pdf" target="_blank" rel="noopener">programme officiel FFE des Galops 1 à 7</a>. Ces fiches sont des reformulations pédagogiques indépendantes.</p></div>
+  <div class="fiches-resume" aria-label="Contenu des fiches"><div><strong>7</strong><span>guides par niveau</span></div><div><strong>14</strong><span>planches illustrées</span></div><div><strong>7</strong><span>PDF imprimables</span></div></div>
   <div class="fiches-grid">${PROGRAMMES.map(ficheCard).join('')}</div>`;
   return layout({path:'/fiches/', title:'Fiches de révision Galops 1 à 7 — Quizz Galop', description:'Fiches structurées pour réviser les programmes des Galops 1 à 7 : connaissances, soins, pratique à pied et à cheval.', body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'}], bodyClass:'page-fiches-reference'});
 }
 
 function pageFiche(p) {
   const niveau = NIVEAUX.find((n) => n.n === p.n);
+  const detail = FICHES_DETAILLEES.find((fiche) => fiche.n === p.n);
+  if (!detail) throw new Error(`Fiche détaillée manquante pour le Galop ${p.n}`);
   const axes = p.axes.map((a, i) => `<section class="axe-card"><span class="axe-index">0${i + 1}</span><h2>${a.titre}</h2><ul>${a.items.map((x) => `<li>${x}</li>`).join('')}</ul></section>`).join('');
+  const illustrations = Object.values(detail.illustrations).map((image, i) => `<figure class="fiche-planche"><img src="${image.src}" alt="${image.alt}" width="1536" height="1024" loading="${i ? 'lazy' : 'eager'}"><figcaption><span>PLANCHE 0${i + 1}</span><p>${image.legende}</p></figcaption></figure>`).join('');
+  const chapitres = detail.sections.map((section, i) => `<article class="fiche-chapitre"><span>0${i + 1}</span><div><h3>${section.titre}</h3><p>${section.texte}</p><ul>${section.points.map((point) => `<li>${point}</li>`).join('')}</ul></div></article>`).join('');
+  const checklist = detail.checklist.map((item) => `<li><span aria-hidden="true">✓</span>${item}</li>`).join('');
+  const erreurs = detail.erreurs.map((item) => `<article><span>À CORRIGER</span><h3>${item.erreur}</h3><p><strong>Le bon réflexe :</strong> ${item.correction}</p></article>`).join('');
+  const lexique = detail.lexique.map((item) => `<div><dt>${item.terme}</dt><dd>${item.definition}</dd></div>`).join('');
   const quizzes = niveau.categories.flatMap((c) => c.quizzes.slice(0, 2).map((q) => quizCardHtml(niveau, c, q))).join('');
   const suivant = p.n < 7 ? `<a class="btn-secondaire" href="/fiches/galop-${p.n + 1}/">Fiche Galop ${p.n + 1} →</a>` : '';
-  const body = `<div class="fiche-hero fiche-hero-${p.n}"><img src="/assets/badge-galop-${p.n}.webp" alt="Badge Galop ${p.n}" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION · NIVEAU ${p.n}</p><h1>Programme du Galop ${p.n}</h1><p class="lede">${p.objectif}</p><div class="ornement-line"><i></i><b>✦</b><i></i></div><a class="btn-primaire" href="#programme">Commencer la fiche</a></div></div>
-  <div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#essentiels">À retenir</a><a href="#pieges">Pièges</a><a href="#entrainement">Quiz</a></div>
+  const pdf = `/assets/pdf/fiche-revision-galop-${p.n}.pdf`;
+  const body = `<div class="fiche-hero fiche-hero-${p.n}"><img src="/assets/badge-galop-${p.n}.webp" alt="Badge Galop ${p.n}" width="640" height="800"><div><p class="eyebrow">FICHE DE RÉVISION · NIVEAU ${p.n}</p><h1>Fiche de révision Galop ${p.n}</h1><p class="lede">${detail.intro}</p><div class="ornement-line"><i></i><b>✦</b><i></i></div><div class="fiche-hero-actions"><a class="btn-primaire" href="#programme">Lire la fiche</a><a class="btn-secondaire fiche-download" href="${pdf}" download>Télécharger le PDF ↓</a></div></div></div>
+  <div class="fiche-sommaire"><strong>Sur cette fiche</strong><a href="#programme">Programme</a><a href="#planches">Planches</a><a href="#cours">Cours</a><a href="#checklist">Checklist</a><a href="#pieges">Erreurs</a><a href="#lexique">Lexique</a><a href="#entrainement">Quiz</a></div>
   <div id="programme" class="axes-grid">${axes}</div>
+  <section id="planches" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">COMPRENDRE EN IMAGE</p><h2>Deux planches pour mieux mémoriser</h2></div><div class="fiche-planches">${illustrations}</div></section>
+  <section id="cours" class="fiche-section fiche-cours"><div class="fiche-section-heading"><p class="eyebrow">COURS STRUCTURÉ</p><h2>${detail.titre}</h2></div>${chapitres}</section>
   <section id="essentiels" class="memo-panel"><p class="eyebrow">LES 3 ESSENTIELS</p><h2>À savoir expliquer simplement</h2><ol>${p.essentiels.map((x) => `<li>${x}</li>`).join('')}</ol></section>
-  <section id="pieges"><p class="eyebrow">AUTO-CORRECTION</p><h2>Les erreurs fréquentes</h2><div class="pieges-grid">${p.erreurs.map((x) => `<div><span>À éviter</span><p>${x}</p></div>`).join('')}</div></section>
-  <section id="entrainement"><p class="eyebrow">PASSER À L’ACTION</p><h2>Vérifie tes acquis</h2><div class="quiz-grid">${quizzes}</div></section>
+  <section id="checklist" class="fiche-section fiche-checklist"><div class="fiche-section-heading"><p class="eyebrow">AVANT L’EXAMEN</p><h2>Ma checklist Galop ${p.n}</h2></div><ul>${checklist}</ul></section>
+  <section id="pieges" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">AUTO-CORRECTION</p><h2>Les erreurs fréquentes</h2></div><div class="fiche-erreurs">${erreurs}</div></section>
+  <section id="lexique" class="fiche-section fiche-lexique"><div class="fiche-section-heading"><p class="eyebrow">MOTS À MAÎTRISER</p><h2>Mini-lexique</h2></div><dl>${lexique}</dl></section>
+  <div class="source-officielle fiche-source"><span>À utiliser avec ton enseignant</span><p>Cette synthèse aide à réviser la théorie. Elle ne remplace ni la pratique encadrée, ni les critères d’évaluation de ton club, ni le document fédéral de référence.</p></div>
+  <section id="entrainement" class="fiche-section"><div class="fiche-section-heading"><p class="eyebrow">PASSER À L’ACTION</p><h2>Vérifie tes acquis</h2></div>${quizCarouselHtml(quizzes, `Quiz associés à la fiche Galop ${p.n}`)}</section>
   <div class="fiche-nav"><a class="btn-primaire" href="/galop-${p.n}/">Tous les quiz Galop ${p.n}</a>${suivant}</div>`;
-  return layout({path:`/fiches/galop-${p.n}/`, title:`Fiche de révision Galop ${p.n} — Programme et essentiels`, description:`Fiche Galop ${p.n} structurée d’après les grands axes du programme officiel : connaissances, soins, travail à pied et à cheval.`, body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'},{nom:`Galop ${p.n}`,href:`/fiches/galop-${p.n}/`}], bodyClass:`page-fiche-reference level-${p.n}`});
+  return layout({path:`/fiches/galop-${p.n}/`, title:`Fiche de révision Galop ${p.n} illustrée — PDF gratuit`, description:`Fiche Galop ${p.n} complète et téléchargeable : programme, cours structuré, illustrations, checklist, erreurs fréquentes, lexique et quiz corrigés.`, body, crumbs:[{nom:'Accueil',href:'/'},{nom:'Fiches',href:'/fiches/'},{nom:`Galop ${p.n}`,href:`/fiches/galop-${p.n}/`}], bodyClass:`page-fiche-reference level-${p.n}`});
 }
 
 /* ================= CONSEILS ================= */

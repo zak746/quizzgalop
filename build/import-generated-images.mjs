@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
@@ -41,6 +42,21 @@ const files = {
   ,'exec-a9a53c39-69a2-491a-bba0-061a271c147e.png': 'pictogramme-cheval-galop.png'
   ,'exec-f1a12a26-f954-483d-bc95-584511ced3b6.png': 'pictogramme-cheval-allonge.png'
   ,'exec-ec3538ee-4f0f-4f0e-83e6-d8e365c7ccf6.png': 'banniere-tous-quiz-v2.webp'
+  ,'exec-b9c62856-d693-417f-bd68-433eb510a1ab.png': 'diagramme-g1-principal.webp'
+  ,'exec-2a4d89ba-1538-4f05-8241-34529bbbb268.png': 'diagramme-g1-attitudes.webp'
+  ,'exec-63b90df0-75c9-4ad9-a375-5ed755b2ee0d.png': 'diagramme-g1-robes.webp'
+  ,'exec-28e5ca90-1460-4901-9a9c-cdc30ea72d83.png': 'diagramme-g2-membres.webp'
+  ,'exec-a3f99c35-6099-4a80-a7e8-f26fbae602b4.png': 'diagramme-g2-abord.webp'
+  ,'exec-b17b474b-cb49-4ba3-9846-45a5fef369bd.png': 'diagramme-g3-balzanes.webp'
+  ,'exec-9e1c5d78-d1a1-4685-bf02-26800a745fb7.png': 'diagramme-g3-membres.webp'
+  ,'exec-20763893-2183-4603-9887-ca3bc24d07c7.png': 'diagramme-g4-galop-gauche.webp'
+  ,'exec-966fd519-7f60-47f3-b700-fcd2b83e75e6.png': 'diagramme-g4-protections.webp'
+  ,'exec-55cded07-16bb-446c-80c3-98e58cb70d69.png': 'diagramme-g5-digestion.webp'
+  ,'exec-49b9b5a6-2fde-47cb-ab89-13c77ee6a84c.png': 'diagramme-g5-cession.webp'
+  ,'exec-036d217e-410b-4d61-8016-987074c4ae02.png': 'diagramme-g6-pied.webp'
+  ,'exec-2d1e9f4d-522a-49cc-84aa-d12872c8e0c1.png': 'diagramme-g6-etat-corporel.webp'
+  ,'exec-30ded379-a27d-47e6-a151-e99def044314.png': 'diagramme-g7-aplombs.webp'
+  ,'exec-50781c89-9b9c-43a7-84d9-1c782b53de82.png': 'diagramme-g7-bride.webp'
 };
 
 for (const [source, target] of Object.entries(files)) {
@@ -55,4 +71,24 @@ for (const [source, target] of Object.entries(files)) {
   else await pipeline.webp({ quality: wide ? 86 : 82 }).toFile(path.join(root, 'assets', target));
 }
 
-console.log(`${Object.keys(files).length} illustrations importées.`);
+const aliases = {
+  'diagramme-g1-pratique.webp': 'diagramme-g1-attitudes.webp',
+  'diagramme-g2-principal.webp': 'diagramme-g2-membres.webp',
+  'diagramme-g2-pratique.webp': 'diagramme-g2-abord.webp',
+  'diagramme-g3-principal.webp': 'diagramme-g3-membres.webp',
+  'diagramme-g3-pratique.webp': 'diagramme-g3-balzanes.webp',
+  'diagramme-g4-principal.webp': 'diagramme-g4-galop-gauche.webp',
+  'diagramme-g4-pratique.webp': 'diagramme-g4-protections.webp',
+  'diagramme-g5-principal.webp': 'diagramme-g5-digestion.webp',
+  'diagramme-g5-pratique.webp': 'diagramme-g5-cession.webp',
+  'diagramme-g6-principal.webp': 'diagramme-g6-pied.webp',
+  'diagramme-g6-pratique.webp': 'diagramme-g6-etat-corporel.webp',
+  'diagramme-g7-principal.webp': 'diagramme-g7-aplombs.webp',
+  'diagramme-g7-pratique.webp': 'diagramme-g7-bride.webp'
+};
+
+for (const [target, source] of Object.entries(aliases)) {
+  await fs.copyFile(path.join(root, 'assets', source), path.join(root, 'assets', target));
+}
+
+console.log(`${Object.keys(files).length} illustrations importées et ${Object.keys(aliases).length} alias créés.`);

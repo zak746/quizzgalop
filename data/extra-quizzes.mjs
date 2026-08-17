@@ -88,7 +88,7 @@ export const EXTRA_QUIZZES = {
       Q('Une guêtre tournée ou pleine de sable peut :',['Provoquer frottement et gêne','Améliorer l’équilibre','Rendre le cheval plus rapide','Protéger davantage'])
     ]},
     { slug:'incurvation-et-controle', titre:'Incurvation, contact et contrôle', questions:[
-      Q('Quelle allure est décomposée sur cette illustration ?',['Le galop','Le pas','Le trot','Le reculer'],0,visuel(4,'Le galop est une allure à trois temps suivis d’un temps de suspension.','Décomposition générative de trois phases du galop')),
+      Q('Sur cette décomposition, quel indice caractérise le galop après ses trois temps ?',['Un temps de suspension où aucun pied ne touche le sol','Deux antérieurs posés ensemble','Quatre appuis successifs sans suspension','Deux bipèdes diagonaux alternés'],0,visuel(4,'Après les trois temps du galop vient une phase de suspension, visible lorsque les quatre membres quittent le sol.','Décomposition générative des trois temps du galop et de la phase de suspension')),
       Q('L’incurvation concerne :',['L’ensemble du corps sur la courbe','La tête uniquement','Les postérieurs uniquement','Le regard du cavalier']),
       Q('Un contact moelleux est :',['Stable, élastique et sans traction continue','Très fort','Absent en permanence','Alterné par secousses']),
       Q('Pour déplacer les hanches, on utilise notamment :',['Une jambe isolée adaptée','Les deux rênes tirées','Le regard seul','Le talon extérieur levé']),
@@ -127,7 +127,7 @@ export const EXTRA_QUIZZES = {
       Q('La prévention passe notamment par :',['Observation quotidienne, soins et travail adapté','Une ration identique pour tous','Des séances toujours intenses','L’absence de récupération'])
     ]},
     { slug:'etat-corporel', titre:'État corporel et besoins variables', questions:[
-      Q('L’état corporel s’évalue notamment en observant :',['Côtes, encolure, garrot et croupe','Uniquement la hauteur','La longueur de la queue','La couleur des yeux']),
+      Q('Pourquoi complète-t-on l’observation de l’état corporel par une palpation ?',['Pour mieux apprécier les dépôts graisseux sous le poil','Pour mesurer la taille du squelette','Pour identifier la robe','Pour contrôler uniquement la température'],0,{explication:'Un poil long ou dense peut masquer les reliefs : la palpation complète l’observation des côtes, du garrot, de l’encolure et de la croupe.'}),
       Q('Les besoins énergétiques augmentent souvent avec :',['Le travail, le froid ou certains états physiologiques','La couleur de robe','Le nombre de brosses','La taille du box uniquement']),
       Q('Une ration se modifie :',['Progressivement et avec suivi','Brutalement la veille d’un concours','Sans mesurer le cheval','Chaque jour au hasard']),
       Q('Le fourrage apporte en priorité :',['Fibres et temps de mastication','Uniquement des vitamines','De l’eau uniquement','Des protéines animales']),
@@ -138,7 +138,7 @@ export const EXTRA_QUIZZES = {
       Q('L’exercice développe notamment :',['Équilibre et contrôle des épaules','Vitesse maximale','Immobilité','Souplesse de la crinière']),
       Q('À la longe, déplacer le cercle demande :',['Une communication claire et un cheval qui reste équilibré','De tirer le cheval vers soi','De courir derrière lui','D’enrouler la longe']),
       Q('Pour sauter à la longe, on prépare :',['Un dispositif simple, progressif et sécurisé','Un obstacle maximal','Une longe très courte','Un départ sans échauffement']),
-      Q('Une extension d’encolure correcte conserve :',['Activité, équilibre et contact étiré','Un cheval sur les épaules','Une accélération','Une nuque bloquée'])
+      Q('Si le cheval accélère et tombe sur les épaules pendant une extension d’encolure, il faut d’abord :',['Rétablir un rythme calme et l’équilibre avant de redemander l’étirement','Allonger davantage la longe','Bloquer la main en continu','Augmenter immédiatement le diamètre du cercle'],0,{explication:'L’étirement reste utile seulement si le cheval conserve activité, cadence et équilibre ; on réorganise d’abord ces paramètres.'})
     ]}
   ],
   7: [
