@@ -61,6 +61,14 @@ fs.writeFileSync(path.join(DIST, '_headers'), `/assets/*
   Referrer-Policy: strict-origin-when-cross-origin
 `);
 
+/* Sans règle explicite, Cloudflare Pages renvoie l'accueil en 200 pour une URL
+   inconnue. Les anciennes pages payantes, désindexées depuis, produisaient donc
+   un soft-404 : Google voyait deux URL au contenu identique. Une 301 dit
+   clairement que la page a été retirée et transfère le peu de signal acquis. */
+fs.writeFileSync(path.join(DIST, '_redirects'), `/premium /  301
+/premium/* /  301
+`);
+
 const mo = (octets / 1048576).toFixed(1);
 console.log(`dist/ : ${fichiers} fichiers, ${mo} Mo`);
 if (fichiers > 20000) console.error('⚠ Cloudflare Pages limite à 20 000 fichiers.');
