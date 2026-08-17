@@ -302,65 +302,46 @@ export function layout(o) {
 <meta name="twitter:title" content="${o.title}">
 <meta name="twitter:description" content="${o.description}">
 <meta name="twitter:image" content="${url('/assets/og-quizzgalop.svg')}">
-<meta name="theme-color" content="#f5f5f7">
+<meta name="theme-color" content="#f9f3e9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 ${SCRIPT_THEME_INLINE}
 ${SCRIPT_ADSENSE}
 ${ld}
 </head>
-<body>
+<body class="${o.bodyClass || ''}">
 <a class="skip" href="#contenu">Aller au contenu</a>
 ${CONSENTEMENT_HTML}
 ${PUB_HTML}
+${o.masquerHeader ? '' : `
 <div class="shell">
 <header class="site">
   ${navHtml(o.path)}
 </header>
-</div>
+</div>`}
 <div class="shell shell-main">
 <main class="site" id="contenu">
 ${o.masquerFilCrumb ? '' : breadcrumbHtml(o.crumbs)}
 ${o.body}
 </main>
 </div>
-<div class="shell">
-<footer class="site">
-    <div class="cols">
-      <div>
-        <h2>Réviser un Galop</h2>
-        <ul>
-          <li><a href="/galop-1/">Quiz Galop 1</a></li>
-          <li><a href="/galop-2/">Quiz Galop 2</a></li>
-          <li><a href="/galop-3/">Quiz Galop 3</a></li>
-          <li><a href="/galop-4/">Quiz Galop 4</a></li>
-          <li><a href="/galop-5/">Quiz Galop 5</a></li>
-          <li><a href="/galop-6/">Quiz Galop 6</a></li>
-          <li><a href="/galop-7/">Quiz Galop 7</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Le site</h2>
-        <ul>
-          <li><a href="/quiz/">Tous les quiz</a></li>
-          <li><a href="/fiches/">Fiches de révision</a></li>
-          <li><a href="/conseils/">Conseils</a></li>
-          <li><a href="/progression/">Ma progression</a></li>
-          <li><a href="/examen/">Examen chronométré</a></li>
-          <li><a href="/mentions-legales/">Mentions légales</a></li>
-          <li><a href="/confidentialite/">Confidentialité</a></li>
-          <li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="legal">© ${new Date().getFullYear()} ${SITE.nomLong} — Site indépendant de révision pour les
-    examens de Galop, non affilié à la Fédération Française d’Équitation. Vérifiez toujours le contenu
-    de révision face au livret officiel de ton club avant un passage d’examen.</p>
+${o.masquerFooter ? '' : `<div class="shell">
+<footer class="site footer-luxury">
+  <div class="footer-ornement"><img src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"></div>
+  <div class="footer-grid-luxury">
+    <div class="footer-marque"><img class="footer-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><strong>RÉVISION ÉQUESTRE<br><em>EN LIGNE</em></strong><div class="ornement-line"><i></i><b>✦</b><i></i></div><p>La plateforme de référence pour réviser et réussir ses examens de Galop, du Galop 1 à 7, selon le programme officiel.</p></div>
+    <div><h2>Niveaux</h2><ul>${NIVEAUX.map((n) => `<li><a href="/galop-${n}/">Galop ${n}</a></li>`).join('')}<li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
+    <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
+    <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
+    <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li><li><a href="#" data-rouvrir-cons>Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-newsletter"><div class="newsletter-icon">✉</div><div><h2>Restez informé</h2><p>Recevez nos conseils, nouveautés et ressources pour progresser à cheval.</p></div><form><label class="sr-only" for="footer-email">Votre adresse e-mail</label><input id="footer-email" type="email" placeholder="Votre adresse e-mail"><button type="button">S’abonner <span>→</span></button><small>✓ Pas de spam, désinscription en 1 clic.</small></form></div>
+  <div class="footer-bas"><span>♢ Conforme au programme officiel FFE</span><span>© ${new Date().getFullYear()} Quizz Galop — Tous droits réservés.</span><div class="footer-social"><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a></div></div>
 </footer>
-</div>
+</div>`}
 ${SCRIPT_THEME}
 ${SCRIPT_CAROUSEL}
 ${SCRIPT_MENU}

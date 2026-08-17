@@ -32,14 +32,20 @@ const files = {
   ,'exec-ac167163-a491-4893-913b-ea8b7805a331.png': 'banniere-galop-5-v3.webp'
   ,'exec-4ae03984-7eea-4073-90fa-210746f07d5c.png': 'banniere-galop-6-v3.webp'
   ,'exec-493fb1c1-4b19-4c85-9c99-6be66097fdd4.png': 'banniere-galop-7-v3.webp'
+  ,'exec-2379f32b-2f3a-415b-802d-ecff97e3d598.png': 'maquette-temoignage.webp'
+  ,'exec-92e6ca08-fb4d-494c-8b89-b26cdb8ff4eb.png': 'maquette-cta-cheval.webp'
+  ,'exec-2994f6ab-531a-4a9d-a0fa-78683110d163.png': 'maquette-quiz-fond.webp'
+  ,'exec-187d88bc-1c53-4c8f-b7e5-9e1c1f6c048f.png': 'maquette-feuillage.png'
 };
 
 for (const [source, target] of Object.entries(files)) {
   const banner = target.startsWith('banniere-');
-  await sharp(path.join(generated, source))
-    .resize({ width: banner ? 1600 : 960, withoutEnlargement: true })
-    .webp({ quality: 82 })
-    .toFile(path.join(root, 'assets', target));
+  const foliage = target === 'maquette-feuillage.png';
+  const wide = target === 'maquette-cta-cheval.webp' || target === 'maquette-quiz-fond.webp';
+  const pipeline = sharp(path.join(generated, source))
+    .resize({ width: foliage ? 760 : (banner || wide ? 1800 : 960), withoutEnlargement: true });
+  if (foliage) await pipeline.png({ compressionLevel: 9 }).toFile(path.join(root, 'assets', target));
+  else await pipeline.webp({ quality: wide ? 86 : 82 }).toFile(path.join(root, 'assets', target));
 }
 
 console.log(`${Object.keys(files).length} illustrations importées.`);

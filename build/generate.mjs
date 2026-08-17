@@ -94,54 +94,44 @@ function pageAccueil() {
   </div>
 </a>`).join('\n');
 
-  const banniere = banniereAccueil();
-  const hero = banniere
-    ? `<div class="hero-bleed accueil-hero">
-  <img src="${banniere}" alt="Révise ton Galop en t’amusant, avec Quizz Galop" width="1800" height="1013" loading="eager">
-  ${HERO_TRANSITION}
-  <div class="accueil-hero-texte">
-    <p class="eyebrow">RÉVISION ÉQUESTRE EN LIGNE</p>
-    <h1>Révise ton Galop en t’amusant</h1>
-    <p class="lede">Des quiz gratuits, conformes à l’esprit du programme FFE, pour réviser la théorie de ton
-    examen de Galop entre deux séances au club.</p>
-    <a class="accueil-hero-cta" href="#niveaux">Choisir mon niveau ↓</a>
+  const body = `<section class="home-ref-hero">
+  <img class="home-ref-bg" src="${banniereAccueil()}" alt="" width="1800" height="1013" loading="eager">
+  <div class="home-ref-copy">
+    <img class="hero-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">RÉVISION ÉQUESTRE EN LIGNE</p>
+    <h1>Révise ton Galop<br>en t’amusant</h1><div class="ornement-line"><i></i><b>✦</b><i></i></div>
+    <p>Des quiz gratuits, conformes à l’esprit du programme FFE,<br>pour réviser la théorie de ton examen de Galop entre deux séances au club.</p>
+    <p>Choisis ton niveau, réponds aux questions,<br>corrige-toi tout de suite.</p>
+    <div class="home-ref-actions"><a class="btn-ref-primary" href="/examen/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir les niveaux <span>→</span></a></div>
+    <div class="home-ref-trust"><span>◇ Galop 1 à 7</span><i></i><span>♙ Quiz gratuits</span><i></i><span>✓ Réponses corrigées</span></div>
   </div>
-</div>`
-    : `<p class="eyebrow">RÉVISION ÉQUESTRE EN LIGNE</p>
-<h1>Révise ton Galop en t’amusant</h1>
-<p class="lede">Des quiz gratuits, conformes à l’esprit du programme FFE, pour réviser la théorie de ton examen
-de Galop entre deux séances au club. Choisis ton niveau, réponds aux questions, corrige-toi tout de suite.</p>`;
+</section>
 
-  const body = `${hero}
+<section class="home-method">
+  <img class="decor-leaf decor-leaf-left" src="/assets/maquette-feuillage.png" alt=""><img class="decor-leaf decor-leaf-right" src="/assets/maquette-feuillage.png" alt="">
+  <div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">UNE MÉTHODE SIMPLE ET EFFICACE</p><h2>Progresse à ton rythme</h2><p>Un parcours structuré pour réviser, comprendre et réussir ton examen de Galop.</p></div>
+  <div class="method-steps">
+    <article><b>1</b><div class="method-icon green"><img src="/assets/icon-knight.svg" alt="" width="112" height="112"></div><div><h3>Choisis ton niveau</h3><div class="mini-ornement">— ✦ —</div><p>Du Galop 1 à 7, sélectionne ton niveau et découvre le programme de révision correspondant.</p></div></article>
+    <article><b>2</b><div class="method-icon blue"><img src="/assets/icon-clipboard.svg" alt="" width="112" height="112"></div><div><h3>Réponds au quiz</h3><div class="mini-ornement">— ✦ —</div><p>Des questions claires et variées pour tester tes connaissances et comprendre l’essentiel.</p></div></article>
+    <article><b>3</b><div class="method-icon red"><img src="/assets/icon-medal.svg" alt="" width="112" height="112"></div><div><h3>Corrige et progresse</h3><div class="mini-ornement">— ✦ —</div><p>Des corrections détaillées et des explications pour avancer et gagner en confiance.</p></div></article>
+  </div>
+  <div class="method-proof">
+    <article class="testimonial"><img src="/assets/maquette-temoignage.webp" alt="Cavalière ayant révisé avec Quizz Galop" width="800" height="600" loading="lazy"><div><b>“</b><blockquote>Grâce aux quiz, j’ai compris mes erreurs et j’ai pris confiance.<br>J’ai validé mon Galop 3 du premier coup !</blockquote><div class="stars">★★★★★</div><strong>Louise D.</strong><small>Galop 3 validé</small></div></article>
+    <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>50+</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>291</strong><b>Questions corrigées</b><small>Avec explications détaillées</small></div></div>
+  </div>
+  <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/examen/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small>◇ Programme FFE · ♙ Quiz gratuits · ✓ Sans inscription</small></div></div>
+</section>
 
-<div class="parcours-rapide" aria-label="Parcours de révision">
-  <a href="/fiches/"><b>1</b><span><strong>Comprendre</strong> avec les fiches</span></a>
-  <a href="/quiz/"><b>2</b><span><strong>Mémoriser</strong> avec les quiz</span></a>
-  <a href="/progression/"><b>3</b><span><strong>Progresser</strong> grâce au diagnostic</span></a>
-</div>
-
-<h2 id="niveaux">Choisis ton niveau</h2>
-<div class="niveaux-grid">
-${cartes}
-</div>
-
-<div class="callout">
-  <p><strong>Comment on procède ?</strong> Chaque niveau est découpé en catégories (connaissance du cheval,
-  matériel, théorie…), elles-mêmes découpées en petits quiz de 4 à 8 questions. Tu réponds, tu vois tout de
-  suite si c’est correct, et un score s’affiche à la fin.</p>
-</div>
-
-<h2>Pourquoi réviser avec des quiz ?</h2>
-<p>La théorie du Galop se retient mieux en la pratiquant qu’en la lisant une seule fois. Se tromper sur un
-quiz, comprendre pourquoi, puis recommencer plus tard : c’est la méthode la plus efficace pour arriver à
-l’examen sans stress sur les questions de théorie.</p>`;
+<section class="home-levels" id="niveaux"><div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">GALOP 1 À 7</p><h2>Choisis ton niveau</h2></div><div class="niveaux-grid">${cartes}</div></section>`;
 
   return layout({
     path: '/',
     title: 'Quizz Galop — révise les Galops 1 à 7 en ligne',
     description: 'Quiz, fiches structurées et progression pour réviser la théorie des Galops 1 à 7 selon les grands axes du programme officiel FFE.',
     body,
-    ogType: 'website'
+    ogType: 'website',
+    bodyClass: 'home-reference',
+    masquerHeader: true,
+    masquerFilCrumb: true
   });
 }
 
@@ -247,32 +237,91 @@ function pageQuiz(n, cat, quiz) {
     ...cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat, q)),
     ...n.categories.filter((c) => c.slug !== cat.slug).flatMap((c) => c.quizzes.map((q) => quizCardHtml(n, c, q)))
   ].join('\n');
+  const debutFenetre = Math.min(Math.max(1, n.n - 1), 4);
+  const fenetre = Array.from({ length: 4 }, (_, i) => debutFenetre + i);
+  const progression = fenetre.map((niveau) => {
+    const etat = niveau < n.n ? 'valide' : niveau === n.n ? 'encours' : 'avenir';
+    const libelle = etat === 'valide' ? 'Validé' : etat === 'encours' ? 'En cours' : 'À venir';
+    return `<div class="quiz-ref-step ${etat}"><span>${niveau}</span><small>${libelle}</small></div>`;
+  }).join('<i></i>');
+  const scores = fenetre.map((niveau) => `<li data-score-level="${niveau}"><img src="/assets/icon-knight.svg" alt=""><span>Galop ${niveau}</span><strong>—</strong><em>À venir</em></li>`).join('');
 
-  const body = `<div class="quiz-intro">
-  <img src="${imageQuiz(n, quiz)}" alt="Illustration : ${quiz.titre}" width="960" height="720" loading="eager">
-  <div>
-    <p class="eyebrow">GALOP ${n.n} · ${cat.titre.toUpperCase()}</p>
-    <h1>${quiz.titre}</h1>
-    <p class="lede">${quiz.questions.length} questions sur ce thème. Choisis ta réponse : la correction s’affiche tout de suite.</p>
+  const body = `<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
+<section class="quiz-ref-stage">
+  <aside class="quiz-ref-left">
+    <div class="quiz-ref-brand"><img src="/assets/icon-horseshoe.svg" alt="" width="66" height="66"><span>QUIZZ GALOP</span></div>
+    <h1>Passe ton quiz</h1><div class="ornement-line"><i></i><b>✦</b><i></i></div>
+    <p>Réponds aux questions et progresse<br>vers le Galop supérieur.</p>
+    <section class="quiz-ref-panel quiz-ref-progress"><h2><img src="/assets/icon-horseshoe.svg" alt="">Ta progression</h2><div class="quiz-ref-steps">${progression}</div><div class="quiz-ref-objectif"><span><b>Objectif :</b> Valider le Galop ${n.n}</span><div><i style="width:${Math.round(((n.n - 1) / 7) * 100)}%"></i></div><em>${n.n - 1} / 7</em></div></section>
+    <section class="quiz-ref-panel quiz-ref-scores"><h2>♕ <span>Tes scores</span></h2><ul>${scores}</ul></section>
+  </aside>
+
+  <div class="quiz-ref-center">
+    <div class="quiz-ref-card" id="quiz-app" data-quiz="${dataId}">
+      <header><span id="quiz-compteur">Question 1 / ${quiz.questions.length}</span><div class="quiz-ref-track"><i id="quiz-progres"></i></div><strong id="quiz-pourcentage">0%</strong></header>
+      <div id="quiz-zone"></div>
+    </div>
+    <nav class="quiz-ref-nav" aria-label="Navigation dans le quiz"><button type="button" id="quiz-precedent">← <span>Question précédente</span></button><button type="button" id="quiz-suivant" disabled><span>Question suivante</span> →</button></nav>
   </div>
-</div>
 
-<div class="quiz-app" id="quiz-app" data-quiz="${dataId}">
-  <div class="quiz-barre"><div class="quiz-barre-remplie" id="quiz-progres" style="width:0%"></div></div>
-  <div id="quiz-zone"></div>
-</div>
+  <aside class="quiz-ref-session">
+    <section class="quiz-ref-panel">
+      <div class="session-title"><img src="/assets/icon-cap.svg" alt=""><h2>Ta session</h2></div><div class="ornement-line"><i></i><b>✦</b><i></i></div>
+      <div class="session-streak"><img src="/assets/icon-horseshoe.svg" alt=""><strong id="session-serie">0</strong><span>Série en cours</span><small id="session-bravo">À toi de jouer !</small></div>
+      <ul class="session-stats"><li><b class="good">✓</b><span>Bonnes réponses</span><strong id="session-bonnes">0</strong></li><li><b class="bad">×</b><span>Mauvaises réponses</span><strong id="session-mauvaises">0</strong></li><li><b class="time">◷</b><span>Temps écoulé</span><strong id="session-temps">00:00</strong></li></ul>
+      <div class="session-tip"><h3>♧ <span>Conseil</span></h3><p>Relis bien les explications après chaque réponse pour progresser durablement.</p></div>
+    </section>
+  </aside>
+</section>
 <script type="application/json" id="${dataId}">${questionsJson}</script>
 
-<h2>D’autres quiz sur ce thème</h2>
-${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
+<section class="quiz-ref-related"><p class="eyebrow">CONTINUER À RÉVISER</p><h2>D’autres quiz sur ce thème</h2>${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}</section>
 
 <canvas id="quiz-confettis"></canvas>
 <script>
 (function () {
   var zone = document.getElementById('quiz-zone');
   var barre = document.getElementById('quiz-progres');
+  var compteur = document.getElementById('quiz-compteur');
+  var pourcentage = document.getElementById('quiz-pourcentage');
+  var precedent = document.getElementById('quiz-precedent');
+  var suivant = document.getElementById('quiz-suivant');
   var data = JSON.parse(document.getElementById('${dataId}').textContent);
-  var index = 0, score = 0, repondu = false, serie = 0, meilleureSerie = 0;
+  var index = 0, score = 0, serie = 0, meilleureSerie = 0, termine = false;
+  var reponses = new Array(data.length);
+  var debut = Date.now();
+
+  function formaterTemps(secondes) {
+    var m = Math.floor(secondes / 60); var s = secondes % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  var chrono = window.setInterval(function () {
+    document.getElementById('session-temps').textContent = formaterTemps(Math.floor((Date.now() - debut) / 1000));
+  }, 1000);
+
+  function actualiserSession() {
+    var mauvaises = reponses.filter(function (r) { return r && !r.juste; }).length;
+    document.getElementById('session-bonnes').textContent = score;
+    document.getElementById('session-mauvaises').textContent = mauvaises;
+    document.getElementById('session-serie').textContent = serie;
+    document.getElementById('session-bravo').textContent = serie > 1 ? '🔥 Bravo !' : (serie === 1 ? 'Bien joué !' : 'À toi de jouer !');
+  }
+
+  function chargerScores() {
+    try {
+      var h = JSON.parse(localStorage.getItem('quizzgalop-progression-v2') || '{}');
+      document.querySelectorAll('[data-score-level]').forEach(function (ligne) {
+        var niveau = Number(ligne.getAttribute('data-score-level'));
+        var items = Object.values(h).filter(function (x) { return x.niveau === niveau; });
+        var total = items.reduce(function (s, x) { return s + (x.total || 0); }, 0);
+        var points = items.reduce(function (s, x) { return s + (x.best || 0); }, 0);
+        var pct = total ? Math.round(points / total * 100) : 0;
+        ligne.querySelector('strong').textContent = pct + '%';
+        ligne.querySelector('em').textContent = pct >= 80 ? 'Validé' : pct ? 'En cours' : 'À venir';
+        if (pct >= 80) ligne.classList.add('done'); else if (pct) ligne.classList.add('active');
+      });
+    } catch (e) {}
+  }
 
   /* ---- Confettis : petit moteur canvas maison, sans dépendance ---- */
   function lancerConfettis() {
@@ -317,35 +366,37 @@ ${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
   }
 
   function rendreQuestion() {
-    repondu = false;
     var q = data[index];
-    barre.style.width = Math.round((index / data.length) * 100) + '%';
-    var html = '<div class="quiz-question">' +
-      '<div class="quiz-question-tete">' +
-      '<span class="compteur">Question ' + (index + 1) + ' / ' + data.length + '</span>' +
-      (serie > 1 ? '<span class="quiz-serie">🔥 ' + serie + '</span>' : '') +
-      '</div>' +
+    var deja = reponses[index];
+    var pct = Math.round(((index + 1) / data.length) * 100);
+    barre.style.width = pct + '%'; compteur.textContent = 'Question ' + (index + 1) + ' / ' + data.length; pourcentage.textContent = pct + '%';
+    precedent.disabled = index === 0;
+    suivant.disabled = !deja;
+    suivant.querySelector('span').textContent = index + 1 < data.length ? 'Question suivante' : 'Voir mon score';
+    suivant.hidden = false;
+    var html = '<div class="quiz-ref-question">' +
       '<div class="enonce">' + q.q + '</div>' +
       (q.image ? '<figure class="quiz-visuel"><img src="' + q.image + '" alt="' + (q.imageAlt || '') + '" width="960" height="720"></figure>' : '') +
-      '<div class="quiz-options">' +
+      '<div class="quiz-ref-options">' +
       q.options.map(function (opt, i) {
-        return '<button type="button" class="quiz-option" data-i="' + i + '">' + opt + '</button>';
+        var classes = 'quiz-ref-option';
+        if (deja && i === q.bonne) classes += ' correcte';
+        else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="/assets/icon-knight.svg" alt=""><span>' + opt + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
-      '</div>' +
-      '<div class="quiz-feedback" id="quiz-feedback"></div>' +
-      '<div class="quiz-suite"><button type="button" class="quiz-btn" id="quiz-suivant" disabled>' +
-      (index + 1 < data.length ? 'Question suivante' : 'Voir mon score') + '</button></div>' +
+      '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback">' +
+      (deja ? '<img src="/assets/icon-knight.svg" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + q.options[q.bonne]) + '</strong><span>' + (q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     var feedback = document.getElementById('quiz-feedback');
-    zone.querySelectorAll('.quiz-option').forEach(function (btn) {
+    zone.querySelectorAll('.quiz-ref-option').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        if (repondu) return;
-        repondu = true;
+        if (reponses[index]) return;
         var i = parseInt(btn.getAttribute('data-i'), 10);
         var bonne = q.bonne;
         var juste = i === bonne;
-        zone.querySelectorAll('.quiz-option').forEach(function (b, bi) {
+        reponses[index] = { index:i, juste:juste };
+        zone.querySelectorAll('.quiz-ref-option').forEach(function (b, bi) {
           b.disabled = true;
           if (bi === bonne) b.classList.add('correcte');
           else if (bi === i) b.classList.add('incorrecte');
@@ -354,28 +405,24 @@ ${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
           score++; serie++;
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
-          feedback.className = 'quiz-feedback quiz-feedback-bonne visible';
-          feedback.innerHTML = '<strong>' + (serie > 2 ? ('✅ Bien joué ! Série de ' + serie) : '✅ Bien joué !') + '</strong>' +
-            (q.explication ? '<span>' + q.explication + '</span>' : '');
+          feedback.className = 'quiz-ref-feedback good visible';
+          feedback.innerHTML = '<img src="/assets/icon-knight.svg" alt=""><div><strong>Bonne réponse !</strong><span>' + (q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
-          feedback.className = 'quiz-feedback quiz-feedback-mauvaise visible';
-          feedback.innerHTML = '<strong>La bonne réponse : ' + q.options[bonne] + '.</strong>' +
-            (q.explication ? '<span>' + q.explication + '</span>' : '<span>Repère-la en vert puis relis la question avant de continuer.</span>');
+          feedback.className = 'quiz-ref-feedback bad visible';
+          feedback.innerHTML = '<img src="/assets/icon-knight.svg" alt=""><div><strong>La bonne réponse : ' + q.options[bonne] + '</strong><span>' + (q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
-        document.getElementById('quiz-suivant').disabled = false;
+        var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
+        if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
+        suivant.disabled = false; actualiserSession();
       });
-    });
-    document.getElementById('quiz-suivant').addEventListener('click', function () {
-      index++;
-      if (index < data.length) rendreQuestion();
-      else rendreResultat();
     });
   }
 
   function rendreResultat() {
-    barre.style.width = '100%';
+    termine = true; window.clearInterval(chrono); barre.style.width = '100%'; pourcentage.textContent = '100%'; compteur.textContent = 'Quiz terminé';
+    precedent.disabled = false; suivant.hidden = true;
     var pct = Math.round((score / data.length) * 100);
     var emoji = pct >= 90 ? '🏆' : pct >= 70 ? '🎉' : pct >= 50 ? '💪' : '📚';
     var appreciation = pct >= 90 ? 'Excellent, ce thème est maîtrisé !'
@@ -394,7 +441,7 @@ ${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
         last:score, best:meilleur, attempts:(ancien.attempts || 0) + 1, updated:Date.now() };
       localStorage.setItem(cle, JSON.stringify(historique));
     } catch (e) {}
-    zone.innerHTML = '<div class="quiz-question quiz-resultat">' +
+    zone.innerHTML = '<div class="quiz-ref-question quiz-resultat">' +
       '<div class="quiz-resultat-emoji">' + emoji + '</div>' +
       '<div class="score">' + score + ' / ' + data.length + '</div>' +
       '<p class="appreciation">' + appreciation + '</p>' +
@@ -405,11 +452,15 @@ ${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
       '<a class="btn-secondaire" href="/progression/">Mon diagnostic</a></div>' +
       '</div>';
     document.getElementById('quiz-recommencer').addEventListener('click', function () {
-      index = 0; score = 0; serie = 0; meilleureSerie = 0; rendreQuestion();
+      index = 0; score = 0; serie = 0; meilleureSerie = 0; termine = false; reponses = new Array(data.length); debut = Date.now();
+      chrono = window.setInterval(function () { document.getElementById('session-temps').textContent = formaterTemps(Math.floor((Date.now() - debut) / 1000)); }, 1000);
+      suivant.hidden = false; actualiserSession(); rendreQuestion();
     });
   }
 
-  rendreQuestion();
+  precedent.addEventListener('click', function () { if (termine) { termine = false; suivant.hidden = false; } if (index > 0) { index--; rendreQuestion(); } });
+  suivant.addEventListener('click', function () { if (!reponses[index]) return; index++; if (index < data.length) rendreQuestion(); else rendreResultat(); });
+  chargerScores(); actualiserSession(); rendreQuestion();
 })();
 </script>`;
 
@@ -423,6 +474,10 @@ ${quizCarouselHtml(autresQuiz, `D’autres quiz Galop ${n.n}`)}
       { nom: `Galop ${n.n}`, href: `/galop-${n.n}/` },
       { nom: quiz.titre, href: `/galop-${n.n}/${cat.slug}/${quiz.slug}/` }
     ],
+    masquerHeader: true,
+    masquerFooter: true,
+    masquerFilCrumb: true,
+    bodyClass: 'page-quiz-reference',
     jsonLd: [{
       '@context': 'https://schema.org',
       '@type': 'Quiz',
@@ -503,16 +558,7 @@ function pageProgression() {
   return layout({path:'/progression/',title:'Ma progression — Quizz Galop',description:'Tableau de bord local : scores, avancement par Galop et recommandation du prochain quiz.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Progression',href:'/progression/'}]});
 }
 
-/* ================= PREMIUM & EXAMEN BLANC ================= */
-function pagePremium() {
-  const body = `<div class="premium-hero"><div><p class="eyebrow">QUIZZ GALOP PREMIUM</p><h1>Révise avec un vrai plan, pas au hasard.</h1><p class="lede">Les quiz et les fiches restent accessibles. Premium ajoute les conditions d’examen, le diagnostic avancé et un parcours sans publicité.</p><div class="premium-cta"><button class="btn-premium" id="activer-essai" type="button">Essayer 7 jours sur cet appareil</button><small>Aucune carte demandée · démonstration locale</small></div></div><div class="premium-score"><span>PRÊT POUR LE GALOP 7</span><strong>84<sup>%</sup></strong><p>3 thèmes à consolider</p><i style="width:84%"></i></div></div>
-  <div class="features-grid"><div><b>01</b><h2>Examens blancs</h2><p>Questions mélangées, correction à la fin et analyse par thème.</p></div><div><b>02</b><h2>Plan personnalisé</h2><p>Une prochaine étape claire selon tes résultats enregistrés.</p></div><div><b>03</b><h2>Concentration</h2><p>Les emplacements publicitaires disparaissent pendant l’essai.</p></div></div>
-  <div class="pricing"><div><span>GRATUIT</span><h2>Découvrir</h2><strong>0 €</strong><ul><li>Quiz thématiques</li><li>Fiches Galops 1 à 7</li><li>Progression locale</li></ul><a class="btn-secondaire" href="/quiz/">Commencer</a></div><div class="pricing-star"><span>RECOMMANDÉ</span><h2>Premium annuel</h2><strong>39,90 € <small>/ an</small></strong><ul><li>Examens blancs illimités</li><li>Diagnostic et plan adaptatif</li><li>Expérience sans publicité</li><li>Nouveaux contenus inclus</li></ul><button class="btn-premium" data-activer type="button">Tester gratuitement</button><small>Tarification de pré-lancement, paiement à connecter.</small></div><div><span>FLEXIBLE</span><h2>Premium mensuel</h2><strong>4,90 € <small>/ mois</small></strong><ul><li>Tous les outils Premium</li><li>Sans engagement</li><li>Résiliation à tout moment</li></ul><button class="btn-secondaire" data-activer type="button">Tester 7 jours</button></div></div>
-  <div class="faq"><h2>Questions fréquentes</h2><details><summary>Les fiches et quiz gratuits vont-ils disparaître ?</summary><p>Non. Le cœur pédagogique reste accessible sans compte. Premium finance les outils avancés et l’absence de publicité.</p></details><details><summary>Mes résultats sont-ils envoyés à un serveur ?</summary><p>Dans cette version, non : progression et essai sont enregistrés uniquement dans ton navigateur.</p></details><details><summary>Est-ce un paiement réel ?</summary><p>Pas encore. Cette interface de pré-lancement doit être reliée à un prestataire de paiement avant commercialisation.</p></details></div>
-  <script>(function(){function activer(){localStorage.setItem('quizzgalop-premium-demo',JSON.stringify({expires:Date.now()+7*864e5}));location.href='/examen-blanc/'}document.querySelectorAll('#activer-essai,[data-activer]').forEach(function(b){b.onclick=activer})})();</script>`;
-  return layout({path:'/premium/',title:'Premium — Examens blancs et plan de révision',description:'Découvre Quizz Galop Premium : examens blancs, diagnostic adaptatif et expérience sans publicité.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Premium',href:'/premium/'}]});
-}
-
+/* ================= EXAMEN BLANC ================= */
 function pageExamenBlanc() {
   const banque = NIVEAUX.map((n) => ({n:n.n,questions:n.categories.flatMap((c) => c.quizzes.flatMap((q) => q.questions.map((x) => ({...x,theme:q.titre}))))}));
   const body = `<div class="examen-hero"><div><p class="eyebrow">CONDITIONS D’EXAMEN</p><h1>Examen blanc chronométré</h1><p class="lede">20 questions mélangées, un chrono visible et aucune correction avant le résultat final.</p></div><div class="examen-horloge" aria-hidden="true"><span>20</span><small>questions</small><i>⏱</i></div></div><div id="exam-app" class="exam-app"></div>
@@ -610,10 +656,10 @@ for (const n of NIVEAUX) {
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), CSS, 'utf8');
 
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#007aff"/><path d="M18 13c-5 6-8 14-8 23 0 13 10 22 22 22s22-9 22-22c0-9-3-17-8-23l-8 6c3 4 5 10 5 16 0 7-5 12-11 12s-11-5-11-12c0-6 2-12 5-16z" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="17" r="2.4" fill="#fff"/><circle cx="46" cy="17" r="2.4" fill="#fff"/></svg>`;
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#fff8ed"/><rect x="1.5" y="1.5" width="61" height="61" rx="13.5" fill="none" stroke="#d2ad77" stroke-width="3"/><path d="M17 11c-6 9-8 20-6 30 2 13 10 20 21 20s19-7 21-20c2-10 0-21-6-30l-9 6c4 6 5 14 4 21-1 8-4 12-10 12s-9-4-10-12c-1-7 0-15 4-21l-9-6Z" fill="#c69652"/><circle cx="19" cy="26" r="2" fill="#fff8ed"/><circle cx="45" cy="26" r="2" fill="#fff8ed"/><path d="m32 25 2.5 5.5L40 33l-5.5 2.5L32 41l-2.5-5.5L24 33l5.5-2.5L32 25Z" fill="#fff8ed"/></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), favicon, 'utf8');
 
-const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f5f5f7"/><rect x="0" y="0" width="1200" height="630" fill="none" stroke="#007aff" stroke-width="16"/><text x="600" y="300" font-size="86" text-anchor="middle" fill="#1d1d1f" font-family="-apple-system,'Plus Jakarta Sans',sans-serif" font-weight="800">Quizz Galop</text><text x="600" y="380" font-size="34" text-anchor="middle" fill="#007aff" font-family="-apple-system,'Plus Jakarta Sans',sans-serif" font-weight="600">Fiches & quiz · Galops 1 à 7</text></svg>`;
+const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" rx="34" fill="#fbf6ee"/><rect x="12" y="12" width="1176" height="606" rx="28" fill="none" stroke="#c69652" stroke-width="2"/><path d="M565 95c-14 22-18 47-13 69 6 29 24 45 48 45s42-16 48-45c5-22 1-47-13-69l-20 13c9 14 12 33 9 48-3 18-10 26-24 26s-21-8-24-26c-3-15 0-34 9-48l-20-13Z" fill="#c69652"/><text x="600" y="350" font-size="96" text-anchor="middle" fill="#17130f" font-family="Georgia,serif" font-weight="600">Quizz Galop</text><line x1="360" y1="400" x2="530" y2="400" stroke="#c69652"/><circle cx="600" cy="400" r="6" fill="#c69652"/><line x1="670" y1="400" x2="840" y2="400" stroke="#c69652"/><text x="600" y="474" font-size="30" letter-spacing="5" text-anchor="middle" fill="#174d3b" font-family="Arial,sans-serif">GALOPS 1 À 7</text><text x="600" y="530" font-size="24" text-anchor="middle" fill="#665b50" font-family="Arial,sans-serif">Fiches, quiz et examens chronométrés</text></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'og-quizzgalop.svg'), og, 'utf8');
 
 /* ---------- robots.txt + sitemap.xml ---------- */
