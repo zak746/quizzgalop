@@ -122,12 +122,12 @@ function pageAccueil() {
     <p>Des quiz corrigés, structurés selon l’esprit du programme FFE,<br>pour réviser la théorie de ton examen de Galop entre deux séances au club.</p>
     <p>Choisis ton niveau, réponds aux questions,<br>corrige-toi tout de suite.</p>
     <div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir les niveaux <span>→</span></a></div>
-    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="">100% gratuit</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
+    <div class="home-ref-trust"><span><img src="/assets/icon-medal.svg" alt="" width="24" height="24">Galop 1 à 7</span><i></i><span><img src="/assets/icon-clipboard.svg" alt="" width="24" height="24">100% gratuit</span><i></i><span><b>✓</b>Réponses corrigées</span></div>
   </div>
 </section>
 
 <section class="home-method">
-  <img class="decor-leaf decor-leaf-left" src="/assets/maquette-feuillage.png" alt=""><img class="decor-leaf decor-leaf-right" src="/assets/maquette-feuillage.png" alt="">
+  <img class="decor-leaf decor-leaf-left" src="/assets/maquette-feuillage.png" alt="" width="760" height="776" loading="lazy" decoding="async"><img class="decor-leaf decor-leaf-right" src="/assets/maquette-feuillage.png" alt="" width="760" height="776" loading="lazy" decoding="async">
   <div class="method-heading"><img class="section-fer" src="/assets/icon-horseshoe.svg" alt="" width="96" height="96"><p class="eyebrow">UNE MÉTHODE SIMPLE ET EFFICACE</p><h2>Progresse à ton rythme</h2><p>Un parcours structuré pour réviser, comprendre et réussir ton examen de Galop.</p></div>
   <div class="method-steps">
     <article><b>1</b><div class="method-icon green"><img src="/assets/icon-knight.svg" alt="" width="112" height="112"></div><div><h3>Choisis ton niveau</h3><div class="mini-ornement">— ✦ —</div><p>Du Galop 1 à 7, sélectionne ton niveau et découvre le programme de révision correspondant.</p></div></article>
@@ -136,7 +136,7 @@ function pageAccueil() {
   </div>
   <div class="method-proof">
     <article class="testimonial"><img src="/assets/maquette-temoignage.webp" alt="Cavalière ayant révisé avec Quizz Galop" width="800" height="600" loading="lazy"><div><b>“</b><blockquote>Grâce aux quiz, j’ai compris mes erreurs et j’ai pris confiance.<br>J’ai validé mon Galop 3 du premier coup !</blockquote><div class="stars">★★★★★</div><strong>Louise D.</strong><small>Galop 3 validé</small></div></article>
-    <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt=""><strong>${TOTAL_QUIZZES}</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt=""><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>${TOTAL_QUESTIONS}</strong><b>Questions corrigées</b><small>Correction immédiate après chaque réponse</small></div></div>
+    <div class="method-stats"><div><img src="/assets/icon-horseshoe.svg" alt="" width="24" height="24"><strong>${TOTAL_QUIZZES}</strong><b>Quiz disponibles</b><small>Répartis sur les 7 Galops</small></div><div><img src="/assets/icon-medal.svg" alt="" width="24" height="24"><strong>7</strong><b>Niveaux couverts</b><small>Du Galop 1 à 7</small></div><div><span>✓</span><strong>${TOTAL_QUESTIONS}</strong><b>Questions corrigées</b><small>Correction immédiate après chaque réponse</small></div></div>
   </div>
   <div class="method-cta"><img src="/assets/maquette-cta-cheval.webp" alt="" width="1800" height="600" loading="lazy"><div><h2>Prêt(e) à réussir ton Galop ?</h2><p>Rejoins les cavaliers motivés et avance vers ton objectif !</p></div><div class="home-ref-actions"><a class="btn-ref-primary" href="/quiz/"><img src="/assets/icon-horseshoe.svg" alt="" width="28" height="28"> Commencer le quiz</a><a class="btn-ref-secondary" href="#niveaux">Voir tous les niveaux <span>→</span></a><small class="cta-trust"><span>Programme FFE</span><i></i><span>100% gratuit</span><i></i><span>Sans inscription</span></small></div></div>
 </section>
@@ -153,8 +153,49 @@ ${pubContenu('accueil-niveaux')}
     ogType: 'website',
     bodyClass: 'home-reference',
     masquerHeader: true,
-    masquerFilCrumb: true
+    masquerFilCrumb: true,
+    jsonLd: [siteJsonLd(), niveauxJsonLd()]
   });
+}
+
+/* Identité du site. Pas de SearchAction : il n'y a pas de moteur de recherche
+   interne, et en déclarer un que Google ne trouverait pas serait faux. */
+function siteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.nomLong,
+    alternateName: ['Quizz Galop', 'Quiz Galop'],
+    url: `${SITE.origin}/`,
+    inLanguage: 'fr',
+    isAccessibleForFree: true
+  };
+}
+
+/* Les sept niveaux affichés en bas de l'accueil, dans l'ordre où le visiteur les
+   voit. Chaque entrée est un Course : c'est bien un programme de révision par
+   niveau, avec un contenu propre et une progression. */
+function niveauxJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Les sept niveaux de Galop',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: NIVEAUX.length,
+    itemListElement: NIVEAUX.map((n, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Course',
+        name: `Galop ${n.n}`,
+        description: n.accroche,
+        url: url(`/galop-${n.n}/`),
+        inLanguage: 'fr',
+        isAccessibleForFree: true,
+        provider: { '@type': 'Organization', name: SITE.nom, url: `${SITE.origin}/` }
+      }
+    }))
+  };
 }
 
 /* ================= HUB /quiz/ ================= */
@@ -238,6 +279,7 @@ function pageNiveau(n) {
 </div>
 <div class="niveau-facts" aria-label="Aperçu du parcours"><div><strong>${totalQuizzes(n)}</strong><span>quiz thématiques</span></div><div><strong>${totalQuestions(n)}</strong><span>questions corrigées</span></div><div><strong>3</strong><span>axes du programme</span></div></div>
 ${sections}
+<section class="niveau-faq"><p class="eyebrow">QUESTIONS FRÉQUENTES</p><h2>Réviser le Galop ${n.n}</h2>${faqHtml(n)}</section>
 <section class="other-levels-wrap"><p class="eyebrow">POURSUIVRE LE PARCOURS</p><h2>Réviser un autre niveau</h2><div class="other-levels">${autres}</div></section>`;
   const body = `${hero}${pubContenu('niveau-haut')}${contenu}`;
 
@@ -248,8 +290,78 @@ ${sections}
     body,
     crumbs: [{ nom: 'Accueil', href: '/' }, { nom: `Galop ${n.n}`, href: `/galop-${n.n}/` }],
     masquerFilCrumb: Boolean(banniere),
-    bodyClass: `page-level-reference level-${n.n}`
+    bodyClass: `page-level-reference level-${n.n}`,
+    jsonLd: [faqJsonLd(n)]
   });
+}
+
+/* ================= FAQ des pages niveau =================
+   Les réponses sont calculées à partir des données du site (nombre de quiz, de
+   questions, thèmes réellement couverts) : elles restent donc exactes si le
+   contenu évolue. Aucune règle officielle FFE n'est énoncée ici — âge minimum,
+   format d'examen et barème dépendent du club et de l'année, les affirmer de
+   mémoire serait le meilleur moyen d'écrire une contre-vérité sur un sujet que
+   les visiteurs viennent justement vérifier. */
+function faqNiveau(n) {
+  /* Les titres de thèmes commencent parfois par un article (« Le matériel »).
+     On les introduit par deux points plutôt que par « autour de », qui produirait
+     « autour de le matériel ». */
+  const themes = n.categories.map((c) => c.titre);
+  const listeThemes = themes.length > 1
+    ? `${themes.slice(0, -1).join(', ')} et ${themes.at(-1).toLowerCase()}`
+    : themes[0];
+  const precedent = n.n - 1;
+
+  const entrees = [
+    {
+      q: `Que contient la révision du Galop ${n.n} sur ce site ?`,
+      r: `${n.accroche} Le niveau réunit ${totalQuizzes(n)} quiz thématiques et ${totalQuestions(n)} questions corrigées, répartis en ${themes.length} thèmes : ${listeThemes}. Chaque question est suivie de son explication.`
+    },
+    {
+      q: `Combien de questions faut-il faire pour réviser le Galop ${n.n} ?`,
+      r: `Le niveau compte ${totalQuestions(n)} questions au total, réparties en ${totalQuizzes(n)} quiz d’une dizaine de questions. Un quiz par séance de révision suffit : mieux vaut refaire deux fois un quiz raté qu’en enchaîner dix d’affilée.`
+    },
+    {
+      q: `Comment savoir si je suis prêt pour la théorie du Galop ${n.n} ?`,
+      r: `La page Progression indique le pourcentage acquis niveau par niveau, calculé sur vos réponses. L’examen blanc, chronométré et tiré au hasard dans le niveau, est le meilleur test : s’il passe deux fois de suite, la théorie est en place.`
+    },
+    {
+      q: `Ces quiz remplacent-ils le manuel officiel du Galop ${n.n} ?`,
+      r: `Non. Ce site est un outil d’entraînement indépendant, sans lien avec la Fédération Française d’Équitation : il sert à vérifier ce que vous savez déjà, pas à l’apprendre à la place du manuel ni des cours de votre club. Le programme officiel et le déroulé de l’examen restent ceux que votre club vous indique.`
+    }
+  ];
+
+  if (n.n > 1) {
+    entrees.splice(2, 0, {
+      q: `Faut-il maîtriser le Galop ${precedent} avant de réviser le Galop ${n.n}`.concat(' ?'),
+      r: `Les niveaux se construisent l’un sur l’autre : les notions du Galop ${precedent} sont supposées acquises et reviennent régulièrement dans les questions du Galop ${n.n}. Si plusieurs réponses vous surprennent, refaire les quiz du Galop ${precedent} fait gagner du temps plutôt qu’il n’en coûte.`
+    });
+  } else {
+    entrees.splice(2, 0, {
+      q: 'Le Galop 1 est-il accessible à un débutant complet ?',
+      r: 'Oui : c’est le premier niveau, il part des toutes premières notions — reconnaître les parties du cheval, nommer les allures, appliquer les règles de sécurité à pied. Aucune connaissance préalable n’est attendue.'
+    });
+  }
+
+  return entrees;
+}
+
+function faqHtml(n) {
+  return `<div class="faq">
+${faqNiveau(n).map((f) => `<details><summary>${f.q}</summary><p>${f.r}</p></details>`).join('\n')}
+</div>`;
+}
+
+function faqJsonLd(n) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqNiveau(n).map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.r }
+    }))
+  };
 }
 
 /* ================= PAGE QUIZ (moteur interactif) ================= */
@@ -260,7 +372,7 @@ function pageQuiz(n, cat, quiz) {
     ...cat.quizzes.filter((q) => q.slug !== quiz.slug).map((q) => quizCardHtml(n, cat, q)),
     ...n.categories.filter((c) => c.slug !== cat.slug).flatMap((c) => c.quizzes.map((q) => quizCardHtml(n, c, q)))
   ].join('\n');
-  const experience = `<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
+  const experience = `<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt="" width="1672" height="940" fetchpriority="high" decoding="async"></div>
 <section class="quiz-ref-stage">
   <div class="quiz-ref-center">
     <div class="quiz-mobile-context"><a href="/galop-${n.n}/" aria-label="Retour aux quiz Galop ${n.n}">←</a><span><small>GALOP ${n.n}</small><h1>${quiz.titre}</h1></span></div>
@@ -356,16 +468,16 @@ function pageQuiz(n, cat, quiz) {
     suivant.hidden = false;
     var html = '<div class="quiz-ref-question" role="group" aria-labelledby="quiz-enonce">' +
       '<h2 class="enonce" id="quiz-enonce" tabindex="-1">' + echapper(q.q) + '</h2>' +
-      (q.image ? '<figure class="quiz-visuel quiz-visuel-large"><img src="' + echapper(q.image) + '" alt="' + echapper(q.imageAlt || '') + '" width="1536" height="1024"></figure>' : '') +
+      (q.image ? '<figure class="quiz-visuel quiz-visuel-large"><img src="' + echapper(q.image) + '" alt="' + echapper(q.imageAlt || '') + '" width="1536" height="1024" decoding="async"></figure>' : '') +
       '<div class="quiz-ref-options" role="group" aria-labelledby="quiz-enonce">' +
       q.options.map(function (opt, i) {
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt=""><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="320" height="320" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
       '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
-      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
@@ -387,12 +499,12 @@ function pageQuiz(n, cat, quiz) {
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt=""><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt="" width="320" height="320" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
@@ -552,7 +664,7 @@ function pageProgression() {
   <script>(function(){
     var catalogue=${JSON.stringify(catalogue).replace(/</g,'\\u003c')};
     var chevaux=${JSON.stringify(PICTOGRAMMES_CHEVAUX)};
-    function medaillon(n){var cheval=chevaux[(n-1)%chevaux.length];return '<div class="progression-medallion" aria-hidden="true"><img src="/assets/laurier-medaillon.svg" alt=""><span class="progression-horse" style="--horse:url('+cheval+')"></span><b>'+n+'</b></div>'}
+    function medaillon(n){var cheval=chevaux[(n-1)%chevaux.length];return '<div class="progression-medallion" aria-hidden="true"><img src="/assets/laurier-medaillon.svg" alt="" width="120" height="120"><span class="progression-horse" style="--horse:url('+cheval+')"></span><b>'+n+'</b></div>'}
     var key='quizzgalop-progression-v2', hist={}; try{hist=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
     var faits=Object.keys(hist).length, tentatives=Object.values(hist).reduce(function(s,x){return s+(x.attempts||0)},0);
     var bests=Object.values(hist).filter(function(x){return x.total}).map(function(x){return 100*x.best/x.total});
@@ -577,7 +689,7 @@ function pageExamenBlanc() {
   app.addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;demarrer(+b.dataset.n)});
   function melanger(a){return a.slice().sort(function(){return Math.random()-.5})}
   function formater(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60);return String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-  function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now(),timer=setInterval(tick,250);function tick(){var t=document.getElementById('exam-chrono');if(t)t.textContent=formater(Date.now()-debut)}function render(){var q=qs[i],pct=Math.round(100*(i+1)/qs.length);app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><time id="exam-chrono">'+formater(Date.now()-debut)+'</time><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre" role="progressbar" aria-label="Progression de l’examen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><i style="width:'+pct+'%"></i></div><div class="quiz-question" role="group" aria-labelledby="exam-enonce"><h2 class="enonce" id="exam-enonce" tabindex="-1">'+q.q+'</h2>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'"></figure>':'')+'<div class="quiz-options" role="group" aria-labelledby="exam-enonce">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';var titre=document.getElementById('exam-enonce');if(titre)titre.focus();app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){clearInterval(timer);var duree=formater(Date.now()-debut),score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result" role="status" aria-live="polite" tabindex="-1"><span>EXAMEN TERMINÉ · '+duree+'</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-primaire" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';app.querySelector('.exam-result').focus();document.getElementById('again').onclick=function(){demarrer(n)}}render()}
+  function demarrer(n){var qs=melanger(banque.find(function(x){return x.n===n}).questions).slice(0,20),i=0,rep=[],debut=Date.now(),timer=setInterval(tick,250);function tick(){var t=document.getElementById('exam-chrono');if(t)t.textContent=formater(Date.now()-debut)}function render(){var q=qs[i],pct=Math.round(100*(i+1)/qs.length);app.innerHTML='<div class="exam-head"><span>Galop '+n+'</span><time id="exam-chrono">'+formater(Date.now()-debut)+'</time><strong>'+(i+1)+' / '+qs.length+'</strong></div><div class="quiz-barre" role="progressbar" aria-label="Progression de l’examen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><i style="width:'+pct+'%"></i></div><div class="quiz-question" role="group" aria-labelledby="exam-enonce"><h2 class="enonce" id="exam-enonce" tabindex="-1">'+q.q+'</h2>'+(q.image?'<figure class="quiz-visuel"><img src="'+q.image+'" alt="'+(q.imageAlt||'')+'" width="1536" height="1024" decoding="async"></figure>':'')+'<div class="quiz-options" role="group" aria-labelledby="exam-enonce">'+q.options.map(function(o,k){return '<button class="quiz-option" type="button" data-r="'+k+'">'+o+'</button>'}).join('')+'</div></div>';var titre=document.getElementById('exam-enonce');if(titre)titre.focus();app.querySelectorAll('[data-r]').forEach(function(x){x.onclick=function(){rep.push(+x.dataset.r);i++;i<qs.length?render():resultat()}})}function resultat(){clearInterval(timer);var duree=formater(Date.now()-debut),score=qs.reduce(function(s,q,k){return s+(q.bonne===rep[k]?1:0)},0),themes={};qs.forEach(function(q,k){themes[q.theme]=themes[q.theme]||[0,0];themes[q.theme][1]++;if(q.bonne===rep[k])themes[q.theme][0]++});var faibles=Object.entries(themes).sort(function(a,b){return a[1][0]/a[1][1]-b[1][0]/b[1][1]}).slice(0,3);app.innerHTML='<div class="exam-result" role="status" aria-live="polite" tabindex="-1"><span>EXAMEN TERMINÉ · '+duree+'</span><strong>'+score+' / '+qs.length+'</strong><h2>'+(score/qs.length>=.75?'Bon niveau général':'Continue à consolider')+'</h2><p>Thèmes prioritaires :</p><ul>'+faibles.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1][0]+' / '+x[1][1]+'</span></li>'}).join('')+'</ul><div><button class="btn-primaire" id="again">Nouvel examen</button><a class="btn-secondaire" href="/fiches/galop-'+n+'/">Revoir la fiche</a></div></div>';app.querySelector('.exam-result').focus();document.getElementById('again').onclick=function(){demarrer(n)}}render()}
   })();</script>`;
   return layout({path:'/examen/',title:'Examen blanc chronométré — Quizz Galop',description:'Simule un examen théorique Galop avec 20 questions mélangées, un chrono et un bilan par thème.',body,crumbs:[{nom:'Accueil',href:'/'},{nom:'Examen',href:'/examen/'}],bodyClass:'page-examen-reference'});
 }
@@ -689,6 +801,29 @@ fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), favicon, 'utf8');
 
 const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" rx="34" fill="#fbf6ee"/><rect x="12" y="12" width="1176" height="606" rx="28" fill="none" stroke="#c69652" stroke-width="2"/><path d="M565 95c-14 22-18 47-13 69 6 29 24 45 48 45s42-16 48-45c5-22 1-47-13-69l-20 13c9 14 12 33 9 48-3 18-10 26-24 26s-21-8-24-26c-3-15 0-34 9-48l-20-13Z" fill="#c69652"/><text x="600" y="350" font-size="96" text-anchor="middle" fill="#17130f" font-family="Georgia,serif" font-weight="600">Quizz Galop</text><line x1="360" y1="400" x2="530" y2="400" stroke="#c69652"/><circle cx="600" cy="400" r="6" fill="#c69652"/><line x1="670" y1="400" x2="840" y2="400" stroke="#c69652"/><text x="600" y="474" font-size="30" letter-spacing="5" text-anchor="middle" fill="#174d3b" font-family="Arial,sans-serif">GALOPS 1 À 7</text><text x="600" y="530" font-size="24" text-anchor="middle" fill="#665b50" font-family="Arial,sans-serif">Fiches, quiz et examens chronométrés</text></svg>`;
 fs.writeFileSync(path.join(OUT, 'assets', 'og-quizzgalop.svg'), og, 'utf8');
+
+/* ---------- Page 404 ----------
+   Sans ce fichier, Cloudflare Pages répond à une URL inconnue en servant
+   l'accueil avec un code 200. Google appelle cela un soft-404 : il indexe
+   l'adresse fantôme comme un doublon de la page d'accueil. Le fichier reste
+   hors sitemap et en noindex — c'est une page de service, pas de contenu. */
+fs.writeFileSync(path.join(OUT, '404.html'), layout({
+  path: '/404.html',
+  title: 'Page introuvable — Quizz Galop',
+  description: 'Cette adresse ne correspond à aucune page de Quizz Galop. Rejoignez les quiz, les fiches de révision et l’examen blanc des Galops 1 à 7.',
+  robots: 'noindex,follow',
+  crumbs: null,
+  body: `<h1>Page introuvable</h1>
+<p class="lede">Cette adresse ne correspond à aucune page du site. Voici par où reprendre.</p>
+<div class="conseils-grid">
+  <a class="conseil-card" href="/quiz/"><span>TOUS LES NIVEAUX</span><h2>Les quiz</h2><p>${TOTAL_QUIZZES} quiz corrigés répartis sur les Galops 1 à 7.</p><em>Commencer →</em></a>
+  <a class="conseil-card" href="/fiches/"><span>RÉVISER</span><h2>Les fiches</h2><p>Le programme de chaque Galop résumé, prêt à relire avant l’examen.</p><em>Consulter →</em></a>
+  <a class="conseil-card" href="/examen/"><span>SE TESTER</span><h2>L’examen blanc</h2><p>Un examen chronométré pour se mettre dans les conditions réelles.</p><em>Passer l’examen →</em></a>
+  <a class="conseil-card" href="/progression/"><span>SUIVI</span><h2>Ma progression</h2><p>Le pourcentage acquis niveau par niveau, gardé sur cet appareil.</p><em>Voir →</em></a>
+  <a class="conseil-card" href="/conseils/"><span>MÉTHODE</span><h2>Les conseils</h2><p>Comment réviser, gérer ses erreurs et aborder le jour de l’examen.</p><em>Lire →</em></a>
+  <a class="conseil-card" href="/"><span>DÉPART</span><h2>L’accueil</h2><p>La présentation du site et le choix du niveau.</p><em>Retour →</em></a>
+</div>`
+}), 'utf8');
 
 /* ---------- robots.txt + sitemap.xml ---------- */
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${url('/sitemap.xml')}\n`, 'utf8');

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=msxew61w">
+<link rel="stylesheet" href="/assets/site.css?v=msxiezel">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://quizzgalop.fr/"},{"@type":"ListItem","position":2,"name":"Galop 7","item":"https://quizzgalop.fr/galop-7/"},{"@type":"ListItem","position":3,"name":"Enrênements à la longe : usage raisonné","item":"https://quizzgalop.fr/galop-7/parcours-complet/enrenements-longe-ethique/"}]}</script>
@@ -67,7 +67,7 @@
 <div class="shell shell-main">
 <main class="site" id="contenu">
 
-<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt=""></div>
+<div class="quiz-ref-background" aria-hidden="true"><img src="/assets/maquette-quiz-fond.webp" alt="" width="1672" height="940" fetchpriority="high" decoding="async"></div>
 <section class="quiz-ref-stage">
   <div class="quiz-ref-center">
     <div class="quiz-mobile-context"><a href="/galop-7/" aria-label="Retour aux quiz Galop 7">←</a><span><small>GALOP 7</small><h1>Enrênements à la longe : usage raisonné</h1></span></div>
@@ -263,16 +263,16 @@
     suivant.hidden = false;
     var html = '<div class="quiz-ref-question" role="group" aria-labelledby="quiz-enonce">' +
       '<h2 class="enonce" id="quiz-enonce" tabindex="-1">' + echapper(q.q) + '</h2>' +
-      (q.image ? '<figure class="quiz-visuel quiz-visuel-large"><img src="' + echapper(q.image) + '" alt="' + echapper(q.imageAlt || '') + '" width="1536" height="1024"></figure>' : '') +
+      (q.image ? '<figure class="quiz-visuel quiz-visuel-large"><img src="' + echapper(q.image) + '" alt="' + echapper(q.imageAlt || '') + '" width="1536" height="1024" decoding="async"></figure>' : '') +
       '<div class="quiz-ref-options" role="group" aria-labelledby="quiz-enonce">' +
       q.options.map(function (opt, i) {
         var classes = 'quiz-ref-option';
         if (deja && i === q.bonne) classes += ' correcte';
         else if (deja && i === deja.index && !deja.juste) classes += ' incorrecte';
-        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt=""><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
+        return '<button type="button" class="' + classes + '" data-i="' + i + '"' + (deja ? ' disabled' : '') + '><img src="' + chevaux[(index + i) % chevaux.length] + '" alt="" width="320" height="320" decoding="async"><span>' + echapper(opt) + '</span>' + (deja && i === q.bonne ? '<b>✓</b>' : '') + '</button>';
       }).join('') +
       '</div><div class="quiz-ref-feedback' + (deja ? (deja.juste ? ' good visible' : ' bad visible') : '') + '" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">' +
-      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
+      (deja ? '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>' + (deja.juste ? 'Bonne réponse !' : 'La bonne réponse : ' + echapper(q.options[q.bonne])) + '</strong><span>' + echapper(q.explication || 'Relis la correction avant de continuer.') + '</span></div>' : '') + '</div>' +
       '</div>';
     zone.innerHTML = html;
     if (placerFocus) setTimeout(function () { var titre = document.getElementById('quiz-enonce'); if (titre) titre.focus(); }, 0);
@@ -294,12 +294,12 @@
           if (serie > meilleureSerie) meilleureSerie = serie;
           btn.classList.add('pop');
           feedback.className = 'quiz-ref-feedback good visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt=""><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-galop.png" alt="" width="320" height="320" decoding="async"><div><strong>Bonne réponse !</strong><span>' + echapper(q.explication || 'Continue ainsi !') + '</span></div>';
         } else {
           serie = 0;
           btn.classList.add('secoue');
           feedback.className = 'quiz-ref-feedback bad visible';
-          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt=""><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
+          feedback.innerHTML = '<img src="/assets/pictogramme-cheval-allonge.png" alt="" width="320" height="320" decoding="async"><div><strong>La bonne réponse : ' + echapper(q.options[bonne]) + '</strong><span>' + echapper(q.explication || 'Repère-la en vert puis relis la question avant de continuer.') + '</span></div>';
         }
         var bonneBtn = zone.querySelectorAll('.quiz-ref-option')[bonne];
         if (bonneBtn && !bonneBtn.querySelector('b')) bonneBtn.insertAdjacentHTML('beforeend', '<b>✓</b>');
