@@ -792,9 +792,20 @@ appareil et ne nous sont pas transmis. Si tu changes de navigateur ou que tu eff
 ta progression repart de zéro.</p>
 
 <h2>Cookies publicitaires</h2>
-<p>Si tu acceptes le bandeau de cookies, Google peut déposer des cookies publicitaires. Si tu refuses,
-aucun cookie publicitaire n’est déposé et le site fonctionne à l’identique. Tu peux changer d’avis à tout
-moment depuis le pied de page.</p></article>`;
+<p>Le site est gratuit et financé par la publicité, diffusée par <strong>Google AdSense</strong>. Pour les
+visiteurs de l’Espace économique européen, du Royaume-Uni et de la Suisse, le consentement est recueilli
+par le message de Google, une plateforme de gestion du consentement certifiée : tu peux
+<strong>autoriser</strong>, <strong>refuser</strong> ou <strong>choisir</strong> les finalités (annonces personnalisées, mesure
+d’audience publicitaire, etc.).</p>
+<p>Si tu refuses, Google peut afficher des annonces non personnalisées, sans cookie publicitaire de
+ciblage, et le site fonctionne à l’identique. Tu peux changer d’avis à tout moment avec le lien
+« Gérer mes cookies » en pied de page.</p>
+<h2>Google et ses partenaires</h2>
+<p>Google et ses partenaires publicitaires peuvent utiliser des cookies pour diffuser des annonces en
+fonction de tes visites sur ce site et sur d’autres sites. Pour en savoir plus et gérer tes préférences,
+consulte <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">la façon dont
+Google utilise les données</a> et <a href="https://adssettings.google.com" rel="noopener">les paramètres des
+annonces Google</a>.</p></article>`;
   return layout({
     path: '/confidentialite/',
     title: 'Confidentialité — Quizz Galop',

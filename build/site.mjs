@@ -122,14 +122,17 @@ export const BOUTON_THEME = `<button class="theme-toggle" id="theme-toggle" type
       </button>`;
 
 /**
- * Régie publicitaire — vide tant que le compte AdSense n'est pas validé.
+ * Régie publicitaire.
  *
  * slotContenu sert aux emplacements intégrés au fil du contenu. Les deux
  * colonnes latérales ne s'affichent qu'au-delà de 1400 px de large : sans
  * emplacement dans le contenu, un visiteur mobile ne voit donc aucune annonce,
  * alors que le mobile représente l'essentiel du trafic sur cette niche.
  */
-export const PUB = { client: '', slotGauche: '', slotDroite: '', slotContenu: '' };
+// Éditeur AdSense. Tant que les blocs n'existent pas, aucune fausse annonce
+// n'est affichée : seules les annonces automatiques d'AdSense (activées depuis
+// le compte) apparaissent.
+export const PUB = { client: 'ca-pub-5665574369534333', slotGauche: '', slotDroite: '', slotContenu: '' };
 const pubActive = () => Boolean(PUB.client && PUB.slotGauche && PUB.slotDroite);
 const pubContenuActive = () => Boolean(PUB.client && PUB.slotContenu);
 
@@ -140,130 +143,50 @@ const pubContenuActive = () => Boolean(PUB.client && PUB.slotContenu);
  * section) et jamais deux fois de suite : AdSense refuse les mises en page où
  * l'annonce prend le pas sur le contenu, et Google pénalise les pages
  * saturées de publicité au titre de l'expérience de page.
+ * Sans bloc créé dans AdSense, rien n'est rendu (pas de faux encart).
  */
 export function pubContenu(repere = '') {
-  const contenu = pubContenuActive()
-    ? `<ins class="adsbygoogle" style="display:block" data-ad-format="auto" data-full-width-responsive="true"
-       data-ad-client="${PUB.client}" data-ad-slot="${PUB.slotContenu}"></ins>`
-    : `<div class="pub-contenu-creatif"><span>Emplacement publicitaire</span><small>728 × 90 · responsive</small></div>`;
+  if (!pubContenuActive()) return '';
   return `<aside class="pub-contenu" aria-hidden="true" data-nosnippet${repere ? ` data-pub-repere="${repere}"` : ''}>
   <span class="pub-etiquette">Publicité</span>
-  ${contenu}
+  <ins class="adsbygoogle" style="display:block" data-ad-format="auto" data-full-width-responsive="true"
+       data-ad-client="${PUB.client}" data-ad-slot="${PUB.slotContenu}"></ins>
 </aside>`;
 }
 
-export const PUB_HTML = ['gauche', 'droite'].map((cote) => {
+export const PUB_HTML = !pubActive() ? '' : ['gauche', 'droite'].map((cote) => {
   const slot = cote === 'gauche' ? PUB.slotGauche : PUB.slotDroite;
-  const contenu = pubActive()
-    ? `<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-       data-ad-client="${PUB.client}" data-ad-slot="${slot}"></ins>`
-    : `<div class="pub-creatif" data-pub="${cote}">
-    <span class="pub-titre">Emplacement libre</span>
-    <span class="pub-sous">Espace réservé à une annonce</span>
-  </div>
-  <span class="pub-format">160 × 600</span>
-  <span class="pub-compteur" data-pub-compteur="${cote}"></span>`;
   return `<aside class="pub pub-${cote}" aria-hidden="true" data-nosnippet>
   <span class="pub-etiquette">Publicité</span>
-  ${contenu}
+  <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+       data-ad-client="${PUB.client}" data-ad-slot="${slot}"></ins>
 </aside>`;
 }).join('\n');
 
-export const SCRIPT_ADSENSE = '';
+// Code AdSense dans le <head> : requis pour la validation du site et pour les
+// annonces automatiques. Le consentement (EEE) est recueilli par le message
+// RGPD de Google (Confidentialité et messages, dans AdSense), une CMP certifiée.
+export const SCRIPT_ADSENSE = PUB.client
+  ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${PUB.client}" crossorigin="anonymous"></script>`
+  : '';
 
-export const CONSENTEMENT_HTML = `<div class="consent" id="consent" role="dialog"
-  aria-live="polite" aria-label="Consentement aux cookies publicitaires" hidden>
-  <div class="consent-txt">
-    <p class="consent-titre">Cookies publicitaires</p>
-    <p>Les contenus gratuits peuvent être financés par la publicité. Avec votre accord, Google dépose des
-    cookies pour afficher des annonces. Si vous refusez, aucun cookie publicitaire n’est déposé
-    et le site fonctionne à l’identique.
-    <a href="/confidentialite/">En savoir plus</a></p>
-  </div>
-  <div class="consent-btns">
-    <button type="button" class="consent-refus" data-consent="refuse">Refuser</button>
-    <button type="button" class="consent-ok" data-consent="accepte">Accepter</button>
-  </div>
-</div>`;
+// Consentement : message RGPD de Google (CMP certifiée), chargé par le code AdSense.
+// Le lien « Gérer mes cookies » rouvre ce message.
+export const CONSENTEMENT_HTML = '';
 
 export const SCRIPT_CONSENTEMENT = `<script>
-(function () {
-  var CLE = 'quizzgalop-consent';
-  var CLIENT = ${JSON.stringify(PUB.client || '')};
-  var banniere = document.getElementById('consent');
-  function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
-  function chargerPub() {
-    if (!CLIENT || window.__pubChargee) return;
-    window.__pubChargee = true;
-    var s = document.createElement('script');
-    s.async = true;
-    s.crossOrigin = 'anonymous';
-    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + CLIENT;
-    document.head.appendChild(s);
-    document.querySelectorAll('.adsbygoogle').forEach(function () {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    });
-  }
-  function afficher() { if (banniere) banniere.hidden = false; }
-  function masquer() { if (banniere) banniere.hidden = true; }
-  if (!CLIENT) { masquer(); return; }
-  var choix = lire();
-  if (choix === 'accepte') chargerPub();
-  else if (choix !== 'refuse') afficher();
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('[data-consent]');
-    if (b) {
-      var v = b.dataset.consent;
-      try { localStorage.setItem(CLE, v); } catch (err) {}
-      masquer();
-      if (v === 'accepte') chargerPub();
-      return;
-    }
-    if (e.target.closest && e.target.closest('#rouvrir-consentement, [data-rouvrir-consent]')) {
-      e.preventDefault();
-      try { localStorage.removeItem(CLE); } catch (err) {}
-      afficher();
-    }
-  });
-})();
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('#rouvrir-consentement, [data-rouvrir-consent]');
+  if (!a) return;
+  e.preventDefault();
+  window.googlefc = window.googlefc || {};
+  window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+  window.googlefc.callbackQueue.push(function () { window.googlefc.showRevocationMessage(); });
+});
 </script>`;
 
-export const SCRIPT_PUB = pubActive() ? '' : `<script>
-(function () {
-  var CREATIFS = [
-    { t: 'Emplacement libre',       s: 'Espace réservé à une annonce' },
-    { t: 'Votre annonce ici',       s: 'Format skyscraper 160 × 600' },
-    { t: 'Espace disponible',       s: 'Contactez-nous pour cet emplacement' },
-    { t: 'Publicité',               s: 'Emplacement de démonstration' }
-  ];
-  var PERIODE = 30;
-  var rails = document.querySelectorAll('[data-pub]');
-  if (!rails.length) return;
-  var i = Math.floor(Math.random() * CREATIFS.length);
-  var reste = PERIODE;
-  function peindre() {
-    rails.forEach(function (el, n) {
-      var c = CREATIFS[(i + n) % CREATIFS.length];
-      el.classList.add('pub-transition');
-      setTimeout(function () {
-        el.querySelector('.pub-titre').textContent = c.t;
-        el.querySelector('.pub-sous').textContent = c.s;
-        el.classList.remove('pub-transition');
-      }, 350);
-    });
-  }
-  function tic() {
-    reste--;
-    if (reste <= 0) { i++; peindre(); reste = PERIODE; }
-    document.querySelectorAll('[data-pub-compteur]').forEach(function (el) {
-      el.textContent = 'actualisation dans ' + reste + ' s';
-    });
-  }
-  peindre();
-  tic();
-  setInterval(tic, 1000);
-})();
-</script>`;
+// Plus de fausses annonces : les emplacements restent vides tant qu'aucun bloc n'existe.
+export const SCRIPT_PUB = '';
 
 export const SCRIPT_THEME_INLINE =
   `<script>(function(){try{var t=localStorage.getItem('quizzgalop-theme');` +
@@ -422,7 +345,7 @@ ${o.masquerFooter ? '' : `<div class="shell">
     <div><h2>Niveaux</h2><ul>${NIVEAUX.map((n) => `<li><a href="/galop-${n}/">Galop ${n}</a></li>`).join('')}<li><a href="/quiz/">Tous les niveaux</a></li></ul></div>
     <div><h2>Quiz</h2><ul><li><a href="/quiz/">Quiz par thème</a></li><li><a href="/examen/">Quiz aléatoires</a></li><li><a href="/examen/">Examens blancs</a></li><li><a href="/progression/">Suivre ma progression</a></li></ul></div>
     <div><h2>Ressources</h2><ul><li><a href="/fiches/">Programme FFE</a></li><li><a href="/conseils/">Conseils pour réviser</a></li><li><a href="/fiches/">Fiches pratiques</a></li></ul></div>
-    <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li>${pubActive() ? '<li><a href="#" data-rouvrir-consent>Cookies</a></li>' : ''}</ul></div>
+    <div><h2>Légal</h2><ul><li><a href="/mentions-legales/">Mentions légales</a></li><li><a href="/confidentialite/">Confidentialité</a></li>${PUB.client ? '<li><a href="#" data-rouvrir-consent>Gérer mes cookies</a></li>' : ''}</ul></div>
   </div>
   <div class="footer-newsletter footer-resources"><div class="newsletter-icon"><img src="/assets/icon-cap.svg" alt="" width="64" height="64"></div><div><h2>Continue ta révision</h2><p>Retrouve une ressource adaptée à ton objectif du moment.</p></div><div class="footer-resource-actions"><a href="/fiches/">Voir les fiches <span>→</span></a><a href="/examen/">Examen blanc <span>→</span></a></div></div>
   <div class="footer-bas"><span class="footer-compliance"><img src="/assets/icon-medal.svg" alt="" width="24" height="24">Conforme au programme officiel FFE</span><span>© ${new Date().getFullYear()} Quizz Galop — Tous droits réservés.</span><div class="footer-social footer-shortcuts"><a href="/fiches/" aria-label="Fiches de révision">F</a><a href="/quiz/" aria-label="Tous les quiz">Q</a><a href="/examen/" aria-label="Examen blanc">E</a></div></div>
